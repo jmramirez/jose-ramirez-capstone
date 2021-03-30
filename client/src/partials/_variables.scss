@@ -1,0 +1,21 @@
+@use './typography' as *;
+
+// Breakpoints
+
+$tablet: 768px;
+$desktop: 1280px;
+
+
+// Fonts
+$primary-font: 'Montserrat';
+$heading-font: 'Oswald';
+
+// Colors
+$primary-white: #FFFFFF;
+$primary-black: #131182C;
+$primary-light-grey: #E6E9EF;
+$primary-royal-blue: #0085ff;
+
+
+$primary-icons-color: #676879;
+
