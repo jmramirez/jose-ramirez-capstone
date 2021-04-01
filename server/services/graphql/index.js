@@ -6,12 +6,13 @@ const Schema = require('./schema')
 
 const executableSchema = makeExecutableSchema({
   typeDefs: Schema,
-  resolvers: Resolvers
-})
+  resolvers: Resolvers,
+});
 
-const server= new ApolloServer({
+const server = new ApolloServer({
   schema: executableSchema,
-  context: ({ req }) => req
-})
+  context: ({ req }) => req,
+});
 
-export default  server;
+module.exports = server
+

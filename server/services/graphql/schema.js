@@ -1,10 +1,10 @@
 const typeDefinitions = `
-  type: Event {
+  type Event {
     id: Int,
     title: String
   }
   
-  type: RootQuery {
+  type RootQuery {
     events: [Event]
   }
   
@@ -13,4 +13,4 @@ const typeDefinitions = `
   }
 `;
 
-export default [typeDefinitions]
+module.exports = [typeDefinitions]
