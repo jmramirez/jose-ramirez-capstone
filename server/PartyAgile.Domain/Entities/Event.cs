@@ -9,5 +9,6 @@ namespace PartyAgile.Domain.Entities
         public string Description { get; set; }
         public Price Budget { get; set; }
         public DateTimeOffset EventDate { get; set; }
+        public DateTimeOffset CreatedAt { get; set; }
     }
 }
