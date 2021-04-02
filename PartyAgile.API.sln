@@ -4,9 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.6.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "server", "server", "{46160AC1-E8CF-4696-99FD-7EC4D3CBB2CA}"
-ProjectSection(SolutionItems) = preProject
-	server\.gitignore = server\.gitignore
-EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyAgile.API", "server\PartyAgile.API\PartyAgile.API.csproj", "{DD1AC5CB-0EAF-4610-A0D1-919558563223}"
 EndProject
