@@ -1,11 +1,17 @@
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import './App.scss';
+import Dashboard from './pages/Dashboard/Dasboard'
+import MainPage from './pages/MainPage/MainPage'
 
 function App() {
   return (
     <div className="App">
-      <h1 className="h1">Capstone Project</h1>
-      <h2>Capstone Project</h2>
-        <h3 className="h3">New Proejcts</h3>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" exact component={ Dashboard } />
+          <Route path="/login" component={MainPage} />
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }
