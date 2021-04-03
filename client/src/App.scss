@@ -1,1 +1,10 @@
 @use "./partials/globals";
+@use "./partials/mixins" as *;
+
+.h1 {
+  @include h1
+}
+
+.h3 {
+  @include h3
+}

@@ -3,11 +3,17 @@
 @mixin h1 {
   font-size: 2rem;
   font-family: $heading-font;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 @mixin h2 {
   font-size: 1.25rem;
   font-family: $primary-font;
+  font-weight: 600;
+}
+
+@mixin h3 {
+  font-size: 1rem;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 500;
 }
