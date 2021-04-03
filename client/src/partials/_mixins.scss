@@ -17,3 +17,9 @@
   font-family: 'Montserrat', sans-serif;
   font-weight: 500;
 }
+
+@mixin p {
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-family: 'Poppins', sans-serif ;
+}
