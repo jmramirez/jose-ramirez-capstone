@@ -61,7 +61,45 @@
 .logIn-form {
   display: flex;
   flex-direction: column;
-  padding: 1.3rem 0;
+
+  &__label {
+    font-weight: 600;
+    font-size: .85rem;
+    margin-top: 1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  &__input {
+    height: 2rem;
+    font-family: inherit;
+    border: 1px solid #E6E4E4;
+    background-color: #fafafa;
+    padding: 0.2rem 1rem;
+    font-weight: 600;
+
+    &:focus {
+      outline-color: #52489C;
+      color: $primary-black;
+      border-radius: 0;
+    }
+  }
+
+  &__submit {
+    margin-top: 1.5rem;
+    height: 2.3rem;
+    border-radius: 0;
+    color: $primary-white;
+    background-color: #52489C;
+    font-size: .9rem;
+    border: none;
+    cursor: pointer;
+    transition: all .1s ease-in-out;
+
+    &:hover {
+      background: #8179b3;
+      border: 1px solid #52489C;
+    }
+  }
 }
 
 .init-container {

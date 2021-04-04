@@ -15,11 +15,11 @@ const MainPage = () => {
           <div className="mainPage__content">
             <h2 className="mainPage__heading--secondary">Log In</h2>
             <form className="logIn-form">
-              <label>Username/Email</label>
-              <input type="text"/>
-              <label>Password</label>
-              <input type="text"/>
-              <input type="submit"/>
+              <label className="logIn-form__label">Username/Email</label>
+              <input className="logIn-form__input" type="text"/>
+              <label className="logIn-form__label">Password</label>
+              <input className="logIn-form__input" type="text"/>
+              <input className="logIn-form__submit" type="submit" value="Log In"/>
             </form>
           </div>
         </div>
