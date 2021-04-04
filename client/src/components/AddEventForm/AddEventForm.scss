@@ -2,10 +2,11 @@
 @use "../../partials/variables" as *;
 
 .add-event {
-  margin: 6.25rem 0 0 30rem;
-  width: 60rem;
+  margin: 12.25rem auto 0 auto;
+  width: 50rem;
   background-color: $primary-white;
   box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%);
+  padding: 0.1rem;
 
   &__header {
     @include h2;

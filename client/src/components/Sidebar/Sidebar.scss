@@ -2,7 +2,7 @@
 @use '../../partials/variables' as *;
 
 .sidebar {
-  position: fixed;
+  overflow-y: auto;
   width: 20rem;
   left: 0;
   top: 0;

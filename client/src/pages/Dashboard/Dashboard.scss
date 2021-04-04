@@ -3,5 +3,9 @@
 
 .dashboard {
   display: flex;
+
+  &-content {
+    width: 80%;
+  }
 }
 

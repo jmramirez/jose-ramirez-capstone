@@ -7,7 +7,9 @@ const Dashboard = () => {
   return(
     <div className="dashboard">
       <Sidebar />
-      <AddEventForm />
+      <div className="dashboard-content">
+        <AddEventForm />
+      </div>
     </div>
   )
 }
