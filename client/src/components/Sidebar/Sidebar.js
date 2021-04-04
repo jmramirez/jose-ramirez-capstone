@@ -12,7 +12,7 @@ const Sidebar = () => {
           <li className="events-items"><p className="event-name">My Wedding</p><p className="event-date">Date: 23/03/2021</p></li>
           <li className="events-items"><p>Pandemic Birthday</p><p className="event-date">Date: 23/03/2021</p></li>
           <li className="events-items"><p>Picnic with my friends</p><p className="event-date">Date: 23/03/2021</p></li>
-          <li className="event-add"><spa className="material-icons event-add__icon">add</spa>Add New Event</li>
+          <li className="event-add"><span className="material-icons event-add__icon">add</span>Add New Event</li>
           </ul>
       </div>
     </div>
