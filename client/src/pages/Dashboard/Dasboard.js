@@ -10,9 +10,10 @@ const Dashboard = () => {
     <div className="dashboard">
       <Sidebar />
       <div className="dashboard-content">
-        <AddVendorForm />
+        <AddEventForm />
+        {/**<AddVendorForm/>**/}
       </div>
-      <TaskModal />
+      {/**<TaskModal/>**/}
     </div>
   )
 }
