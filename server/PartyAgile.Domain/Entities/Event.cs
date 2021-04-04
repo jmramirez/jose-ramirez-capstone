@@ -11,6 +11,6 @@ namespace PartyAgile.Domain.Entities
         public Price Budget { get; set; }
         public DateTimeOffset EventDate { get; set; }
         public DateTimeOffset CreatedAt { get; set; }
-        public ICollection<TasksList> TasksLists { get; set; }
+        public int Guests { get; set; }
     }
 }
