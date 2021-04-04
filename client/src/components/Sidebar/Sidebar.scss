@@ -35,10 +35,37 @@
     padding: 0.75rem 0 0.75rem 0.7rem;
     cursor: pointer;
     border-left: 0;
-    transition: all .2s ease-in-out;
+    transition: all .3s ease-in-out;
 
     &:hover {
       border-left: 2px solid #8179b3;
+    }
+  }
+}
+
+.event {
+  &-date {
+    @include p;
+    margin-top: 0.3rem;
+  }
+
+  &-add {
+    display: flex;
+    align-items: center;
+    color: #8179b3;
+    cursor: pointer;
+    @include p;
+    width: 71%;
+    padding: .3rem;
+    transition: all .2s ease-in;
+
+    &:hover {
+      color: $primary-white;
+      background-color: #8179b3;
+    }
+
+    &__icon {
+      font-size: 0.875rem;
     }
   }
 }
