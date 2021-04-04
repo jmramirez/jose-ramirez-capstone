@@ -3,6 +3,7 @@ import './Dashboard.scss'
 import Event from '../../components/Event/Event'
 import AddEventForm from '../../components/AddEventForm/AddEventForm'
 import AddVendorForm from '../../components/AddVendorForm/AddVendorForm'
+import TaskModal from '../../components/TaskModal/TaskModal'
 
 const Dashboard = () => {
   return(
@@ -11,6 +12,7 @@ const Dashboard = () => {
       <div className="dashboard-content">
         <AddVendorForm />
       </div>
+      <TaskModal />
     </div>
   )
 }
