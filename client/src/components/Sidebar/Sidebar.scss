@@ -27,3 +27,18 @@
     }
   }
 }
+
+.events {
+  padding-top: 0.75rem;
+
+  &-items {
+    padding: 0.75rem 0 0.75rem 0.7rem;
+    cursor: pointer;
+    border-left: 0;
+    transition: all .2s ease-in-out;
+
+    &:hover {
+      border-left: 2px solid #8179b3;
+    }
+  }
+}

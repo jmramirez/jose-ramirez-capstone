@@ -9,9 +9,9 @@ const Sidebar = () => {
       <div className="sidebar-events">
         <h3 className="sidebar-events__title">List of Events</h3>
         <ul className="events">
-          <li><p>My Wedding</p></li>
-          <li><p>Pandemic Birthday</p></li>
-          <li><p>Picnic with my friends</p></li>
+          <li className="events-items"><p className="event-name">My Wedding</p><p className="event-date">Date: 23/03/2021</p></li>
+          <li className="events-items"><p>Pandemic Birthday</p><p>Date: 23/03/2021</p></li>
+          <li className="events-items"><p>Picnic with my friends</p><p>Date: 23/03/2021</p></li>
           </ul>
       </div>
     </div>
