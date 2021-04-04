@@ -9,5 +9,7 @@ namespace PartyAgile.Domain.Entities
         public string Description { get; set; }
         public DateTimeOffset CreatedAt { get; set; }
         public string Status { get; set; }
+        public Guid VendorId { get; set; }
+        public Vendor Vendor { get; set; }
     }
 }
