@@ -5,14 +5,30 @@ const AddEventForm = () => {
     <main className="add-event">
       <h2 className="add-event__header">Add New Event</h2>
       <form className="add-event__form">
-        <label className="add-event__form__label">Event Title</label>
-        <input className="add-event__form__input" type="text"/>
-        <label className="add-event__form__label">Date</label>
-        <input className="add-event__form__input" type="text"/>
-        <label className="add-event__form__label">Budget</label>
-        <input className="add-event__form__input" type="text"/>
-        <label className="add-event__form__label">Description</label>
-        <textarea>Description</textarea>
+        <div className="add-event__form-row">
+          <div className="add-event__form__controls">
+            <label className="add-event__form__label">Event Title</label>
+            <input className="add-event__form__input" type="text"/>
+          </div>
+          <div className="add-event__form__controls">
+            <label className="add-event__form__label">Date</label>
+            <input className="add-event__form__input" type="text"/>
+          </div>
+        </div>
+        <div className="add-event__form-row">
+          <div className="add-event__form__controls">
+            <label className="add-event__form__label">Budget</label>
+            <input className="add-event__form__input" type="text"/>
+          </div>
+          <div className="add-event__form__controls">
+            <label className="add-event__form__label">Number of Guests Aprox*</label>
+            <input className="add-event__form__input" type="text"/>
+          </div>
+        </div>
+        <div className="add-event__form__controls--text">
+          <label className="add-event__form__label">Description</label>
+          <textarea className="add-event__form__input--text"></textarea>
+        </div>
         <div className="add-event__form__actions">
           <input className="add-event__form__submit--cancel" type="Cancel" value="Cancel"/>
           <button className="add-event__form__submit">
