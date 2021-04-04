@@ -1,6 +1,6 @@
 import './MainPage.scss'
-import initialImage  from '../../assets/images/initial-page-image.jpg'
 import LoginForm from '../../components/LogInForm/LogInForm'
+import RegisterForm from '../../components/RegisterForm/RegisterForm'
 
 const MainPage = () => {
   return(
@@ -14,7 +14,7 @@ const MainPage = () => {
             </div>
           </div>
           <div className="mainPage__content">
-            <LoginForm />
+            <RegisterForm />
           </div>
         </div>
     </div>

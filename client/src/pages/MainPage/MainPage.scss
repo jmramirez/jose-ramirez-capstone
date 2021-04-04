@@ -50,10 +50,4 @@
     font-weight: 600;
     margin-top: 0.2rem;
   }
-
-  &__heading--secondary {
-    @include h2;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #ecf3fa;
-  }
 }
