@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace PartyAgile.Domain.Entities
 {
@@ -11,5 +12,6 @@ namespace PartyAgile.Domain.Entities
         public string Status { get; set; }
         public Guid VendorId { get; set; }
         public Vendor Vendor { get; set; }
+        public ICollection<Comment> Comments { get; set; }
     }
 }
