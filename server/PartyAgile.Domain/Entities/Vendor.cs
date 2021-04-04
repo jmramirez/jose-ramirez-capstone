@@ -16,6 +16,7 @@ namespace PartyAgile.Domain.Entities
         public string Address { get; set; }
         public Price Budget { get; set; }
         public Price DepositPaid { get; set; }
+        public ICollection<Event> Events { get; set; }
 
     }
 }
