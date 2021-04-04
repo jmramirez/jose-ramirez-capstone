@@ -7,5 +7,23 @@
   left: 0;
   top: 0;
   height: 100vh;
-  background-color: $primary-black;
+  background-color: #2C264B;
+  color: $primary-white;
+
+  &-header {
+    padding: 2rem;
+    border-bottom: 1px solid #52489C;
+
+    &__title {
+      @include h1;
+    }
+  }
+
+  &-events {
+    padding: 2rem;
+
+    &__title {
+      @include h3;
+    }
+  }
 }
