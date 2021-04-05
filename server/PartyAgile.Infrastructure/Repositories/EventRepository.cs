@@ -35,8 +35,7 @@ namespace PartyAgile.Infrastructure.Repositories
         {
             var eventItem = await _context.Events
                 .AsNoTracking()
-                .Where(x => x.Id == id)
-                .Include(x => x.Vendors).FirstOrDefaultAsync();
+                .Where(x => x.Id == id).FirstOrDefaultAsync();
 
             return eventItem;
         }
