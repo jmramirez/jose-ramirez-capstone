@@ -40,7 +40,7 @@ namespace PartyAgile.Domain.Mappers
 
         public Event Map(EditEventRequest request)
         {
-            if (request != null) return null;
+            if (request == null) return null;
 
             var eventItem = new Event
             {

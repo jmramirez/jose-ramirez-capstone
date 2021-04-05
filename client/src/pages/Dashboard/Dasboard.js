@@ -11,9 +11,9 @@ const Dashboard = () => {
       <Sidebar />
       <div className="dashboard-content">
         {/*<AddEventForm />*/}
-        {/*<AddVendorForm/>*/}
+        <AddVendorForm/>
       </div>
-      <TaskModal/>
+      {/*<TaskModal/>*/}
     </div>
   )
 }

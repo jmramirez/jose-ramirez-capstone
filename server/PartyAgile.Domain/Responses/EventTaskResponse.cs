@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PartyAgile.Domain.Responses
 {
-    public class EventTaskReponse
+    public class EventTaskResponse
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
