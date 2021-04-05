@@ -13,7 +13,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using PartyAgile.API.Extensions;
+using PartyAgile.Domain.Repositories;
 using PartyAgile.Infrastructure;
+using PartyAgile.Infrastructure.Repositories;
 
 namespace PartyAgile.API
 {
@@ -30,6 +32,10 @@ namespace PartyAgile.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddPADbContext(Configuration.GetSection("DataSource:ConnectionString").Value);
+            services.AddScoped<ICommentRepository,CommentRepository>();
+            services.AddScoped<IEventRepository, EventRepository>();
+            services.AddScoped<IEventTaskRepository, EventTaskRepository>();
+            services.AddScoped<IVendorRepository, VendorRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
