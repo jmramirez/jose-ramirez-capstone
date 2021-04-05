@@ -23,6 +23,8 @@ namespace PartyAgile.Infrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new EventEntitySchemaDefinition());
+            modelBuilder.ApplyConfiguration(new VendorEntitySchemaDefinition());
+            modelBuilder.ApplyConfiguration(new TaskEntitySchemaDefinition());
 
         }
 
