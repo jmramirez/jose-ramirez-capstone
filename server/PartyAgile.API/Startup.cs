@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using PartyAgile.API.Extensions;
 using PartyAgile.Infrastructure;
 
 namespace PartyAgile.API
@@ -28,15 +29,7 @@ namespace PartyAgile.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddEntityFrameworkSqlServer()
-                .AddDbContext<PartyAgileDbContext>(contextOptions =>
-                {
-                    contextOptions.UseSqlServer(
-                        "Server=localhost\\SQLEXPRESS;Database=PartyAgile;Trusted_Connection=True", serverOptions =>
-                        {
-                            serverOptions.MigrationsAssembly(typeof(Startup).Assembly.FullName);
-                        });
-                });
+            services.AddPADbContext(Configuration.GetSection("DataSource:ConnectionString").Value);
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
