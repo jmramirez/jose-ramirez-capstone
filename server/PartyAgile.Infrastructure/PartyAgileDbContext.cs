@@ -25,7 +25,7 @@ namespace PartyAgile.Infrastructure
             modelBuilder.ApplyConfiguration(new EventEntitySchemaDefinition());
             modelBuilder.ApplyConfiguration(new VendorEntitySchemaDefinition());
             modelBuilder.ApplyConfiguration(new TaskEntitySchemaDefinition());
-
+            modelBuilder.ApplyConfiguration(new CommentEntitySchemaDefinition());
         }
 
         public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default(CancellationToken))

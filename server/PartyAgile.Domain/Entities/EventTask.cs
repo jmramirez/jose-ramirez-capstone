@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PartyAgile.Domain.Entities
 {
-    public class Task
+    public class EventTask
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

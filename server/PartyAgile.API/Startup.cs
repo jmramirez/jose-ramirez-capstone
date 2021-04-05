@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using PartyAgile.Infrastructure;
 
 namespace PartyAgile.API
 {
@@ -26,7 +28,15 @@ namespace PartyAgile.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddEntityFrameworkSqlServer()
+                .AddDbContext<PartyAgileDbContext>(contextOptions =>
+                {
+                    contextOptions.UseSqlServer(
+                        "Server=localhost\\SQLEXPRESS;Database=PartyAgile;Trusted_Connection=True", serverOptions =>
+                        {
+                            serverOptions.MigrationsAssembly(typeof(Startup).Assembly.FullName);
+                        });
+                });
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
