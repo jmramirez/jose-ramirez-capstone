@@ -11,7 +11,7 @@ namespace PartyAgile.Domain.Responses
         public Guid Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public string Budget { get; set; }
+        public PriceResponse Budget { get; set; }
         public DateTimeOffset EventDate { get; set; }
     }
 }
