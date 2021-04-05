@@ -17,6 +17,10 @@ namespace PartyAgile.Infrastructure
         public const string DEFAULT_SCHEMA = "partyagile";
 
         public DbSet<Event> Events { get; set; }
+        public DbSet<Vendor> Vendors { get; set; }
+        public DbSet<EventTask> Tasks { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<VendorEvent> VendorsEvent { get; set; }
 
         public PartyAgileDbContext(DbContextOptions<PartyAgileDbContext> options) : base(options) {  }
 
@@ -26,6 +30,8 @@ namespace PartyAgile.Infrastructure
             modelBuilder.ApplyConfiguration(new VendorEntitySchemaDefinition());
             modelBuilder.ApplyConfiguration(new TaskEntitySchemaDefinition());
             modelBuilder.ApplyConfiguration(new CommentEntitySchemaDefinition());
+            modelBuilder.ApplyConfiguration(new VendorEventEntitySchemaDefinition());
+            base.OnModelCreating(modelBuilder);
         }
 
         public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default(CancellationToken))

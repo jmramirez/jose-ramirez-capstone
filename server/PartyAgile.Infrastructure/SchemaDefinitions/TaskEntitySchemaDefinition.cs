@@ -8,9 +8,9 @@ using System.Text;
 
 namespace PartyAgile.Infrastructure.SchemaDefinitions
 {
-    public class TaskEntitySchemaDefinition : IEntityTypeConfiguration<Task>
+    public class TaskEntitySchemaDefinition : IEntityTypeConfiguration<EventTask>
     {
-        public void Configure(EntityTypeBuilder<Task> builder)
+        public void Configure(EntityTypeBuilder<EventTask> builder)
         {
             builder.ToTable("Tasks", PartyAgileDbContext.DEFAULT_SCHEMA);
             builder.HasKey(k => k.Id);

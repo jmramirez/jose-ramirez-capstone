@@ -12,6 +12,6 @@ namespace PartyAgile.Domain.Entities
         public DateTimeOffset EventDate { get; set; }
         public DateTimeOffset CreatedAt { get; set; }
         public int Guests { get; set; }
-        public ICollection<Vendor> Vendors { get; set; }
+        public ICollection<VendorEvent> EventVendors { get; set; }
     }
 }
