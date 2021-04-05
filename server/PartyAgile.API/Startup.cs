@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using PartyAgile.API.Extensions;
+using PartyAgile.Domain.Extensions;
 using PartyAgile.Domain.Repositories;
 using PartyAgile.Infrastructure;
 using PartyAgile.Infrastructure.Repositories;
@@ -36,7 +37,9 @@ namespace PartyAgile.API
             services.AddScoped<IEventRepository, EventRepository>();
             services.AddScoped<IEventTaskRepository, EventTaskRepository>();
             services.AddScoped<IVendorRepository, VendorRepository>();
-            services.AddControllers();
+            services.AddMappers();
+            services.AddServices();
+            services.AddControllers().AddValidation();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PartyAgile.API", Version = "v1" });
