@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using PartyAgile.Domain.Entities;
 using PartyAgile.Domain.Repositories;
+using PartyAgile.Infrastructure.SchemaDefinitions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,7 @@ namespace PartyAgile.Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new EventEntitySchemaDefinition());
 
         }
 
