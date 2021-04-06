@@ -13,7 +13,7 @@ const Dashboard = () => {
         {/*<AddEventForm />*/}
         <AddVendorForm/>
       </div>
-      {/*<TaskModal/>*/}
+      <TaskModal/>
     </div>
   )
 }

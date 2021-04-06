@@ -1,5 +1,5 @@
 ﻿using PartyAgile.Domain.Entities;
-using PartyAgile.Domain.Requests.EventTask;
+using PartyAgile.Domain.Requests.VendorTask;
 using PartyAgile.Domain.Responses;
 using System;
 using System.Collections.Generic;
@@ -29,6 +29,22 @@ namespace PartyAgile.Domain.Mappers
                 VendorId = request.VendorId,
             };
             return eventTask;
+        }
+
+        public VendorTask Map(EditVendorTaskRequest request)
+        {
+            if (request == null) return null;
+
+            var verdorTask = new VendorTask
+            {
+                Id = request.Id,
+                Name = request.Name,
+                Description = request.Description,
+                Status = request.Status,
+                ColorStatus = request.ColorStatus
+            };
+
+            return verdorTask;
         }
 
         public VendorTaskResponse Map(VendorTask task)
