@@ -12,10 +12,11 @@ namespace PartyAgile.Domain.Services
 {
     public interface IVendorService
     {
+        Task<VendorResponse> GetVendorAsync(GetVendorRequest request);
         Task<VendorResponse> AddVendorAsync(AddVendorRequest request);
-        Task<VendorResponse> EditVendorResponse(EditVendorRequest request);
+        Task<VendorResponse> EditVendorAsync(EditVendorRequest request);
     }
-    public class VendorService
+    public class VendorService : IVendorService
     {
         private readonly IVendorRepository _vendorRepository;
         private readonly IVendorMapper _vendorMapper;
@@ -25,6 +26,15 @@ namespace PartyAgile.Domain.Services
             _vendorRepository = vendorRepository;
             _vendorMapper = vendorMapper;
         }
+
+        public async Task<VendorResponse> GetVendorAsync(GetVendorRequest request)
+        {
+            if (request?.Id == null) throw new ArgumentNullException();
+
+            var entity = await _vendorRepository.GetAsync(request.Id);
+            return _vendorMapper.Map(entity);
+        }
+
 
         public async Task<VendorResponse> AddVendorAsync(AddVendorRequest request)
         {
