@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace PartyAgile.Domain.Requests.EventTask
 {
-    public class AddEventTaskRequest
+    public class GetVendorTaskRequest
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public Guid VendorId { get; set; }
+        public Guid Id { get; set; }
     }
 }

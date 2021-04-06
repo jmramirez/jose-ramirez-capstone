@@ -4,14 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PartyAgile.Domain.Responses
+namespace PartyAgile.Domain.Requests.EventTask
 {
-    public class EventTaskResponse
+    public class AddVendorTaskRequest
     {
-        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public Guid VendorId { get; set; }
-        public VendorResponse Vendor { get; set; }
     }
 }

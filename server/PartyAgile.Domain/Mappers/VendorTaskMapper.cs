@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace PartyAgile.Domain.Mappers
 {
-    public interface IEventTaskMapper
+    public interface IVendorTaskMapper
     {
-        VendorTask Map(AddEventTaskRequest request);
-        EventTaskResponse Map(VendorTask task);
+        VendorTask Map(AddVendorTaskRequest request);
+        VendorTaskResponse Map(VendorTask task);
     }
 
-    public class EventTaskMapper
+    public class VendorTaskMapper : IVendorTaskMapper
     {
 
-        public VendorTask Map(AddEventTaskRequest request)
+        public VendorTask Map(AddVendorTaskRequest request)
         {
             if (request == null) return null;
 
@@ -31,11 +31,11 @@ namespace PartyAgile.Domain.Mappers
             return eventTask;
         }
 
-        public EventTaskResponse Map(VendorTask task)
+        public VendorTaskResponse Map(VendorTask task)
         {
             if (task == null) return null;
 
-            var response = new EventTaskResponse
+            var response = new VendorTaskResponse
             {
                 Id = task.Id,
                 Name = task.Name,
