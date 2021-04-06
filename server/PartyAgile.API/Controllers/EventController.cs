@@ -19,5 +19,14 @@ namespace PartyAgile.API.Controllers
         {
             _eventService = eventService;
         } 
+
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var result = await _eventService.GetEventsAsync();
+            return Ok(result);
+        }
+
+        
     }
 }
