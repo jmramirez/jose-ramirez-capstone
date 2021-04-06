@@ -1,4 +1,5 @@
 import './TaskModal.scss'
+import DatePicker from '../DatePicker/DatePicker'
 
 const TaskModal = () => {
   return(
@@ -12,7 +13,7 @@ const TaskModal = () => {
             <label className="modal__add-task__label">Task Name</label>
             <input type="text" className="modal__add-task__input"/>
             <label className="modal__add-task__label">Task Due</label>
-            <input type="text" className="modal__add-task__input"/>
+            <DatePicker />
             <label className="modal__add-task__label">Description</label>
             <textarea  className="modal__add-task__input--text"></textarea>
           </form>

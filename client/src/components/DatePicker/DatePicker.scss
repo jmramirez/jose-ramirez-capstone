@@ -1,0 +1,40 @@
+@use "../../partials/variables" as *;
+@use "../../partials/mixins" as *;
+
+
+.date-picker {
+
+  &__input {
+    height: 2rem;
+    font-family: inherit;
+    border: 1px solid #E6E4E4;
+    background-color: #fafafa;
+    overflow: hidden;
+    padding: 0.2rem 1rem;
+    width: 100%;
+    font-size: 1.3rem;
+
+    &:focus {
+      outline-color: #52489C;
+      color: $primary-black;
+      border-radius: 0;
+    }
+  }
+}
+
+
+.react-datepicker {
+  border: 1px solid #E6E4E4;
+  width: 100%;
+  height: auto;
+
+  &__header {
+    background-color: $primary-white;
+  }
+
+  &__day--keyboard-selected {
+    background-color: #52489C;
+    border-radius: 0;
+  }
+
+}
