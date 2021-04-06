@@ -33,5 +33,14 @@ namespace PartyAgile.API.Controllers
             var result = await _vendorService.AddVendorAsync(request);
             return CreatedAtAction(nameof(GetById), new { id = result.Id }, null);
         }
+
+        [HttpPut]
+        public async Task<IActionResult> Put(Guid id, EditVendorRequest request)
+        {
+            request.Id = id;
+            var result = await _vendorService.EditVendorAsync(request);
+
+            return Ok(result);
+        }
     }
 }
