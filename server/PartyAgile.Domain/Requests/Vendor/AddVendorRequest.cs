@@ -17,5 +17,6 @@ namespace PartyAgile.Domain.Requests.Vendor
         public Price Budget { get; set; }
         public Price DepositPaid { get; set; }
         
+        public Guid EventId { get; set; }
     }
 }

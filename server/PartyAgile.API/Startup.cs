@@ -37,6 +37,7 @@ namespace PartyAgile.API
             services.AddScoped<IEventRepository, EventRepository>();
             services.AddScoped<IEventTaskRepository, EventTaskRepository>();
             services.AddScoped<IVendorRepository, VendorRepository>();
+            services.AddScoped<IVendorEventRepository, VendorEventRepository>();
             services.AddMappers();
             services.AddServices();
             services.AddControllers().AddValidation();

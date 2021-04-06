@@ -16,7 +16,9 @@ namespace PartyAgile.Domain.Extensions
         public static IServiceCollection AddMappers(this IServiceCollection services)
         {
             services
-                .AddSingleton<IEventMapper, EventMapper>();
+                .AddSingleton<IEventMapper, EventMapper>()
+                .AddSingleton<IVendorMapper, VendorMapper>();
+            
 
             return services;
         } 
@@ -24,7 +26,8 @@ namespace PartyAgile.Domain.Extensions
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
             services
-                .AddScoped<IEventService, EventService>();
+                .AddScoped<IEventService, EventService>()
+                .AddScoped<IVendorService, VendorService>();
 
             return services;
         }
