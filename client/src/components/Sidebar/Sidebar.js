@@ -1,6 +1,11 @@
 import './Sidebar.scss'
 
-const Sidebar = () => {
+const Sidebar = ({ events }) => {
+
+  const handleClick = (id) => {
+    console.log(id)
+  }
+
   return(
     <div className="sidebar">
       <div className="sidebar-header">
@@ -9,9 +14,17 @@ const Sidebar = () => {
       <div className="sidebar-events">
         <h3 className="sidebar-events__title">List of Events</h3>
         <ul className="events">
-          <li className="events-items"><p className="event-name">My Wedding</p><p className="event-date">Date: 23/03/2021</p></li>
-          <li className="events-items"><p>Pandemic Birthday</p><p className="event-date">Date: 23/03/2021</p></li>
-          <li className="events-items"><p>Picnic with my friends</p><p className="event-date">Date: 23/03/2021</p></li>
+          {
+            events.length===0 ?
+              <li><p className="event-name">You have no future events</p></li>:
+            events.map(event =>{
+            return(
+              <li className="events-items" onClick={() => {handleClick(event.id)}} key={event.id}>
+                <p className="event-name">{event.title}</p>
+                <p className="event-date">Date: { new Date(event.eventDate).toLocaleDateString()}</p>
+              </li>
+            )
+          })}
           <li className="event-add"><span className="material-icons event-add__icon">add</span>Add New Event</li>
           </ul>
       </div>
