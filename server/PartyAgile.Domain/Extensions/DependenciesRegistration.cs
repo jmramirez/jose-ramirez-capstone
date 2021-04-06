@@ -28,7 +28,8 @@ namespace PartyAgile.Domain.Extensions
         {
             services
                 .AddScoped<IEventService, EventService>()
-                .AddScoped<IVendorService, VendorService>();
+                .AddScoped<IVendorService, VendorService>()
+                .AddScoped<IVendorTaskService, VendorTaskService>();
 
             return services;
         }

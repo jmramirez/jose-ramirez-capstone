@@ -12,6 +12,7 @@ namespace PartyAgile.Domain.Mappers
     public interface IVendorTaskMapper
     {
         VendorTask Map(AddVendorTaskRequest request);
+        VendorTask Map(EditVendorTaskRequest request);
         VendorTaskResponse Map(VendorTask task);
     }
 
