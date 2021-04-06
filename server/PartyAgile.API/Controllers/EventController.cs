@@ -39,5 +39,18 @@ namespace PartyAgile.API.Controllers
             var result = await _eventService.AddEventAsync(request);
             return CreatedAtAction(nameof(GetById), new { id = result.Id }, null);
         }
+
+        [HttpPut("{id:guid}")]
+        public async Task<IActionResult> Put(Guid id, EditEventRequest request)
+        {
+            request.Id = id;
+            var result = await _eventService.EditEventAsync(request);
+
+            return Ok(result);
+        }
     }
 }
+
+
+
+
