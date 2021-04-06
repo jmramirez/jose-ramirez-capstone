@@ -56,6 +56,11 @@ namespace PartyAgile.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PartyAgile.API v1"));
             }
 
+            app.UseCors(cfg =>
+            {
+                cfg.AllowAnyOrigin();
+            });
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
