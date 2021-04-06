@@ -33,7 +33,11 @@ namespace PartyAgile.API.Controllers
             return Ok(result);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Post(AddEventRequest request)
+        {
+            var result = await _eventService.AddEventAsync(request);
+            return CreatedAtAction(nameof(GetById), new { id = result.Id }, null);
+        }
     }
 }
-
-
