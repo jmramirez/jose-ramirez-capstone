@@ -18,7 +18,7 @@ namespace PartyAgile.Infrastructure
 
         public DbSet<Event> Events { get; set; }
         public DbSet<Vendor> Vendors { get; set; }
-        public DbSet<EventTask> Tasks { get; set; }
+        public DbSet<VendorTask> Tasks { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<VendorEvent> VendorsEvent { get; set; }
 

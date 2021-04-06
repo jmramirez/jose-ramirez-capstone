@@ -11,18 +11,18 @@ namespace PartyAgile.Domain.Mappers
 {
     public interface IEventTaskMapper
     {
-        EventTask Map(AddEventTaskRequest request);
-        EventTaskResponse Map(EventTask task);
+        VendorTask Map(AddEventTaskRequest request);
+        EventTaskResponse Map(VendorTask task);
     }
 
     public class EventTaskMapper
     {
 
-        public EventTask Map(AddEventTaskRequest request)
+        public VendorTask Map(AddEventTaskRequest request)
         {
             if (request == null) return null;
 
-            var eventTask = new EventTask
+            var eventTask = new VendorTask
             {
                 Name = request.Name,
                 Description = request.Description,
@@ -31,7 +31,7 @@ namespace PartyAgile.Domain.Mappers
             return eventTask;
         }
 
-        public EventTaskResponse Map(EventTask task)
+        public EventTaskResponse Map(VendorTask task)
         {
             if (task == null) return null;
 

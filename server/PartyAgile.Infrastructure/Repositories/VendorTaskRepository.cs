@@ -9,18 +9,18 @@ using System.Threading.Tasks;
 
 namespace PartyAgile.Infrastructure.Repositories
 {
-    public class EventTaskRepository : IEventTaskRepository
+    public class VendorTaskRepository : IVendorTaskRepository
     {
         private readonly PartyAgileDbContext _context;
 
         public IUnitOfWork UnitOfWork => _context;
 
-        public EventTaskRepository(PartyAgileDbContext context)
+        public VendorTaskRepository(PartyAgileDbContext context)
         {
             _context = context ?? throw new ArgumentException(nameof(context));
         }
 
-        public async Task<IEnumerable<EventTask>> GetAsync()
+        public async Task<IEnumerable<VendorTask>> GetAsync()
         {
             return await _context.Tasks
                 .AsNoTracking()
@@ -28,7 +28,7 @@ namespace PartyAgile.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public async Task<EventTask> GetAsync(Guid id)
+        public async Task<VendorTask> GetAsync(Guid id)
         {
             var taskItem = await _context.Tasks
                 .AsNoTracking()
@@ -40,12 +40,12 @@ namespace PartyAgile.Infrastructure.Repositories
             return taskItem;
         }
 
-        public EventTask Add(EventTask taskItem)
+        public VendorTask Add(VendorTask taskItem)
         {
             return _context.Tasks.Add(taskItem).Entity;
         }
 
-        public EventTask Update(EventTask taskItem)
+        public VendorTask Update(VendorTask taskItem)
         {
             _context.Entry(taskItem).State = EntityState.Modified;
             return taskItem;

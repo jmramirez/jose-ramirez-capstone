@@ -8,7 +8,7 @@ namespace PartyAgile.Domain.Entities
         public string Content { get; set; }
         public DateTimeOffset CreatedAt { get; set; }
         public Guid TaskId { get; set; }
-        public EventTask Task { get; set; }
+        public VendorTask Task { get; set; }
 
     }
 }

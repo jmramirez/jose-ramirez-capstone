@@ -35,7 +35,7 @@ namespace PartyAgile.API
             services.AddPADbContext(Configuration.GetSection("DataSource:ConnectionString").Value);
             services.AddScoped<ICommentRepository,CommentRepository>();
             services.AddScoped<IEventRepository, EventRepository>();
-            services.AddScoped<IEventTaskRepository, EventTaskRepository>();
+            services.AddScoped<IVendorTaskRepository, VendorTaskRepository>();
             services.AddScoped<IVendorRepository, VendorRepository>();
             services.AddScoped<IVendorEventRepository, VendorEventRepository>();
             services.AddMappers();

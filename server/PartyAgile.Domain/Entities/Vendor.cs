@@ -18,6 +18,6 @@ namespace PartyAgile.Domain.Entities
         public Price DepositPaid { get; set; }
         public ICollection<VendorEvent> Events { get; set; }
 
-        public ICollection<EventTask> Tasks { get; set; }
+        public ICollection<VendorTask> Tasks { get; set; }
     }
 }
