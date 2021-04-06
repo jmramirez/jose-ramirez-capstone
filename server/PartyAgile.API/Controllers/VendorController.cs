@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PartyAgile.Domain.Requests.Vendor;
 using PartyAgile.Domain.Services;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,11 @@ namespace PartyAgile.API.Controllers
             _vendorService = vendorService;
         }
 
-       
+        [HttpGet("{id:guid}")]
+        public async Task<IActionResult> GetById(Guid id)
+        {
+            var result = await _vendorService.GetVendorAsync(new GetVendorRequest { Id = id}  );
+            return Ok(result);
+        }
     }
 }
