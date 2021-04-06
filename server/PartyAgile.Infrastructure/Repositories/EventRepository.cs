@@ -21,12 +21,14 @@ namespace PartyAgile.Infrastructure.Repositories
         }
 
 
-        // Method to get List of Events
+        // Method to get List of Future Events
         public async Task<IEnumerable<Event>> GetAsync()
         {
+            var now = new DateTimeOffset(DateTime.Today);
             return await _context
                 .Events
                 .AsNoTracking()
+                .Where(x => x.EventDate.CompareTo(now) > 0)
                 .ToListAsync();
         }
 

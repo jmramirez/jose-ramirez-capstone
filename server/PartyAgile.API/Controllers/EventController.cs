@@ -33,7 +33,6 @@ namespace PartyAgile.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var role = await GetRole();
             var result = await _eventService.GetEventsAsync();
             return Ok(result);
         }

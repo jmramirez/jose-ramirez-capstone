@@ -58,6 +58,7 @@ namespace PartyAgile.Domain.Services
         public async Task<EventResponse> AddEventAsync(AddEventRequest request)
         {
             var eventItem = _eventMapper.Map(request);
+            eventItem.CreatedAt = DateTimeOffset.UtcNow;
             var result = _eventRepository.Add(eventItem);
             await _eventRepository.UnitOfWork.SaveChangesAsync();
 
