@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PartyAgile.Domain.Repositories
 {
-    public interface IVendorRepository
+    public interface IVendorRepository : IRepository
     {
         Task<Vendor> GetAsync(Guid id);
         Task<IEnumerable<Vendor>> GetVendorTasksByEventId(Guid eventId);
