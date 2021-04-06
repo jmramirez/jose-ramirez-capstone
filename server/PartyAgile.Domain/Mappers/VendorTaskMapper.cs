@@ -57,7 +57,7 @@ namespace PartyAgile.Domain.Mappers
                 Id = task.Id,
                 Name = task.Name,
                 Description = task.Description,
-                VendorId = task.VendorId
+                Status = task.Status
             };
 
             return response;

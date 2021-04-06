@@ -14,6 +14,7 @@ namespace PartyAgile.Domain.Mappers
         Vendor Map(AddVendorRequest request);
         Vendor Map(EditVendorRequest request);
         VendorResponse Map(Vendor request);
+        VendorWithTaskResponse MapVendor(Vendor vendorItem);
     }
 
     public class VendorMapper : IVendorMapper
@@ -91,6 +92,17 @@ namespace PartyAgile.Domain.Mappers
                 vendorItem.DepositPaid = new Price { Amount = vendorItem.DepositPaid.Amount, Currency = vendorItem.DepositPaid.Currency };
             }
 
+            return response;
+        }
+
+        public VendorWithTaskResponse MapVendor(Vendor vendorItem)
+        {
+            var response = new VendorWithTaskResponse
+            {
+                Id = vendorItem.Id,
+                Name = vendorItem.Name,
+                Tasks = vendorItem.Tasks.Select(x => new VendorTaskResponse { Id = x.Id, Description = x.Description, Name = x.Name, Status = x.Status })
+            };
             return response;
         }
     }

@@ -13,5 +13,6 @@ namespace PartyAgile.Domain.Repositories
         Task<Event> GetAsync(Guid id);
         Event Add(Event item);
         Event Update(Event item);
+        Task<IEnumerable<Vendor>> GetVendorsByEventIdAsync(Guid id);
     }
 }

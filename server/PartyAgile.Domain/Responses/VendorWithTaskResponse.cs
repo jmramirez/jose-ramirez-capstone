@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace PartyAgile.Domain.Responses
 {
-    public class VendorTaskResponse
+    public class VendorWithTaskResponse
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
-        public string Status { get; set; }
-        public DateTimeOffset DueDate { get; set; }
+        public IEnumerable<VendorTaskResponse> Tasks { get; set; }
     }
 }
