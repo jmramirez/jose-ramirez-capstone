@@ -12,5 +12,12 @@
     background-repeat: no-repeat;
     background-position: center;
   }
+
+  &__no-vendors {
+    @include h2;
+    font-weight: 700;
+    font-size: 2.25rem;
+    padding: 5rem 11rem;
+  }
 }
 
