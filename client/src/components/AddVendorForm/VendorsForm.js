@@ -44,6 +44,7 @@ class  VendorsForm extends Component {
       .then(() => {
         this.props.history.push(`/getevent/${this.props.children.params.eventId}`)
       })
+
   }
 
   handleClick() {
