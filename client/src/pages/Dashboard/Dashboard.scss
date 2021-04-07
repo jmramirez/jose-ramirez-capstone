@@ -3,9 +3,10 @@
 
 .dashboard {
   display: flex;
+  width: 100%;
 
   &-content {
-    width: 80%;
+    width: 100%;
     background-image: url('../../assets/images/initial-page-image-1.jpg');
     background-size: 31rem 41rem;
     background-repeat: no-repeat;

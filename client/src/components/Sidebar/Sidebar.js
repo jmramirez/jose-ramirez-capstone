@@ -1,7 +1,7 @@
 import './Sidebar.scss'
 import { Link } from 'react-router-dom'
 
-const Sidebar = ({ events, handleClick }) => {
+const Sidebar = ({ events  }) => {
 
 
 
@@ -18,9 +18,11 @@ const Sidebar = ({ events, handleClick }) => {
               <li><p className="event-name">You have no future events</p></li>:
             events.map(event =>{
             return(
-              <li className="events-items" onClick={() => {handleClick(event.id)}} key={event.id}>
-                <p className="event-name">{event.title}</p>
-                <p className="event-date">Date: { new Date(event.eventDate).toLocaleDateString()}</p>
+              <li className="events-items"  key={event.id}>
+                <Link to={`/getevent/${event.id}`} className="event-add__link">
+                  <p className="event-name">{event.title}</p>
+                  <p className="event-date">Date: { new Date(event.eventDate).toLocaleDateString()}</p>
+                </Link>
               </li>
             )
           })}

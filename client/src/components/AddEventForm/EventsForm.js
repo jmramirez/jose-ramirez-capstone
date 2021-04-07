@@ -4,9 +4,10 @@ import DatePicker from '../DatePicker/DatePicker'
 import moment from 'moment'
 import axios from 'axios'
 import  { url } from '../../config'
+import {Link} from 'react-router-dom'
 
 
-class EventForm extends Component {
+class EventsForm extends Component {
   state = {
     eventTitle: '',
     budget: '',
@@ -82,7 +83,7 @@ class EventForm extends Component {
             ></textarea>
           </div>
           <div className="add-event__form__actions">
-            <input className="add-event__form__submit--cancel" type="Cancel" value="Cancel"/>
+            <Link to="/" className="add-event__form__submit--cancel">Cancel</Link>
             <button className="add-event__form__submit">
               Add Event
               <span className="material-icons add-event__form__submit__icon">add</span>
@@ -94,4 +95,4 @@ class EventForm extends Component {
   }
 }
 
-export default EventForm;
+export default EventsForm;

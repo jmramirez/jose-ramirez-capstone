@@ -4,7 +4,7 @@ import Sidebar from '../../components/Sidebar/Sidebar'
 import './Dashboard.scss'
 import  { url } from '../../config'
 import Event from '../../components/Event/Event'
-import AddEventForm from '../../components/AddEventForm/EventForm'
+import AddEventForm from '../../components/AddEventForm/EventsForm'
 import AddVendorForm from '../../components/AddVendorForm/AddVendorForm'
 import TaskModal from '../../components/TaskModal/TaskModal'
 import Vendor from '../../components/Vendor/Vendor'
@@ -13,47 +13,48 @@ import EventDetails from '../../components/EventDetails/EventDetails'
 
 class Dashboard extends Component {
   state ={
-    events: [],
-    eventSelected: {},
-    vendors: []
+    eventSelected: null,
+    vendors: [],
   }
 
   componentDidMount() {
-    axios
-      .get(`${url}events`)
-      .then(response => {
-        this.setState({
-           events: response.data
+    if(this.props.match.params.id){
+      axios
+        .get(`${url}events/${this.props.match.params.id}`)
+        .then(response =>{
+          this.setState({
+            eventSelected: response.data
+          })
         })
-      })
+    }
   }
 
-  handleEventClick = (id) => {
-    axios
-      .get(`${url}events/${id}/vendors`)
-      .then(response =>{
-        this.setState({
-          vendors: response.data,
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    const { id } = this.props.match.params;
+
+
+    if(prevProps.match.params.id !== id){
+      axios
+        .get(`${url}events/${id}`)
+        .then(response =>{
+          this.setState({
+            eventSelected: response.data
+          })
         })
-        return axios.get(`${url}events/${id}`)
-      })
-      .then(response => {
-        this.setState({
-          eventSelected: response.data
-        })
-      })
+    }
   }
+
+
 
   render() {
-    console.log(this.props.match.params.action)
     return(
       <div className="dashboard">
-        <Sidebar events={this.state.events} handleClick={this.handleEventClick}/>
         <div className="dashboard-content">
-          {(this.props.match.params.action && this.props.match.params.action === "add" && <AddEventForm  action="Add New"/>)}
+          {/*{(this.props.match.params.action && this.props.match.params.action === "add" && <AddEventForm  action="Add New"/>)}*/}
+          {(this.state.eventSelected) && <EventDetails eventItem={this.state.eventSelected} />}
           {(this.state.vendors.length === 0)?
             <>
-              {/*<AddVendorForm/>*/}
+
             </>
             :
             <>
@@ -63,7 +64,6 @@ class Dashboard extends Component {
 
             }
         </div>
-        {/*<TaskModal/>*/}git
       </div>
     )
   }
