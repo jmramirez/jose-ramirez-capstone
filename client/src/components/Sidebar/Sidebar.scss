@@ -59,6 +59,12 @@
     padding: .3rem;
     transition: all .2s ease-in;
 
+    &__link {
+      text-decoration: none;
+      color: $primary-white;
+      padding-left: .5rem;
+    }
+
     &:hover {
       color: $primary-white;
       background-color: #8179b3;

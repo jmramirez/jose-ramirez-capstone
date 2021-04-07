@@ -4,6 +4,7 @@ import './App.scss';
 import Dashboard from './pages/Dashboard/Dasboard'
 import MainPage from './pages/MainPage/MainPage'
 import axios from 'axios'
+import AddEventForm from './components/AddEventForm/EventForm'
 
 
 class App extends Component {
@@ -16,6 +17,7 @@ class App extends Component {
         <BrowserRouter>
           <Switch>
             <Route path="/" exact component={ Dashboard } />
+            <Route path="/event/:action" render={(routerProps) => <Dashboard {...routerProps} />}/>
             <Route path="/login" component={MainPage} />
           </Switch>
         </BrowserRouter>

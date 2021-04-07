@@ -1,4 +1,5 @@
 import './Sidebar.scss'
+import { Link } from 'react-router-dom'
 
 const Sidebar = ({ events, handleClick }) => {
 
@@ -23,7 +24,7 @@ const Sidebar = ({ events, handleClick }) => {
               </li>
             )
           })}
-          <li className="event-add"><span className="material-icons event-add__icon">add</span>Add New Event</li>
+          <li className="event-add"><Link to="/event/add" className="event-add__link"><span className="material-icons event-add__icon">add</span>Add New Event</Link></li>
           </ul>
       </div>
     </div>
