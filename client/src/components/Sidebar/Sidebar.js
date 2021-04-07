@@ -1,10 +1,8 @@
 import './Sidebar.scss'
 
-const Sidebar = ({ events }) => {
+const Sidebar = ({ events, handleClick }) => {
 
-  const handleClick = (id) => {
-    console.log(id)
-  }
+
 
   return(
     <div className="sidebar">

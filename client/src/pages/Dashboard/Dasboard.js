@@ -17,18 +17,31 @@ class Dashboard extends Component {
     axios
       .get(`${url}events`)
       .then(response => {
-        console.log(response.data)
         this.setState({
            events: response.data
         })
       })
   }
 
+  handleEventClick = (id) => {
+    axios
+      .get(`${url}events/${id}/vendors`)
+      .then(response =>{
+        console.log(response.data)
+      })
+  }
+
   render() {
     return(
       <div className="dashboard">
-        <Sidebar events={this.state.events}/>
+        <Sidebar events={this.state.events} handleClick={this.handleEventClick}/>
         <div className="dashboard-content">
+          <div className="dashboard-content__image">
+            <div className="dashboard-content__image--overlay">
+              <h2 className="dashboard-content__image__heading">Party Agile</h2>
+              <p className="dashboard-content__image__sub-heading">Allow us to keep your events organize</p>
+            </div>
+          </div>
           {/*<AddEventForm />*/}
           {/*<AddVendorForm/>*/}
         </div>

@@ -8,16 +8,7 @@ import axios from 'axios'
 
 class App extends Component {
 
-  state = {
-    "events": {}
-  }
 
-  componentDidMount() {
-    axios.get("https://localhost:44326/api/events")
-      .then(response =>{
-        console.log(response.data)
-      })
-  }
 
   render() {
     return(
