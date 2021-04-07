@@ -70,7 +70,9 @@ namespace PartyAgile.API
 
             app.UseCors(cfg =>
             {
-                cfg.AllowAnyOrigin();
+                cfg.WithOrigins("http://localhost:3000")
+                .AllowAnyMethod()
+                .AllowAnyHeader();
             });
 
             app.UseHttpsRedirection();
