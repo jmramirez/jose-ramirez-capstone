@@ -1,0 +1,17 @@
+@use '../../partials/mixins' as *;
+@use '../../partials/variables' as *;
+
+.vendor-item {
+  width: 70rem;
+  background-color: #fff;
+  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%);
+  margin: 0 auto 3rem auto;
+  border-top: .25rem solid #F87060;
+
+  &__header {
+    font-size: 1.5rem;
+    @include h2;
+    padding: 1rem 2rem 1rem 2rem;
+    border-bottom: 1px solid #ecf3fa;
+  }
+}
