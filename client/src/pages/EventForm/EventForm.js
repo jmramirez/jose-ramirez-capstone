@@ -1,11 +1,11 @@
-import AddVendorForm from '../../components/AddVendorForm/AddVendorForm'
+
 import EventsForm  from '../../components/AddEventForm/EventsForm'
 
-const EventForm = ({ action }) => {
+const EventForm = ({ action, match, history, handleUpdate }) => {
   return(
     <div className="dashboard">
       <div className="dashboard-content">
-        <EventsForm action={(action ==="add")? "Add New" : "Edit "} />
+        <EventsForm action={(action ==="add")? "Add New" : "Edit"} history={history} match={match} handleUpdate={handleUpdate}/>
       </div>
     </div>
   )

@@ -57,7 +57,7 @@ class Dashboard extends Component {
       <div className="dashboard">
         <div className="dashboard-content">
           {(this.state.eventSelected) && <EventDetails eventItem={this.state.eventSelected} />}
-          {(this.state.vendors.length === 0)?
+          {this.state.eventSelected && (this.state.vendors.length === 0)?
             <>
               <p className="dashboard__no-vendors">There is not Vendors Assigned to this Event</p>
             </>

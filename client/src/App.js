@@ -26,6 +26,16 @@ class App extends Component {
       })
   }
 
+  handleUpdate = () => {
+    axios
+      .get(`${url}events`)
+      .then( response =>{
+        this.setState({
+          events: response.data
+        })
+      })
+  }
+
 
   render() {
     return(
@@ -34,7 +44,8 @@ class App extends Component {
           <Sidebar events={this.state.events} />
           <Switch>
             <Route path="/" exact component={Dashboard}/>
-            <Route path="/event/add" render={(routerProps) => <EventForm action="add" />}/>
+            <Route path="/event/add" render={(routerProps) => <EventForm {...routerProps} action="add" />}/>
+            <Route path="/event/edit/:eventId" render={(routerProps) => <EventForm {...routerProps} action="edit" handleUpdate={this.handleUpdate} />}/>
             <Route path="/getevent/:id" render={(routerProps) => <Dashboard {...routerProps} />}/>
             <Route path="/login" component={MainPage} />
           </Switch>

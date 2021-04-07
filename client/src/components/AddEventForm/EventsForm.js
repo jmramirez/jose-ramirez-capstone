@@ -4,7 +4,8 @@ import DatePicker from '../DatePicker/DatePicker'
 import moment from 'moment'
 import axios from 'axios'
 import  { url } from '../../config'
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
+
 
 
 class EventsForm extends Component {
@@ -13,7 +14,26 @@ class EventsForm extends Component {
     budget: '',
     description:'',
     eventDate: ((new Date())),
-    guestsNumber:''
+    guestsNumber:'',
+    eventToEdit: null
+  }
+
+  componentDidMount() {
+    console.log(this.props.match)
+    if(this.props.action === "Edit"){
+      axios.get(`${url}events/${this.props.match.params.eventId}`)
+        .then(response => {
+          console.log(response.data.budget.amount)
+          this.setState({
+            eventTitle: response.data.title,
+            description: response.data.description,
+            budget: response.data.budget.amount,
+            eventDate: new Date(response.data.eventDate),
+            guestsNumber:response.data.guests,
+          })
+        })
+
+    }
   }
 
   handleChange = (e) => {
@@ -45,11 +65,37 @@ class EventsForm extends Component {
       })
   }
 
+  handleUpdate = (e) => {
+    e.preventDefault()
+    axios.put(`${url}events/${this.props.match.params.eventId}`,{
+      id: this.props.match.params.eventId,
+      title: this.state.eventTitle,
+      description: this.state.description,
+      budget: {
+        "amount":this.state.budget,
+        "currency": "CAD"
+      },
+      eventDate: this.state.eventDate,
+      guets: this.state.guestsNumber
+      })
+      .then(()=>{
+        this.props.handleUpdate()
+        this.props.history.goBack()
+      })
+  }
+
+  handleClick() {
+    console.log(this.props)
+    this.props.action ==="Edit"? this.props.history.goBack() : this.props.history.push('/')
+  }
+
+
+
   render() {
     return(
       <main className="add-event">
         <h2 className="add-event__header">{this.props.action} Event</h2>
-        <form className="add-event__form" onSubmit={this.handleSubmit}>
+        <form className="add-event__form" onSubmit={(this.props.action ==="Edit")? this.handleUpdate : this.handleSubmit}>
           <div className="add-event__form-row">
             <div className="add-event__form__controls">
               <label className="add-event__form__label">Event Title</label>
@@ -60,13 +106,13 @@ class EventsForm extends Component {
             </div>
             <div className="add-event__form__controls">
               <label className="add-event__form__label">Date</label>
-              <DatePicker name={'eventDate'}  onChange={this.handleDateChange} />
+              <DatePicker name={'eventDate'} selected={this.state.eventDate}  onChange={this.handleDateChange} />
             </div>
           </div>
           <div className="add-event__form-row">
             <div className="add-event__form__controls">
               <label className="add-event__form__label">Budget</label>
-              <input className="add-event__form__input" name={'budget'} onChange={this.handleChange} type="text"/>
+              <input className="add-event__form__input" name={'budget'} value={this.state.budget} onChange={this.handleChange} type="text"/>
             </div>
             <div className="add-event__form__controls">
               <label className="add-event__form__label">Number of Guests Aprox*</label>
@@ -83,9 +129,9 @@ class EventsForm extends Component {
             ></textarea>
           </div>
           <div className="add-event__form__actions">
-            <Link to="/" className="add-event__form__submit--cancel">Cancel</Link>
+            <button onClick={() => {this.handleClick()}} className="add-event__form__submit--cancel" >Cancel</button>
             <button className="add-event__form__submit">
-              Add Event
+              {this.props.action} Event
               <span className="material-icons add-event__form__submit__icon">add</span>
             </button>
           </div>

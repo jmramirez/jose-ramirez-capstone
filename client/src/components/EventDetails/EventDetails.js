@@ -1,12 +1,24 @@
 import './EventDetails.scss'
+import {Link} from 'react-router-dom'
 
 const EventDetails = ({ eventItem }) => {
   return(
     !eventItem.budget?<p>Loading..</p> :
     <div className="event">
       <div className="vendor-item">
-        <h2 className="event__heading">{eventItem.title}</h2>
+        <div className="event__top">
+          <h2 className="event__heading">{eventItem.title}</h2>
+          <div className="event__actions">
+            <Link to={`/event/edit/${eventItem.id}`} className="event__addvendor__cancel">Edit Event</Link>
+            <button className="event__addvendor">
+              Add Vendor
+              <span className="material-icons add-event__form__submit__icon">add</span>
+            </button>
+          </div>
+        </div>
+
         <p className="event__description">{eventItem.description}</p>
+
       </div>
       <div className="event__details">
         <div className="event__details__item">
