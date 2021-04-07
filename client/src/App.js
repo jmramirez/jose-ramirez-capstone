@@ -8,6 +8,7 @@ import AddEventForm from './components/AddEventForm/EventsForm'
 import  { url } from './config'
 import Sidebar from './components/Sidebar/Sidebar'
 import EventForm from './pages/EventForm/EventForm'
+import VendorForm from './pages/VendorForm/VendorForm'
 
 
 class App extends Component {
@@ -46,7 +47,7 @@ class App extends Component {
             <Route path="/" exact component={Dashboard}/>
             <Route path="/event/add" render={(routerProps) => <EventForm {...routerProps} action="add"  handleUpdate={this.handleUpdate} />}/>
             <Route path="/event/edit/:eventId" render={(routerProps) => <EventForm {...routerProps} action="edit" handleUpdate={this.handleUpdate} />}/>
-
+            <Route path="/vendor/add" render={(routerProps) => <VendorForm {...routerProps}  />}/>
             <Route path="/getevent/:id" render={(routerProps) => <Dashboard {...routerProps} />}/>
             <Route path="/login" component={MainPage} />
           </Switch>
