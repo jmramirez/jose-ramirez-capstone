@@ -9,10 +9,12 @@ import AddVendorForm from '../../components/AddVendorForm/AddVendorForm'
 import TaskModal from '../../components/TaskModal/TaskModal'
 import Vendor from '../../components/Vendor/Vendor'
 import VendorList from '../../components/VendorsList/VendorsList'
+import EventDetails from '../../components/EventDetails/EventDetails'
 
 class Dashboard extends Component {
   state ={
     events: [],
+    eventSelected: {},
     vendors: []
   }
 
@@ -31,7 +33,13 @@ class Dashboard extends Component {
       .get(`${url}events/${id}/vendors`)
       .then(response =>{
         this.setState({
-          vendors: response.data
+          vendors: response.data,
+        })
+        return axios.get(`${url}events/${id}`)
+      })
+      .then(response => {
+        this.setState({
+          eventSelected: response.data
         })
       })
   }
@@ -46,7 +54,11 @@ class Dashboard extends Component {
               <AddEventForm />)
               {/*<AddVendorForm/>*/}
             </>
-            :<VendorList vendors={this.state.vendors}/>
+            :
+            <>
+              <EventDetails eventItem={this.state.eventSelected}/>
+              <VendorList vendors={this.state.vendors} />
+            </>
 
             }
         </div>

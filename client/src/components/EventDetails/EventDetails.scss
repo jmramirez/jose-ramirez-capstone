@@ -1,0 +1,38 @@
+@use "../../partials/mixins" as *;
+@use "../../partials/variables" as *;
+
+.event {
+ width: 70rem;
+  margin: 6rem auto 3rem auto;
+
+  &__heading {
+    @include h1;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid #ecf3fa;
+  }
+
+  &__description {
+    @include h3;
+    padding: 1rem 2rem;
+  }
+
+  &__detail {
+    @include h3;
+    font-weight: 700;
+    font-size: 1.70rem;
+    padding: 1rem 2rem;
+  }
+
+  &__details {
+    display: flex;
+    justify-content: space-between;
+
+    &__item {
+      background-color: $primary-white;
+      width: 15rem;
+      height: 10rem;
+      border-top: 0.25rem solid #F87060;
+      box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%);
+    }
+  }
+}
