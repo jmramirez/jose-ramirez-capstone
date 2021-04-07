@@ -6,6 +6,7 @@ const Vendor = ({ vendor }) => {
       <h2 className="vendor-item__header">
         { vendor.name }
       </h2>
+      <p>{vendor.type}</p>
     </main>
   )
 }

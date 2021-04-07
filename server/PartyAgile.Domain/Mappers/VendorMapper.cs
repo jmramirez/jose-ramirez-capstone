@@ -101,6 +101,7 @@ namespace PartyAgile.Domain.Mappers
             {
                 Id = vendorItem.Id,
                 Name = vendorItem.Name,
+                Type = vendorItem.Type,
                 Tasks = vendorItem.Tasks.Select(x => new VendorTaskResponse { Id = x.Id, Description = x.Description, Name = x.Name, Status = x.Status })
             };
             return response;

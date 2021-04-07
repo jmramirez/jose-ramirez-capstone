@@ -50,6 +50,7 @@ namespace PartyAgile.Infrastructure.Repositories
                 {
                     Id = v.Vendor.Id,
                     Name = v.Vendor.Name,
+                    Type = v.Vendor.Type,
                     Tasks = v.Vendor.Tasks
                 }).ToListAsync();
 

@@ -61,7 +61,8 @@ class EventsForm extends Component {
       guets: this.state.guestsNumber
     })
       .then(res =>{
-        console.log(res)
+        this.props.handleUpdate()
+        this.props.history.push('/')
       })
   }
 
