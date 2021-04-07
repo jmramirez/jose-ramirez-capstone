@@ -15,7 +15,7 @@ const EventDetails = ({ eventItem }) => {
         </div>
         <div className="event__details__item">
           <p className="vendor-item__header">Guest Aprox*</p>
-
+          <p className="event__detail">{eventItem.guests} people</p>
         </div>
         <div className="event__details__item">
           <p className="vendor-item__header">Event Date</p>

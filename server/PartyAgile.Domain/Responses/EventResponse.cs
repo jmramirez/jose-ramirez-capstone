@@ -13,5 +13,6 @@ namespace PartyAgile.Domain.Responses
         public string Description { get; set; }
         public PriceResponse Budget { get; set; }
         public DateTimeOffset EventDate { get; set; }
+        public int Guests { get; set; }
     }
 }

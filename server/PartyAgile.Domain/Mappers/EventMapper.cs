@@ -68,7 +68,8 @@ namespace PartyAgile.Domain.Mappers
                 Id = eventItem.Id,
                 Title = eventItem.Title,
                 Description = eventItem.Description,
-                EventDate = eventItem.EventDate
+                EventDate = eventItem.EventDate,
+                Guests = eventItem.Guests
             };
 
             if(eventItem.Budget != null)
