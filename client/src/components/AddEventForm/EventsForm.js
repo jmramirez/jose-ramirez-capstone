@@ -87,7 +87,7 @@ class EventsForm extends Component {
 
   handleClick() {
     console.log(this.props)
-    this.props.action ==="Edit"? this.props.history.push(`/getevent/${this,this.props.match.params.eventId}`) : this.props.history.push('/')
+    this.props.action ==="Edit"? this.props.history.push(`/getevent/${this.props.match.params.eventId}`) : this.props.history.push('/')
   }
 
 

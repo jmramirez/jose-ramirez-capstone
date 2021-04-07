@@ -1,10 +1,10 @@
 import VendorsForm from '../../components/AddVendorForm/VendorsForm'
 
-const VendorForm = () =>{
+const VendorForm = ({ match, history }) =>{
   return(
     <div className="dashboard">
       <div className="dashboard-content">
-        <VendorsForm/>
+        <VendorsForm children={match} history={history}/>
       </div>
     </div>
   )

@@ -14,7 +14,8 @@ const MainPage = () => {
             </div>
           </div>
           <div className="mainPage__content">
-            <RegisterForm />
+            {/*<RegisterForm />*/}
+            <LoginForm/>
           </div>
         </div>
     </div>

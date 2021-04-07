@@ -47,7 +47,7 @@ class App extends Component {
             <Route path="/" exact component={Dashboard}/>
             <Route path="/event/add" render={(routerProps) => <EventForm {...routerProps} action="add"  handleUpdate={this.handleUpdate} />}/>
             <Route path="/event/edit/:eventId" render={(routerProps) => <EventForm {...routerProps} action="edit" handleUpdate={this.handleUpdate} />}/>
-            <Route path="/vendor/add" render={(routerProps) => <VendorForm {...routerProps}  />}/>
+            <Route path="/vendor/add/:eventId" render={(routerProps) => <VendorForm {...routerProps} />}/>
             <Route path="/getevent/:id" render={(routerProps) => <Dashboard {...routerProps} />}/>
             <Route path="/login" component={MainPage} />
           </Switch>

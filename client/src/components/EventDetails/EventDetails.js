@@ -10,10 +10,9 @@ const EventDetails = ({ eventItem }) => {
           <h2 className="event__heading">{eventItem.title}</h2>
           <div className="event__actions">
             <Link to={`/event/edit/${eventItem.id}`} className="event__addvendor__cancel">Edit Event</Link>
-            <button className="event__addvendor">
-              Add Vendor
-              <span className="material-icons add-event__form__submit__icon">add</span>
-            </button>
+            <Link to={`/vendor/add/${eventItem.id}`} className="event__addvendor">
+              <span className="material-icons add-event__form__submit__icon">add</span> Add Vendor
+            </Link>
           </div>
         </div>
 
