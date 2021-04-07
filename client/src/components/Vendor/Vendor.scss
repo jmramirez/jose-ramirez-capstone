@@ -11,7 +11,13 @@
   &__header {
     font-size: 1.5rem;
     @include h2;
+    font-weight: 700;
     padding: 1rem 2rem 1rem 2rem;
     border-bottom: 1px solid #ecf3fa;
+  }
+
+  &__type {
+    @include h3;
+    padding: 2rem;
   }
 }
