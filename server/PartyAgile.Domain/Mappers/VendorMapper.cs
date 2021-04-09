@@ -80,16 +80,18 @@ namespace PartyAgile.Domain.Mappers
                 Name = vendorItem.Name,
                 Type = vendorItem.Type,
                 ContactName = vendorItem.ContactName,
+                ContactEmail = vendorItem.ContactEmail,
+                Address = vendorItem.Address
             };
 
             if (vendorItem.Budget != null)
             {
-                vendorItem.Budget = new Price { Amount = vendorItem.Budget.Amount, Currency = vendorItem.Budget.Currency };
+                response.Budget = new PriceResponse { Amount = vendorItem.Budget.Amount, Currency = vendorItem.Budget.Currency };
             }
 
             if (vendorItem.DepositPaid != null)
             {
-                vendorItem.DepositPaid = new Price { Amount = vendorItem.DepositPaid.Amount, Currency = vendorItem.DepositPaid.Currency };
+                response.DepositPaid = new PriceResponse { Amount = vendorItem.DepositPaid.Amount, Currency = vendorItem.DepositPaid.Currency };
             }
 
             return response;
@@ -104,6 +106,17 @@ namespace PartyAgile.Domain.Mappers
                 Type = vendorItem.Type,
                 Tasks = vendorItem.Tasks.Select(x => new VendorTaskResponse { Id = x.Id, Description = x.Description, Name = x.Name, Status = x.Status })
             };
+
+            if (vendorItem.Budget != null)
+            {
+                response.Budget = new PriceResponse { Amount = vendorItem.Budget.Amount, Currency = vendorItem.Budget.Currency };
+            }
+
+            if (vendorItem.DepositPaid != null)
+            {
+                response.DepositPaid = new PriceResponse { Amount = vendorItem.DepositPaid.Amount, Currency = vendorItem.DepositPaid.Currency };
+            }
+
             return response;
         }
     }

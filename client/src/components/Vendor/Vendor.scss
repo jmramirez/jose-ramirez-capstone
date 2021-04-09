@@ -13,11 +13,23 @@
     @include h2;
     font-weight: 700;
     padding: 1rem 2rem 1rem 2rem;
+  }
+
+  &__heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
     border-bottom: 1px solid #ecf3fa;
   }
 
   &__type {
     @include h3;
     padding: 2rem;
+  }
+
+  &__info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 }

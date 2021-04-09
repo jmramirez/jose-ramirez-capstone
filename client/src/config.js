@@ -1,1 +1,1 @@
-export const url = "https://partyagileapi.azurewebsites.net/api/";
+export const url = "https://localhost:44326/api/";

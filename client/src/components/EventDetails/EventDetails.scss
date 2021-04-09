@@ -7,17 +7,17 @@
 
   &__heading {
     @include h1;
-    padding: 1rem 2rem;
-    border-bottom: 1px solid #ecf3fa;
+    padding: 0 2rem;
   }
 
   &__top {
     display: flex;
     justify-content: space-between;
+    border-bottom: 1px solid #ecf3fa;
+    padding: 1rem 0;
   }
 
   &__addvendor {
-    margin-top: 1.5rem;
     height: 2.3rem;
     border-radius: 0;
     color: #FFFFFF;
@@ -39,7 +39,6 @@
     }
 
     &__cancel {
-      margin-top: 1.5rem;
       height: 2.3rem;
       border-radius: 0;
       color: #e9968a;
@@ -50,7 +49,7 @@
       transition: all 0.1s ease-in-out;
       border: 1px solid #F87060;
       text-align: center;
-      width: 5rem;
+      width: 6rem;
       display: flex;
       align-items: center;
       justify-content: center;

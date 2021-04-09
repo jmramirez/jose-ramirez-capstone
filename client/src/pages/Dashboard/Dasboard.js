@@ -51,22 +51,24 @@ class Dashboard extends Component {
   }
 
 
-
   render() {
     return(
       <div className="dashboard">
         <div className="dashboard-content">
-          {(this.state.eventSelected) && <EventDetails eventItem={this.state.eventSelected} />}
-          {this.state.eventSelected && (this.state.vendors.length === 0)?
-            <>
-              <p className="dashboard__no-vendors">There is not Vendors Assigned to this Event</p>
-            </>
+          {
+            !(this.props.match.params.id)? <p className="event__heading">Welcome to party Agile: Jose Ramirez</p>
+              :
+              !this.state.eventSelected ? <p>Loading...</p>
             :
             <>
-              <VendorList vendors={this.state.vendors} />
+            <EventDetails eventItem={this.state.eventSelected} />
+            {(this.state.vendors.length === 0)? <p className="dashboard__no-vendors">There is not Vendors Assigned to this Event</p>
+              :
+            <VendorList vendors={this.state.vendors} eventId={this.state.eventSelected.id} />}
             </>
+          }
 
-            }
+
         </div>
       </div>
     )

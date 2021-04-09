@@ -12,6 +12,8 @@ namespace PartyAgile.Domain.Responses
         public string Name { get; set; }
         public string Type { get; set; }
         public string ContactName { get; set; }
+        public string ContactEmail { get; set; }
+        public string Address { get; set; }
         public PriceResponse DepositPaid { get; set; }
         public PriceResponse Budget { get; set; }
     }

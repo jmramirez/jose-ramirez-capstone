@@ -34,7 +34,7 @@ namespace PartyAgile.API.Controllers
             return CreatedAtAction(nameof(GetById), new { id = result.Id }, null);
         }
 
-        [HttpPut]
+        [HttpPut("{id:guid}")]
         public async Task<IActionResult> Put(Guid id, EditVendorRequest request)
         {
             request.Id = id;
