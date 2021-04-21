@@ -1,4 +1,4 @@
-import {BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
+import {BrowserRouter, Route, Switch, useHistory } from 'react-router-dom'
 import './App.scss';
 import {Dashboard} from './pages/Dashboard/Dasboard'
 import MainPage from './pages/MainPage/MainPage'
@@ -14,6 +14,7 @@ export const App = () => {
   const [events, setEvents ] = useState([])
   const [authenticated, setAuthenticated] = useState(false)
   const [user, setUser] = useState(null)
+  const history = useHistory()
 
   useEffect(() => {
     axios
@@ -65,6 +66,13 @@ export const App = () => {
     }
   }
 
+  const handleLogout = () => {
+    if (typeof window !== "undefined") {
+      sessionStorage.removeItem('jwt')
+    }
+    setAuthenticated(false)
+  }
+
 
 
   return(
@@ -72,18 +80,18 @@ export const App = () => {
       <BrowserRouter>
         {authenticated && <Sidebar events={events} />}
         <Switch>
-          <Route path="/login" render={(routerProps) => <MainPage {...routerProps}  handleLogin={handleLogin} />} />
-          <PrivateRoute path="/event/add" render={(routerProps) => <EventForm {...routerProps} action="add"  handleUpdate={handleUpdate} />} />
+          <Route path="/login" render={(routerProps) => <MainPage {...routerProps}  handleLogin={handleLogin} handleLogout={handleLogout}  />} />
+          <PrivateRoute path="/event/add" render={(routerProps) => <EventForm {...routerProps} action="add"  handleUpdate={handleUpdate} handleLogout={handleLogout}  />} />
           {/*<Route path="/event/add" render={(routerProps) => <EventForm {...routerProps} action="add"  handleUpdate={handleUpdate} />}/>*/}
-          <PrivateRoute path="/event/edit/:eventId" render={(routerProps) => <EventForm {...routerProps} action="edit" handleUpdate={handleUpdate} />} />
+          <PrivateRoute path="/event/edit/:eventId" render={(routerProps) => <EventForm {...routerProps} action="edit" handleUpdate={handleUpdate} handleLogout={handleLogout}  />} />
           {/*<Route path="/event/edit/:eventId" render={(routerProps) => <EventForm {...routerProps} action="edit" handleUpdate={handleUpdate} />}/>*/}
           <PrivateRoute path="/vendor/add/:eventId" render={(routerProps) => <VendorForm {...routerProps} action="Add"  />}/>
           <Route path="/vendor/add/:eventId" render={(routerProps) => <VendorForm {...routerProps} action="Add"  />}/>
-          <PrivateRoute path="/vendor/edit/:vendorId/:eventId" render={(routerProps) => <VendorForm {...routerProps}  action="Edit"  handleUpdate={handleUpdate} />} />
+          <PrivateRoute path="/vendor/edit/:vendorId/:eventId" render={(routerProps) => <VendorForm {...routerProps}  action="Edit"  handleUpdate={handleUpdate} handleLogout={handleLogout}  />} />
           {/*<Route path="/vendor/edit/:vendorId/:eventId" render={(routerProps) => <VendorForm {...routerProps}  action="Edit"  handleUpdate={handleUpdate} />}/>*/}
-          <PrivateRoute path="/getevent/:id" render={(routerProps) => <Dashboard {...routerProps} />}/>
+          <PrivateRoute path="/getevent/:id" render={(routerProps) => <Dashboard {...routerProps} handleLogout={handleLogout}  />}/>
           {/*<Route path="/getevent/:id" render={(routerProps) => <Dashboard {...routerProps} />}/>*/}
-          <PrivateRoute path="/" component={Dashboard}/>
+          <PrivateRoute path="/" render={(routerProps) => <Dashboard {...routerProps} handleLogout={handleLogout} />}/>
 
         </Switch>
       </BrowserRouter>

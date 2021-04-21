@@ -3,12 +3,14 @@ import './Dashboard.scss'
 import { useState, useEffect } from 'react'
 import  { url } from '../../config'
 import EventDetails from '../../components/EventDetails/EventDetails'
+import {useHistory} from 'react-router-dom'
 
 
-export const Dashboard = ({match}) => {
+export const Dashboard = ({match, handleLogout}) => {
   const [eventSelected, setEventSelected] = useState(null)
   const [eventLoading, setEventLoading] = useState(true)
   const eventId = match.params.id
+  const history = useHistory()
 
   useEffect(() => {
     if(eventId){
@@ -29,8 +31,14 @@ export const Dashboard = ({match}) => {
     }
   }, [eventId])*/
 
+  const logOut = () => {
+    handleLogout()
+    history.push('/')
+  }
+
   return(
     <div className="dashboard">
+      <button onClick={logOut}/>
       <div className="dashboard-content">
         { !eventId? <p>No event id</p> : (eventLoading? <p>Loading</p> : <EventDetails eventItem={eventSelected} />) }
       </div>
