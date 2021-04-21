@@ -4,9 +4,14 @@ import Vendor from '../Vendor/Vendor'
 const VendorList = ({ vendors, eventId }) => {
   return(
     <ul>
-      {vendors.map(vendor => {
-        return <li key={vendor.id}><Vendor vendor={vendor} eventId={eventId}/></li>
-      })}
+      {vendors.length === 0? <li>There are no vendors</li>
+        :
+        (vendors.map(vendor =>(
+          <li key={vendor.id}>
+            <Vendor vendor={vendor} eventId={eventId}/>
+          </li>
+        )))
+      }
     </ul>
   )
 }

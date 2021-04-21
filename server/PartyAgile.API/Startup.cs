@@ -17,6 +17,7 @@ using PartyAgile.API.Extensions;
 using PartyAgile.Domain.Extensions;
 using PartyAgile.Domain.Repositories;
 using PartyAgile.Infrastructure;
+using PartyAgile.Infrastructure.Extensions;
 using PartyAgile.Infrastructure.Repositories;
 
 namespace PartyAgile.API
@@ -39,6 +40,8 @@ namespace PartyAgile.API
             services.AddScoped<IVendorTaskRepository, VendorTaskRepository>();
             services.AddScoped<IVendorRepository, VendorRepository>();
             services.AddScoped<IVendorEventRepository, VendorEventRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddTokenAuthentication(Configuration);
             services.AddMappers();
             services.AddServices();
             services.AddControllers().AddValidation();
@@ -46,16 +49,9 @@ namespace PartyAgile.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PartyAgile.API", Version = "v1" });
             });
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(options =>
-            {
-                options.Authority = Configuration["Auth0:Authority"];
-                options.Audience = Configuration["Auth0:Audience"];
-            });
+            
             services.AddHttpClient();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

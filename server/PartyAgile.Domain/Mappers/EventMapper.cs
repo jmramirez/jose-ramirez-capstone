@@ -14,10 +14,19 @@ namespace PartyAgile.Domain.Mappers
         Event Map(AddEventRequest request);
         Event Map(EditEventRequest request);
         EventResponse Map(Event request);
+
+        EventWithVendorsReponse MapWithVendors(Event request);
     }
 
     public class EventMapper : IEventMapper
     {
+        private readonly IVendorMapper _vendorMapper;
+
+        public EventMapper(IVendorMapper vendorMapper)
+        {
+            _vendorMapper = vendorMapper;
+        }
+
         public Event Map(AddEventRequest request)
         {
             if (request == null) return null;
@@ -75,6 +84,32 @@ namespace PartyAgile.Domain.Mappers
             if(eventItem.Budget != null)
             {
                 response.Budget = new PriceResponse { Currency = eventItem.Budget.Currency, Amount = eventItem.Budget.Amount };
+            }
+
+            return response;
+        }
+
+        public EventWithVendorsReponse MapWithVendors(Event item)
+        {
+            if (item == null) return null;
+
+            var response = new EventWithVendorsReponse
+            {
+                Id = item.Id,
+                Title = item.Title,
+                Description = item.Description,
+                EventDate = item.EventDate,
+                Guests = item.Guests
+            };
+
+            if (item.Budget != null)
+            {
+                response.Budget = new PriceResponse { Currency = item.Budget.Currency, Amount = item.Budget.Amount };
+            }
+
+            if(item.EventVendors.Count != 0)
+            {
+                response.Vendors = item.EventVendors.Select(v => _vendorMapper.Map(v.Vendor));
             }
 
             return response;

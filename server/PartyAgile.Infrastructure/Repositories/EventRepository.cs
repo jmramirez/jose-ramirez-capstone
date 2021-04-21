@@ -42,6 +42,14 @@ namespace PartyAgile.Infrastructure.Repositories
             return eventItem;
         }
 
+        public async Task<Event> GetEventWithVendorsAsync(Guid id)
+        {
+            var eventItem = await _context.Events
+                .AsNoTracking()
+                .Where(x => x.Id == id)
+                .Include(eventItem => eventItem.EventVendors).ThenInclude(ev => ev.Vendor).FirstOrDefaultAsync();
+            return eventItem;
+        }
 
         public async Task<IEnumerable<Vendor>> GetVendorsByEventIdAsync(Guid id)
         {

@@ -2,76 +2,42 @@
 @use '../../partials/variables' as *;
 
 .sidebar {
-  overflow-y: auto;
-  width: 20rem;
+  width: 23rem;
   left: 0;
   top: 0;
-  min-height: 100vh;
+  height: 100vh;
   background-color: #2C264B;
   color: $primary-white;
 
   &-header {
-    padding: 2rem;
+    padding: 0 2rem;
     border-bottom: 1px solid #52489C;
+    height: 10%;
+    display: flex;
+    align-items: center;
+
+    &__link {
+      text-decoration: none;
+      color: #ffffff;
+    }
 
     &__title {
       @include h1;
     }
   }
 
-  &-events {
-    padding: 2rem;
+  &-content {
+    padding: 2rem 0 2rem 1.5rem;
+    height: 90%;
 
-    &__title {
-      @include h3;
-    }
-  }
-}
+    &__header {
+      height: 5%;
+      padding: 2rem;
 
-.events {
-  padding-top: 0.75rem;
-
-  &-items {
-    padding: 0.75rem 0 0.75rem 0.7rem;
-    cursor: pointer;
-    border-left: 0;
-    transition: all .3s ease-in-out;
-
-    &:hover {
-      border-left: 2px solid #8179b3;
-    }
-  }
-}
-
-.event {
-  &-date {
-    @include p;
-    margin-top: 0.3rem;
-  }
-
-  &-add {
-    display: flex;
-    align-items: center;
-    color: #8179b3;
-    cursor: pointer;
-    @include p;
-    width: 71%;
-    padding: .3rem;
-    transition: all .2s ease-in;
-
-    &__link {
-      text-decoration: none;
-      color: $primary-white;
-      padding-left: .5rem;
-    }
-
-    &:hover {
-      color: $primary-white;
-      background-color: #8179b3;
-    }
-
-    &__icon {
-      font-size: 0.875rem;
+      &-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
     }
   }
 }

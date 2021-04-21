@@ -1,0 +1,19 @@
+@use '../../partials/mixins' as *;
+@use '../../partials/variables' as *;
+
+.event-item {
+  text-decoration: none;
+  color: #ffffff;
+  transition: border 0.1s ease-in-out, margin 0.1s linear;
+  border-left: 0;
+
+  &-title {
+    @include p;
+    font-size: 1rem;
+  }
+
+  &-date {
+    @include p;
+    margin-top: 0.3rem;
+  }
+}

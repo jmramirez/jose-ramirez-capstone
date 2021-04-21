@@ -126,8 +126,7 @@ class EventsForm extends Component {
           </div>
           <div className="add-event__form__controls--text">
             <label className="add-event__form__label">Description</label>
-            <textarea className="add-event__form__input--text" name={'description'} onChange={this.handleChange} value={this.state.description}
-            ></textarea>
+            <textarea className="add-event__form__input--text" name={'description'} onChange={this.handleChange} value={this.state.description} />
           </div>
           <div className="add-event__form__actions">
             <button onClick={() => {this.handleClick()}} className="add-event__form__submit--cancel" >Cancel</button>

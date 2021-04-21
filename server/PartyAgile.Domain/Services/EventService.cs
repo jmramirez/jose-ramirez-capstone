@@ -14,6 +14,7 @@ namespace PartyAgile.Domain.Services
     {
         Task<IEnumerable<EventResponse>> GetEventsAsync();
         Task<EventResponse> GetEventAsync(GetEventRequest request);
+        Task<EventWithVendorsReponse> GetEventWithVendorsAsync(GetEventRequest request);
         Task<IEnumerable<VendorWithTaskResponse>> GetVendorsEventAsync(GetEventRequest request);
         Task<EventResponse> AddEventAsync(AddEventRequest request);
         Task<EventResponse> EditEventAsync(EditEventRequest request);
@@ -43,6 +44,13 @@ namespace PartyAgile.Domain.Services
             if (request?.Id == null) throw new ArgumentNullException();
             var entity = await _eventRepository.GetAsync(request.Id);
             return _eventMapper.Map(entity);
+        }
+
+        public async Task<EventWithVendorsReponse> GetEventWithVendorsAsync(GetEventRequest request)
+        {
+            if (request?.Id == null) throw new ArgumentNullException();
+            var entity = await _eventRepository.GetEventWithVendorsAsync(request.Id);
+            return _eventMapper.MapWithVendors(entity);
         }
 
 
