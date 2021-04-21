@@ -16,7 +16,6 @@ export const App = () => {
     axios
       .get(`${url}events`)
       .then( response =>{
-        console.log(response.data)
         let sortedArray = sortArray(response.data)
         setEvents(sortedArray)
       })
@@ -37,6 +36,11 @@ export const App = () => {
     })
   }
 
+  const handleLogin = (e) => {
+    e.preventDefault()
+    console.log('here')
+  }
+
   return(
     <div className="App">
       <BrowserRouter>
@@ -48,7 +52,7 @@ export const App = () => {
           <Route path="/vendor/add/:eventId" render={(routerProps) => <VendorForm {...routerProps} action="Add"  />}/>
           <Route path="/vendor/edit/:vendorId/:eventId" render={(routerProps) => <VendorForm {...routerProps}  action="Edit"  handleUpdate={handleUpdate} />}/>
           <Route path="/getevent/:id" render={(routerProps) => <Dashboard {...routerProps} />}/>
-          <Route path="/login" component={MainPage} />
+          <Route path="/login" render={(routerProps) => <MainPage {...routerProps}  handleLogin={handleLogin} />} />
         </Switch>
       </BrowserRouter>
     </div>

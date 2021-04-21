@@ -3,8 +3,11 @@ import Vendor from '../Vendor/Vendor'
 
 const VendorList = ({ vendors, eventId }) => {
   return(
-    <ul>
-      {vendors.length === 0? <li>There are no vendors</li>
+    <ul className="vendor-list">
+      {vendors.length === 0?
+        <li className="vendor-list__no-vendors">
+          <h2 className="vendor-list__no-vendors__header">There are not vendors assigned to this event</h2>
+        </li>
         :
         (vendors.map(vendor =>(
           <li key={vendor.id}>

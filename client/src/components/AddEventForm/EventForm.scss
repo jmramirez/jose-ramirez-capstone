@@ -5,7 +5,9 @@
   margin: 12.25rem auto 0 auto;
   width: 50rem;
   background-color: $primary-white;
-  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%);
+  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 8%);
+  border-radius: 6px;
+  border-top: 0.25rem solid #52489C;
   padding: 0.1rem;
 
   &__header {
@@ -91,11 +93,12 @@
       }
 
       &__icon {
-        position: absolute;
+        /*position: absolute;
         top: 0.625rem;
         left: 0.625rem;
-        color: $primary-white;
-        font-size: 0.9rem;
+        color: $primary-white;*/
+        font-size: 0.8rem;
+        margin-right: .3rem;
       }
 
       &--cancel {

@@ -17,25 +17,28 @@
     padding: 1rem 0;
   }
 
-  &__addvendor {
-    height: 2.3rem;
-    border-radius: 0;
-    color: #FFFFFF;
-    background-color: #F87060;
-    font-size: 0.9rem;
-    border: none;
-    cursor: pointer;
-    transition: all 0.1s ease-in-out;
-    border: 1px solid #F87060;
-    margin-left: 0.8rem;
-    padding: 0 1rem 0 1.7rem;
-    position: relative;
-    display: flex;
-    align-items: center;
-    text-decoration: none;
+  &__editvendor {
+    @include baseLink;
+    color: #52489C;
+    background-color: #ffffff;
+    border: 1px solid #52489C;
 
     &:hover {
-      background-color: #e9968a;
+      color: #ffffff;
+      background-color: #52489C;
+    }
+  }
+
+  &__addvendor {
+    @include baseLink;
+    color: #ffffff;
+    background-color: #52489C;
+    margin-left: 0.8rem;
+
+    &:hover {
+      background-color: #ffffff;
+      color: #52489C;
+      border: 1px solid #52489C;
     }
 
     &__cancel {
@@ -77,6 +80,16 @@
     font-weight: 700;
     font-size: 1.70rem;
     padding: 1rem 2rem;
+
+    &.red {
+      color: red;
+    }
+
+    &__text {
+      display: flex;
+      height: 50%;
+      align-items: center;
+    }
   }
 
   &__details {
@@ -85,10 +98,11 @@
 
     &__item {
       background-color: $primary-white;
-      width: 15rem;
-      height: 10rem;
-      border-top: 0.25rem solid #F87060;
-      box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%);
+      width: 14rem;
+      height: 8rem;
+      border-top: 0.25rem solid #52489C;
+      border-radius: 6px;
+      box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 8%);
     }
   }
 }

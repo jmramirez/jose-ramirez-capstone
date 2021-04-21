@@ -2,7 +2,7 @@ import './MainPage.scss'
 import LoginForm from '../../components/LogInForm/LogInForm'
 import RegisterForm from '../../components/RegisterForm/RegisterForm'
 
-const MainPage = () => {
+const MainPage = ({ handleLogin }) => {
   return(
     <div  className="mainPage">
         <div className="mainPage-container">
@@ -14,8 +14,8 @@ const MainPage = () => {
             </div>
           </div>
           <div className="mainPage__content">
-            <RegisterForm />
-            {/*<LoginForm/>*/}
+            {/*<RegisterForm />*/}
+            <LoginForm handleLogin={handleLogin}/>
           </div>
         </div>
     </div>

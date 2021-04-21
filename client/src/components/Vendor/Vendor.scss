@@ -4,15 +4,16 @@
 .vendor-item {
   width: 70rem;
   background-color: #fff;
-  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%);
+  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 8%);
   margin: 0 auto 3rem auto;
-  border-top: .25rem solid #F87060;
+  border-top: .25rem solid #52489C;
+  border-radius: 6px;
 
   &__header {
-    font-size: 1.5rem;
-    @include h2;
+    @include h3;
+    font-size: 1.3rem;
     font-weight: 700;
-    padding: 1rem 2rem 1rem 2rem;
+    padding: 1rem 2rem;
   }
 
   &__heading {
@@ -25,6 +26,7 @@
   &__type {
     @include h3;
     padding: 2rem;
+    width: 40%;
   }
 
   &__info {

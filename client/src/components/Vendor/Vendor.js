@@ -10,6 +10,7 @@ const Vendor = ({ vendor, eventId }) => {
         </h2>
         <div className="event__actions">
           <Link to={`/vendor/edit/${vendor.id}/${eventId}`} className="event__addvendor">
+            <span className="material-icons add-event__form__submit__icon">edit_note</span>
             Edit Vendor
           </Link>
         </div>

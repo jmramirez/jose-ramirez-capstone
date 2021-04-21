@@ -1,10 +1,10 @@
 import './LoginForm.scss'
 
-const LoginForm = () => {
+const LoginForm = ({ handleLogin }) => {
   return(
     <>
       <h2 className="logIn-form__heading">Log In</h2>
-      <form className="logIn-form">
+      <form className="logIn-form" onSubmit={handleLogin}>
         <label className="logIn-form__label">Username/Email</label>
         <input className="logIn-form__input" type="text"/>
         <label className="logIn-form__label">Password</label>
