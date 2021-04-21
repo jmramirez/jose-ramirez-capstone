@@ -11,6 +11,13 @@
     border-bottom: 1px solid #ecf3fa;
   }
 
+  &__error {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: RED;
+    margin-top: 0.2rem;
+  }
+
   &__label {
     font-weight: 600;
     font-size: .85rem;
