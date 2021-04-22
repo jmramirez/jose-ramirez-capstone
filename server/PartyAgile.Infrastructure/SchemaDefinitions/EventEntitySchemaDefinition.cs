@@ -35,6 +35,8 @@ namespace PartyAgile.Infrastructure.SchemaDefinitions
                     Currency = _.Split(":", StringSplitOptions.None)[1]
                 });
 
+            builder.Property(p => p.CreatorId)
+                .IsRequired();
         }
     }
 }

@@ -8,7 +8,11 @@ namespace PartyAgile.Domain.Responses
 {
     public class UserResponse
     {
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
+
+        public Guid VendorId { get; set; }
+        public string Role { get; set; }
     }
 }

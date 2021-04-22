@@ -6,6 +6,7 @@ using PartyAgile.Domain.Services;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using PartyAgile.Domain.Requests.Vendor;
 
 namespace PartyAgile.API.Controllers
 {
@@ -41,12 +42,12 @@ namespace PartyAgile.API.Controllers
             return Ok(result);
         }
 
-        /*[HttpGet("{id:guid}/vendors")]
-        public async Task<IActionResult> GetEventWithVendorsById(Guid id)
+        [HttpGet("{id:guid}/vendor")]
+        public async Task<IActionResult> GetEventByVendorById(Guid id)
         {
-            var result = await _eventService.GetEventWithVendorsAsync(new GetEventRequest { Id = id });
+            var result = await _eventService.GetEventsByVendorIdAsync(new GetVendorRequest { Id = id });
             return Ok(result);
-        }*/
+        }
 
         [HttpGet("{id:guid}/vendors")]
         public async Task<IActionResult> GetWithVendorById(Guid id)

@@ -78,5 +78,19 @@ namespace PartyAgile.Infrastructure.Repositories
             _context.Entry(eventItem).State = EntityState.Modified;
             return eventItem;
         }
+
+        public async Task<IEnumerable<Event>> GetEventsByVendorAsync(Guid id)
+        {
+            var items = await _context.VendorsEvent.Where(x => x.VendorId == id).Select(
+                e => new Event
+                {
+                    Id = e.Event.Id,
+                    Title = e.Event.Title,
+                    Description = e.Event.Description
+                }).ToListAsync();
+
+            return items;
+        }
     }
 }
+ 

@@ -13,5 +13,8 @@ namespace PartyAgile.Domain.Entities
         public DateTimeOffset CreatedAt { get; set; }
         public int Guests { get; set; }
         public ICollection<VendorEvent> EventVendors { get; set; }
+
+        
+        public Guid CreatorId { get; set; }
     }
 }

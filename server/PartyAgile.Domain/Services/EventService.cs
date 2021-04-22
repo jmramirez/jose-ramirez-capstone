@@ -1,6 +1,7 @@
 ﻿using PartyAgile.Domain.Mappers;
 using PartyAgile.Domain.Repositories;
 using PartyAgile.Domain.Requests.Event;
+using PartyAgile.Domain.Requests.Vendor;
 using PartyAgile.Domain.Responses;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace PartyAgile.Domain.Services
         Task<IEnumerable<VendorWithTaskResponse>> GetVendorsEventAsync(GetEventRequest request);
         Task<EventResponse> AddEventAsync(AddEventRequest request);
         Task<EventResponse> EditEventAsync(EditEventRequest request);
+        Task<IEnumerable<EventResponse>> GetEventsByVendorIdAsync(GetVendorRequest request);
     }
 
     public class EventService : IEventService
@@ -36,6 +38,13 @@ namespace PartyAgile.Domain.Services
         public async Task<IEnumerable<EventResponse>> GetEventsAsync()
         {
             var result = await _eventRepository.GetAsync();
+            return result.Select(x => _eventMapper.Map(x));
+        }
+
+        public async Task<IEnumerable<EventResponse>> GetEventsByVendorIdAsync(GetVendorRequest request)
+        {
+            if (request?.Id == null) throw new ArgumentNullException();
+            var result = await _eventRepository.GetEventsByVendorAsync(request.Id);
             return result.Select(x => _eventMapper.Map(x));
         }
 
