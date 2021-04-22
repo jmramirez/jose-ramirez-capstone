@@ -2,7 +2,8 @@ import './Sidebar.scss'
 import {EventList} from '../EventList/EventList'
 import {Link} from 'react-router-dom'
 
-const Sidebar = ({ events  }) => {
+const Sidebar = ({ events, user  }) => {
+  const role = user.role
 
   return(
     <div className="sidebar">
@@ -15,7 +16,7 @@ const Sidebar = ({ events  }) => {
         <div className="sidebar-content__header">
           <h3 className="sidebar-content__header-title">List of Events</h3>
         </div>
-        <EventList events={events} />
+        <EventList events={events} role={role}/>
       </div>
     </div>
   )

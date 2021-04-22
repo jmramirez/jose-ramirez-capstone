@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 const auth = {
   isAuthenticated() {
     if (typeof window == "undefined")

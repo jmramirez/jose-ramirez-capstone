@@ -16,14 +16,7 @@ export const App = () => {
   const [user, setUser] = useState(null)
   const history = useHistory()
 
-  useEffect(() => {
-    axios
-      .get(`${url}events`)
-      .then( response =>{
-        let sortedArray = sortArray(response.data)
-        setEvents(sortedArray)
-      })
-  }, [])
+
 
   useEffect(() => {
     if(isAuthenticated()) {
@@ -51,6 +44,23 @@ export const App = () => {
     if (typeof window !== 'undefined') {
       sessionStorage.setItem('jwt', JSON.stringify(data.token));
     }
+    axios.defaults.headers.common = {
+      Authorization: `Bearer ${isAuthenticated()}`,
+    }
+    axios.get(`${url}user`)
+      .then(response => {
+        setUser(response.data)
+        console.log(response.data)
+        if(response.data.role === 'Planer') {
+          axios
+            .get(`${url}events`)
+            .then( response =>{
+              let sortedArray = sortArray(response.data)
+              setEvents(sortedArray)
+            })
+        }
+
+      })
     setAuthenticated(true)
   }
 
@@ -78,7 +88,7 @@ export const App = () => {
   return(
     <div className="App">
       <BrowserRouter>
-        {authenticated && <Sidebar events={events} />}
+        {authenticated &&   <Sidebar events={events} user={user} />}
         <Switch>
           <Route path="/login" render={(routerProps) => <MainPage {...routerProps}  handleLogin={handleLogin} handleLogout={handleLogout}  />} />
           <PrivateRoute path="/event/add" render={(routerProps) => <EventForm {...routerProps} action="add"  handleUpdate={handleUpdate} handleLogout={handleLogout}  />} />
