@@ -6,7 +6,7 @@ import EventDetails from '../../components/EventDetails/EventDetails'
 import {useHistory} from 'react-router-dom'
 
 
-export const Dashboard = ({match, handleLogout}) => {
+export const Dashboard = ({match, handleLogout, user}) => {
   const [eventSelected, setEventSelected] = useState(null)
   const [eventLoading, setEventLoading] = useState(true)
   const eventId = match.params.id
@@ -40,7 +40,7 @@ export const Dashboard = ({match, handleLogout}) => {
     <div className="dashboard">
       <button onClick={logOut}/>
       <div className="dashboard-content">
-        { !eventId? <p>No event id</p> : (eventLoading? <p>Loading</p> : <EventDetails eventItem={eventSelected} />) }
+        { !eventId? <p>No event id</p> : (eventLoading? <p>Loading</p> : <EventDetails eventItem={eventSelected} user={user} />) }
       </div>
     </div>
   )

@@ -16,5 +16,7 @@ namespace PartyAgile.Domain.Entities
 
         
         public Guid CreatorId { get; set; }
+        public string CreatorName { get; set; }
+        public string CreatorPhome { get; set; }
     }
 }

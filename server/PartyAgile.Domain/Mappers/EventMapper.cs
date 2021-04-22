@@ -16,6 +16,7 @@ namespace PartyAgile.Domain.Mappers
         EventResponse Map(Event request);
 
         EventWithVendorsReponse MapWithVendors(Event request);
+        //EventWithUserInfo MapWithUser(Event request);
     }
 
     public class EventMapper : IEventMapper
@@ -78,7 +79,9 @@ namespace PartyAgile.Domain.Mappers
                 Title = eventItem.Title,
                 Description = eventItem.Description,
                 EventDate = eventItem.EventDate,
-                Guests = eventItem.Guests
+                Guests = eventItem.Guests,
+                CreatorName = eventItem.CreatorName,
+                CreatorPhone = eventItem.CreatorPhome
             };
 
             if(eventItem.Budget != null)
@@ -114,5 +117,7 @@ namespace PartyAgile.Domain.Mappers
 
             return response;
         }
+
     }
+
 }

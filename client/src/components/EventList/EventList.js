@@ -14,6 +14,6 @@ export const EventList = ({ events, role }) => (
             </li>
           )
         })}
-    {(role ==='Planer') && <li className="events__add-item"><Link to="/event/add" className="events__add-link"><span className="material-icons events__add-link-icon">event</span>Add New Event</Link></li>}
+    {role && role ==='Planer' && <li className="events__add-item"><Link to="/event/add" className="events__add-link"><span className="material-icons events__add-link-icon">event</span>Add New Event</Link></li>}
   </ul>
 )

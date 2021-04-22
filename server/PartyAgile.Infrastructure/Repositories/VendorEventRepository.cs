@@ -1,4 +1,5 @@
-﻿using PartyAgile.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using PartyAgile.Domain.Entities;
 using PartyAgile.Domain.Repositories;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,17 @@ namespace PartyAgile.Infrastructure.Repositories
         public VendorEvent Add(VendorEvent item)
         {
             return _context.VendorsEvent.Add(item).Entity;
-        } 
+        }
+        
+        public async Task<VendorEvent> GetByEventIdAsync(Guid id)
+        {
+            var item =await _context.VendorsEvent
+                .AsNoTracking()
+                .Where(x => x.EventId == id)
+                .Include(item => item.Event)
+                .Include(item => item.Vendor).FirstOrDefaultAsync();
+
+            return item;
+        }
     }
 }

@@ -12,5 +12,8 @@ namespace PartyAgile.Domain.Entities
         public Event Event { get; set; }
         public Guid VendorId { get; set; }
         public Vendor Vendor { get; set; }
+
+        public Price Budget { get; set; }
+        public Price DepositPaid { get; set; }
     }
 }

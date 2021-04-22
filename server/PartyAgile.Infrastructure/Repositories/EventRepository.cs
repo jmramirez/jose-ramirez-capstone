@@ -86,7 +86,8 @@ namespace PartyAgile.Infrastructure.Repositories
                 {
                     Id = e.Event.Id,
                     Title = e.Event.Title,
-                    Description = e.Event.Description
+                    Description = e.Event.Description,
+                    EventDate = e.Event.EventDate
                 }).ToListAsync();
 
             return items;

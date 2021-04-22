@@ -20,6 +20,7 @@ namespace PartyAgile.Domain.Services
         Task<EventResponse> AddEventAsync(AddEventRequest request);
         Task<EventResponse> EditEventAsync(EditEventRequest request);
         Task<IEnumerable<EventResponse>> GetEventsByVendorIdAsync(GetVendorRequest request);
+        Task<VendorEventResponse> GetEventVendorByEventId(GetEventRequest request);
     }
 
     public class EventService : IEventService
@@ -27,12 +28,16 @@ namespace PartyAgile.Domain.Services
         private readonly IEventMapper _eventMapper;
         private readonly IVendorMapper _vendorMapper;
         private readonly IEventRepository _eventRepository;
+        private readonly IVendorEventMapper _vendorEventMapper;
+        private readonly IVendorEventRepository _vendorEventRepository;
 
-        public EventService(IEventRepository eventRepository, IEventMapper eventMapper, IVendorMapper vendorMapper)
+        public EventService(IEventRepository eventRepository, IEventMapper eventMapper, IVendorMapper vendorMapper, IVendorEventRepository vendorEventRepository, IVendorEventMapper vendorEventMapper)
         {
             _eventMapper = eventMapper;
             _eventRepository = eventRepository;
             _vendorMapper = vendorMapper;
+            _vendorEventMapper = vendorEventMapper;
+            _vendorEventRepository = vendorEventRepository;
         }
 
         public async Task<IEnumerable<EventResponse>> GetEventsAsync()
@@ -55,12 +60,21 @@ namespace PartyAgile.Domain.Services
             return _eventMapper.Map(entity);
         }
 
+        public async Task<VendorEventResponse> GetEventVendorByEventId(GetEventRequest request)
+        {
+            if (request?.Id == null) throw new ArgumentNullException();
+            var entity = await _vendorEventRepository.GetByEventIdAsync(request.Id);
+            return _vendorEventMapper.Map(entity);
+        }
+
         public async Task<EventWithVendorsReponse> GetEventWithVendorsAsync(GetEventRequest request)
         {
             if (request?.Id == null) throw new ArgumentNullException();
             var entity = await _eventRepository.GetEventWithVendorsAsync(request.Id);
             return _eventMapper.MapWithVendors(entity);
         }
+
+
 
 
         public async Task<IEnumerable<VendorWithTaskResponse>> GetVendorsEventAsync(GetEventRequest request)

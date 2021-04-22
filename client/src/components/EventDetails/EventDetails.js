@@ -5,9 +5,9 @@ import axios from 'axios'
 import {url} from '../../config'
 import VendorList from '../VendorsList/VendorsList'
 
-const EventDetails = ({ eventItem }) => {
+const EventDetails = ({ eventItem, user }) => {
   const [vendors, setVendors] = useState([])
-  //const [vendorsLoading, setVendorsLoading] = useState(true)
+  const [role, setRole] = useState('')
   const [budgetCovered, setBudgetCovered ] = useState(0);
   const eventId = eventItem.id
 
@@ -18,6 +18,12 @@ const EventDetails = ({ eventItem }) => {
       })
     }
   }, [eventId])
+
+  useEffect(() => {
+    if(user){
+      setRole(user.role)
+    }
+  }, [user])
 
   useEffect(() => {
     const aproxBudget = vendors.reduce((acc, item) => {
@@ -43,21 +49,31 @@ const EventDetails = ({ eventItem }) => {
         </div>
 
         <p className="event__description">{eventItem.description}</p>
+        {role && role === 'Vendor' &&(
+        <div className="event__information">
+          <p className="event__information__description">Organized by: {eventItem.creatorName}</p>
+          <p className="event__information__description">Phone Number: {eventItem.creatorPhone}</p>
+        </div>
+        )}
+
 
       </div>
       <div className="event__details">
-        <div className="event__details__item">
-          <p className="vendor-item__header">Budget</p>
-          <div className="event__detail__text">
-            <p className="event__detail">{eventItem.budget.currency} {eventItem.budget.amount}</p>
-          </div>
-        </div>
-        <div className="event__details__item">
-          <p className="vendor-item__header">Budget</p>
-          <div className="event__detail__text">
-            <p className= { budgetCovered > eventItem.budget.amount ? 'event__detail red' : 'event__detail'}>{eventItem.budget.currency} {budgetCovered}</p>
-          </div>
-        </div>
+        {role && role === 'Planer' &&(
+          <div className="event__details__item">
+            <p className="vendor-item__header">Budget</p>
+            <div className="event__detail__text">
+              <p className="event__detail">{eventItem.budget.currency} {eventItem.budget.amount}</p>
+            </div>
+          </div>)
+        }
+        {role && role === 'Planer' &&(
+          <div className="event__details__item">
+            <p className="vendor-item__header">Budget</p>
+            <div className="event__detail__text">
+              <p className= { budgetCovered > eventItem.budget.amount ? 'event__detail red' : 'event__detail'}>{eventItem.budget.currency} {budgetCovered}</p>
+            </div>
+          </div>)}
         <div className="event__details__item">
           <p className="vendor-item__header">Guest Aprox*</p>
           <div className="event__detail__text">
@@ -71,7 +87,7 @@ const EventDetails = ({ eventItem }) => {
           </div>
         </div>
       </div>
-      <VendorList vendors={vendors} eventId={eventItem.id}/>
+      {role && role ==='Planer' && <VendorList vendors={vendors} eventId={eventItem.id}/>}
     </div>
   )
 }

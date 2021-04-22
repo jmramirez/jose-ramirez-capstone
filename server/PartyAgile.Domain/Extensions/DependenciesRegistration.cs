@@ -18,7 +18,8 @@ namespace PartyAgile.Domain.Extensions
             services
                 .AddSingleton<IEventMapper, EventMapper>()
                 .AddSingleton<IVendorMapper, VendorMapper>()
-                .AddSingleton<IVendorTaskMapper, VendorTaskMapper>();
+                .AddSingleton<IVendorTaskMapper, VendorTaskMapper>()
+                .AddSingleton<IVendorEventMapper, VendorEventMapper>();
             
 
             return services;

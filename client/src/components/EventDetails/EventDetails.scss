@@ -17,6 +17,16 @@
     padding: 1rem 0;
   }
 
+  &__information {
+    display: flex;
+
+    &__description {
+      @include h3;
+      padding: 1rem 2rem;
+      font-weight: 700;
+    }
+  }
+
   &__editvendor {
     @include baseLink;
     color: #52489C;
@@ -74,6 +84,8 @@
     @include h3;
     padding: 1rem 2rem;
   }
+
+
 
   &__detail {
     @include h3;

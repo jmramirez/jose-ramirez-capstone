@@ -21,8 +21,55 @@ export const App = () => {
   useEffect(() => {
     if(isAuthenticated()) {
       setAuthenticated(true)
+      axios.defaults.headers.common = {
+        Authorization: `Bearer ${isAuthenticated()}`,
+      }
+      axios.get(`${url}user`)
+        .then(response => {
+          console.log(response.data)
+          setUser(response.data)
+          if(response.data.role === 'Planer') {
+            axios
+              .get(`${url}events`)
+              .then( response =>{
+                let sortedArray = sortArray(response.data)
+                setEvents(sortedArray)
+              })
+          }
+          if(response.data.role === 'Vendor') {
+            axios
+              .get(`${url}events/${response.data.vendorId}/vendor`)
+              .then( response =>{
+                let sortedArray = sortArray(response.data)
+                setEvents(sortedArray)
+              })
+          }
+        })
     }
-  }, [])
+  }, [authenticated])
+
+ /* useEffect(() => {
+    if(user){
+      console.log(user)
+      if(user.role === 'Planer') {
+        console.log('here')
+        axios
+          .get(`${url}events`)
+          .then( response =>{
+            let sortedArray = sortArray(response.data)
+            setEvents(sortedArray)
+          })
+      }
+      if(user.role === 'Vendor') {
+        axios
+          .get(`${url}events/${user.vendorId}/vendor`)
+          .then( response =>{
+            let sortedArray = sortArray(response.data)
+            setEvents(sortedArray)
+          })
+      }
+    }
+  }, [user])*/
 
   const handleUpdate = () => {
     axios
@@ -40,27 +87,9 @@ export const App = () => {
   }
 
   const handleLogin = (data) => {
-    console.log(data)
     if (typeof window !== 'undefined') {
       sessionStorage.setItem('jwt', JSON.stringify(data.token));
     }
-    axios.defaults.headers.common = {
-      Authorization: `Bearer ${isAuthenticated()}`,
-    }
-    axios.get(`${url}user`)
-      .then(response => {
-        setUser(response.data)
-        console.log(response.data)
-        if(response.data.role === 'Planer') {
-          axios
-            .get(`${url}events`)
-            .then( response =>{
-              let sortedArray = sortArray(response.data)
-              setEvents(sortedArray)
-            })
-        }
-
-      })
     setAuthenticated(true)
   }
 
@@ -90,18 +119,18 @@ export const App = () => {
       <BrowserRouter>
         {authenticated &&   <Sidebar events={events} user={user} />}
         <Switch>
-          <Route path="/login" render={(routerProps) => <MainPage {...routerProps}  handleLogin={handleLogin} handleLogout={handleLogout}  />} />
-          <PrivateRoute path="/event/add" render={(routerProps) => <EventForm {...routerProps} action="add"  handleUpdate={handleUpdate} handleLogout={handleLogout}  />} />
+          <Route path="/login" render={(routerProps) => <MainPage {...routerProps}  handleLogin={handleLogin} handleLogout={handleLogout} user={user} />} />
+          <PrivateRoute path="/event/add" render={(routerProps) => <EventForm {...routerProps} action="add"  handleUpdate={handleUpdate} handleLogout={handleLogout} user={user}  />} />
           {/*<Route path="/event/add" render={(routerProps) => <EventForm {...routerProps} action="add"  handleUpdate={handleUpdate} />}/>*/}
-          <PrivateRoute path="/event/edit/:eventId" render={(routerProps) => <EventForm {...routerProps} action="edit" handleUpdate={handleUpdate} handleLogout={handleLogout}  />} />
+          <PrivateRoute path="/event/edit/:eventId" render={(routerProps) => <EventForm {...routerProps} action="edit" handleUpdate={handleUpdate} handleLogout={handleLogout} user={user} />} />
           {/*<Route path="/event/edit/:eventId" render={(routerProps) => <EventForm {...routerProps} action="edit" handleUpdate={handleUpdate} />}/>*/}
-          <PrivateRoute path="/vendor/add/:eventId" render={(routerProps) => <VendorForm {...routerProps} action="Add"  />}/>
+          <PrivateRoute path="/vendor/add/:eventId" render={(routerProps) => <VendorForm {...routerProps} action="Add" user={user}  />}/>
           <Route path="/vendor/add/:eventId" render={(routerProps) => <VendorForm {...routerProps} action="Add"  />}/>
-          <PrivateRoute path="/vendor/edit/:vendorId/:eventId" render={(routerProps) => <VendorForm {...routerProps}  action="Edit"  handleUpdate={handleUpdate} handleLogout={handleLogout}  />} />
+          <PrivateRoute path="/vendor/edit/:vendorId/:eventId" render={(routerProps) => <VendorForm {...routerProps}  action="Edit"  handleUpdate={handleUpdate} handleLogout={handleLogout} user={user} />}  />
           {/*<Route path="/vendor/edit/:vendorId/:eventId" render={(routerProps) => <VendorForm {...routerProps}  action="Edit"  handleUpdate={handleUpdate} />}/>*/}
-          <PrivateRoute path="/getevent/:id" render={(routerProps) => <Dashboard {...routerProps} handleLogout={handleLogout}  />}/>
+          <PrivateRoute path="/getevent/:id" render={(routerProps) => <Dashboard {...routerProps} handleLogout={handleLogout} user={user} />}/>
           {/*<Route path="/getevent/:id" render={(routerProps) => <Dashboard {...routerProps} />}/>*/}
-          <PrivateRoute path="/" render={(routerProps) => <Dashboard {...routerProps} handleLogout={handleLogout} />}/>
+          <PrivateRoute path="/" render={(routerProps) => <Dashboard {...routerProps} handleLogout={handleLogout} user={user}/>}/>
 
         </Switch>
       </BrowserRouter>

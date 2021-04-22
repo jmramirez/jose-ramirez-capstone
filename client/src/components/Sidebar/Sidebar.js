@@ -1,9 +1,17 @@
 import './Sidebar.scss'
 import {EventList} from '../EventList/EventList'
 import {Link} from 'react-router-dom'
+import {useState, useEffect} from 'react'
 
-const Sidebar = ({ events, user  }) => {
-  const role = user.role
+
+const Sidebar = ({ events, user }) => {
+  const [role, setRole] = useState('')
+
+  useEffect(() => {
+    if(user){
+      setRole(user.role)
+    }
+  }, [user])
 
   return(
     <div className="sidebar">

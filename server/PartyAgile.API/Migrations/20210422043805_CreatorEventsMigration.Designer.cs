@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PartyAgile.Infrastructure;
 
 namespace PartyAgile.API.Migrations
 {
     [DbContext(typeof(PartyAgileDbContext))]
-    partial class PartyAgileDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210422043805_CreatorEventsMigration")]
+    partial class CreatorEventsMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -336,12 +338,6 @@ namespace PartyAgile.API.Migrations
 
                     b.Property<Guid>("VendorId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Budget")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DepositPaid")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("EventId", "VendorId");
 

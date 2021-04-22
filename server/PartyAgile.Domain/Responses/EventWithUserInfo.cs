@@ -6,15 +6,14 @@ using System.Threading.Tasks;
 
 namespace PartyAgile.Domain.Responses
 {
-    public class EventResponse
+    public class EventWithUserInfo
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public PriceResponse Budget { get; set; }
         public DateTimeOffset EventDate { get; set; }
         public int Guests { get; set; }
-        public string CreatorName { get; set; }
-        public string CreatorPhone { get; set; }
+        public string PlanerName { get; set; }
+        public string PlanerPhone { get; set; } 
     }
 }
