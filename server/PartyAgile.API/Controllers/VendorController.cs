@@ -20,6 +20,13 @@ namespace PartyAgile.API.Controllers
             _vendorService = vendorService;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var result = await _vendorService.GetVendorsAsync();
+            return Ok(result);
+        }
+
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> GetById(Guid id)
         {

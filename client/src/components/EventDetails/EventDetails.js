@@ -39,6 +39,7 @@ const EventDetails = ({ eventItem, user }) => {
       <div className="vendor-item">
         <div className="event__top">
           <h2 className="event__heading">{eventItem.title}</h2>
+          {role && role === 'Planer' &&(
           <div className="event__actions">
             <Link to={`/event/edit/${eventItem.id}`} className="event__editvendor">
               <span className="material-icons add-event__form__submit__icon">edit_calendar</span> Edit Event</Link>
@@ -46,6 +47,7 @@ const EventDetails = ({ eventItem, user }) => {
               <span className="material-icons add-event__form__submit__icon">add</span> Add Vendor
             </Link>
           </div>
+          )}
         </div>
 
         <p className="event__description">{eventItem.description}</p>
@@ -59,21 +61,23 @@ const EventDetails = ({ eventItem, user }) => {
 
       </div>
       <div className="event__details">
-        {role && role === 'Planer' &&(
+
           <div className="event__details__item">
             <p className="vendor-item__header">Budget</p>
             <div className="event__detail__text">
               <p className="event__detail">{eventItem.budget.currency} {eventItem.budget.amount}</p>
             </div>
-          </div>)
-        }
-        {role && role === 'Planer' &&(
+          </div>
+
+
           <div className="event__details__item">
-            <p className="vendor-item__header">Budget</p>
+            {role && role === 'Planer' &&(<p className="vendor-item__header">Budget Covered</p>)}
+            {role && role === 'Vendor' &&(<p className="vendor-item__header">Deposit Paid</p>)}
             <div className="event__detail__text">
-              <p className= { budgetCovered > eventItem.budget.amount ? 'event__detail red' : 'event__detail'}>{eventItem.budget.currency} {budgetCovered}</p>
+              {role && role === 'Planer' &&(<p className= { budgetCovered > eventItem.budget.amount ? 'event__detail red' : 'event__detail'}>{eventItem.budget.currency} {budgetCovered}</p>)}
+              {role && role === 'Vendor' &&(<p className= "event__detail">{eventItem.depositPaid.currency} {eventItem.depositPaid.amount}</p>)}
             </div>
-          </div>)}
+          </div>
         <div className="event__details__item">
           <p className="vendor-item__header">Guest Aprox*</p>
           <div className="event__detail__text">

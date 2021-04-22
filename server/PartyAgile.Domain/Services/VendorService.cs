@@ -13,6 +13,7 @@ namespace PartyAgile.Domain.Services
 {
     public interface IVendorService
     {
+        Task<IEnumerable<VendorResponse>> GetVendorsAsync();
         Task<VendorResponse> GetVendorAsync(GetVendorRequest request);
         Task<VendorResponse> AddVendorAsync(AddVendorRequest request);
         Task<VendorResponse> EditVendorAsync(EditVendorRequest request);
@@ -30,6 +31,12 @@ namespace PartyAgile.Domain.Services
             _vendorMapper = vendorMapper;
             _vendorEventRepository = vendorEventRepository;
             _eventRepository = eventRepository;
+        }
+
+        public async Task<IEnumerable<VendorResponse>> GetVendorsAsync()
+        {
+            var result = await _vendorRepository.GetAsync();
+            return result.Select(x => _vendorMapper.Map(x));
         }
 
         public async Task<VendorResponse> GetVendorAsync(GetVendorRequest request)

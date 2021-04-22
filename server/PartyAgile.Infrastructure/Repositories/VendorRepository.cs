@@ -20,6 +20,14 @@ namespace PartyAgile.Infrastructure.Repositories
             _context = context ?? throw new ArgumentException(nameof(context));
         }
 
+        public async Task<IEnumerable<Vendor>> GetAsync()
+        {
+            return await _context
+                .Vendors
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
         public async Task<Vendor> GetAsync(Guid id)
         {
             var vendorItem = await _context.Vendors

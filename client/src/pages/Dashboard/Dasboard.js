@@ -9,15 +9,32 @@ import {useHistory} from 'react-router-dom'
 export const Dashboard = ({match, handleLogout, user}) => {
   const [eventSelected, setEventSelected] = useState(null)
   const [eventLoading, setEventLoading] = useState(true)
+  const [role, setRole] = useState('');
   const eventId = match.params.id
   const history = useHistory()
 
   useEffect(() => {
+    if(user){
+      setRole(user.role)
+    }
+  },[user])
+
+  useEffect(() => {
     if(eventId){
-      axios.get(`${url}events/${eventId}`).then(response =>{
-        setEventSelected(response.data)
-        setEventLoading(false)
-      })
+      if(role ==='Planer'){
+        axios.get(`${url}events/${eventId}`).then(response =>{
+          setEventSelected(response.data)
+          setEventLoading(false)
+          console.log(response.data)
+        })
+      }
+      if(role ==='Vendor'){
+        axios.get(`${url}events/${eventId}/eventvendor`).then(response =>{
+          setEventSelected(response.data)
+          setEventLoading(false)
+          console.log(response)
+        })
+      }
     }
   }, [eventId])
 
