@@ -13,7 +13,6 @@ namespace PartyAgile.API.Controllers
 
     [Route("api/events")]
     [ApiController]
-    [JsonException]
     public class EventController : ControllerBase
     {
         private readonly IEventService _eventService;

@@ -28,13 +28,19 @@ namespace PartyAgile.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public async Task<Vendor> GetAsync(Guid id)
+        public async Task<Vendor> GetAsync(Guid eventId, Guid vendorId)
         {
             var vendorItem = await _context.Vendors
                 .AsNoTracking()
-                .Where(x => x.Id == id).FirstOrDefaultAsync();
+                .Where(x => x.Id == vendorId).FirstOrDefaultAsync();
 
             if (vendorItem == null) return null;
+
+            var vendorEvent = await _context.VendorsEvent.Where(x => x.VendorId == vendorId && x.EventId == eventId).FirstOrDefaultAsync();
+
+            vendorItem.Budget = new Price { Amount = vendorItem.Budget.Amount, Currency = vendorItem.Budget.Currency };
+            vendorItem.DepositPaid = new Price { Amount = vendorItem.DepositPaid.Amount, Currency = vendorItem.DepositPaid.Currency };
+
 
             _context.Entry(vendorItem).State = EntityState.Detached;
             return vendorItem;

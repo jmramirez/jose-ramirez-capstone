@@ -1,4 +1,4 @@
-import VendorsForm from '../../components/AddVendorForm/VendorsForm'
+import {VendorsForm} from '../../components/AddVendorForm/VendorsForm'
 
 const VendorForm = ({ match, history, action, handleUpdate, user }) =>{
   return(

@@ -25,6 +25,16 @@
     margin-bottom: 0.25rem;
   }
 
+  &__button {
+    background-color: #fff;
+    border: none;
+    padding-top: .6rem;
+    text-align: left;
+    cursor: pointer;
+    color: #52489C;
+    font-size: 0.8rem;
+  }
+
   &__input {
     height: 2rem;
     font-family: inherit;
@@ -43,13 +53,13 @@
   &__submit {
     margin-top: 1.5rem;
     height: 2.3rem;
-    border-radius: 0;
     color: $primary-white;
     background-color: #52489C;
     font-size: .9rem;
     border: none;
     cursor: pointer;
     transition: all .1s ease-in-out;
+    border-radius: 6px;
 
     &:hover {
       background: #8179b3;

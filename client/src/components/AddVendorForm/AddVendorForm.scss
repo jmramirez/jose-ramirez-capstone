@@ -8,6 +8,83 @@
   box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%);
   padding: 0.1rem;
 
+  &__heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
+  &__budget {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  &__old-vendor {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    &__header {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+
+  &_extra_fields {
+    height: 2rem;
+    font-family: inherit;
+    border: 1px solid #E6E4E4;
+    background-color: #fafafa;
+    padding: 0.2rem 1rem;
+    font-weight: 600;
+  }
+
+  &__select {
+    height: 2rem;
+    font-family: inherit;
+    border: 1px solid #E6E4E4;
+    background-color: #fafafa;
+    padding: 0.2rem 1rem;
+    font-weight: 600;
+    width: 100%;
+    margin-bottom: 1rem;
+
+    &:focus {
+      outline-color: #52489C;
+      color: $primary-black;
+      border-radius: 0;
+    }
+  }
+
+  &__add-button {
+    @include baseLink;
+    width: 10rem;
+    color: #ffffff;
+    background-color: #52489C;
+    margin-left: 0.8rem;
+    border: none;
+
+    &:hover {
+      background-color: #ffffff;
+      color: #52489C;
+      border: 1px solid #52489C;
+    }
+
+    &__cancel {
+      @include baseLink;
+      color: #52489C;
+      background-color: #ffffff;
+      border: 1px solid #52489C;
+
+      &:hover {
+        color: #ffffff;
+        background-color: #52489C;
+      }
+    }
+  }
+
   &__header {
     @include h2;
     padding: 2rem 2rem 1rem 2rem;

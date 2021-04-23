@@ -10,7 +10,7 @@ const MainPage = ({ handleLogin }) => {
 
             <div className="mainPage__image-overlay">
                 <h1 className="mainPage__heading">Party Agile</h1>
-                <p className="mainPage__sub-heading">Allow us to keep your events organize.</p>
+                <p className="mainPage__sub-heading">Allow us to keep your events organized</p>
             </div>
           </div>
           <div className="mainPage__content">

@@ -5,7 +5,7 @@ import axios from 'axios'
 import {url} from '../../config'
 import { useHistory} from 'react-router-dom'
 
-const LoginForm = ({ handleLogin }) => {
+const LoginForm = ({ handleLogin, handleRegister }) => {
   const [success, setSuccess] = useState(true)
   const { register, handleSubmit, formState: { errors }} = useForm();
   const history = useHistory()
@@ -37,7 +37,9 @@ const LoginForm = ({ handleLogin }) => {
         <input className="logIn-form__input" type="password" autoComplete="off" {...register("password", { required: true})}/>
         {errors.password &&( <p className="logIn-form__error">You must enter password</p>)}
         {!success &&( <p className="logIn-form__error">User not found, please try again</p>)}
+        <button className="logIn-form__button" >No account? Create one!</button>
         <input className="logIn-form__submit" type="submit" value="Log In"/>
+
       </form>
     </>
   )

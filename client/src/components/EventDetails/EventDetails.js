@@ -14,6 +14,7 @@ const EventDetails = ({ eventItem, user }) => {
   useEffect(()=> {
     if(eventId){
       axios.get(`${url}events/${eventId}/vendors`).then(response =>{
+        console.log(response.data)
         setVendors(response.data)
       })
     }

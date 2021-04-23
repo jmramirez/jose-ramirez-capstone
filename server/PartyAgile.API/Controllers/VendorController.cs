@@ -27,10 +27,10 @@ namespace PartyAgile.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{id:guid}")]
-        public async Task<IActionResult> GetById(Guid id)
+        [HttpGet("{vendorId:guid}/{eventId:guid}")]
+        public async Task<IActionResult> GetById(Guid vendorId, Guid eventId)
         {
-            var result = await _vendorService.GetVendorAsync(new GetVendorRequest { Id = id}  );
+            var result = await _vendorService.GetVendorAsync(new GetVendorEventRequest { EventId = eventId, VendorId = vendorId });
             return Ok(result);
         }
 
@@ -41,6 +41,13 @@ namespace PartyAgile.API.Controllers
             return CreatedAtAction(nameof(GetById), new { id = result.Id }, null);
         }
 
+        [HttpPost("event")]
+        public async Task<IActionResult> Post(AssignVendorRequest request)
+        {
+            var result = await _vendorService.AssignAsync(request);
+            return Ok(result);
+        }
+
         [HttpPut("{id:guid}")]
         public async Task<IActionResult> Put(Guid id, EditVendorRequest request)
         {
@@ -49,5 +56,14 @@ namespace PartyAgile.API.Controllers
 
             return Ok(result);
         }
+
+        [HttpPut("eventVendor")]
+        public async Task<IActionResult> Put(EditVendorEvent request)
+        {
+            var result = await _vendorService.EditVendorEventAsync(request);
+            return Ok(result);
+        }
+
+
     }
 }

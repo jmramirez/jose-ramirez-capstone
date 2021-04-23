@@ -14,9 +14,12 @@ namespace PartyAgile.Domain.Services
     public interface IVendorService
     {
         Task<IEnumerable<VendorResponse>> GetVendorsAsync();
-        Task<VendorResponse> GetVendorAsync(GetVendorRequest request);
+        Task<VendorResponse> GetVendorAsync(GetVendorEventRequest request);
         Task<VendorResponse> AddVendorAsync(AddVendorRequest request);
+
+        Task<VendorEventResponse> AssignAsync(AssignVendorRequest request);
         Task<VendorResponse> EditVendorAsync(EditVendorRequest request);
+        Task<VendorEventResponse> EditVendorEventAsync(EditVendorEvent request);
     }
     public class VendorService : IVendorService
     {
@@ -24,13 +27,16 @@ namespace PartyAgile.Domain.Services
         private readonly IEventRepository _eventRepository;
         private readonly IVendorEventRepository _vendorEventRepository;
         private readonly IVendorMapper _vendorMapper;
+        private readonly IVendorEventMapper _vendorEventMapper;
 
-        public VendorService(IVendorMapper vendorMapper, IVendorRepository vendorRepository, IEventRepository eventRepository, IVendorEventRepository vendorEventRepository)
+
+        public VendorService(IVendorMapper vendorMapper, IVendorRepository vendorRepository, IEventRepository eventRepository, IVendorEventRepository vendorEventRepository, IVendorEventMapper vendorEventMapper)
         {
             _vendorRepository = vendorRepository;
             _vendorMapper = vendorMapper;
             _vendorEventRepository = vendorEventRepository;
             _eventRepository = eventRepository;
+            _vendorEventMapper = vendorEventMapper;
         }
 
         public async Task<IEnumerable<VendorResponse>> GetVendorsAsync()
@@ -39,11 +45,11 @@ namespace PartyAgile.Domain.Services
             return result.Select(x => _vendorMapper.Map(x));
         }
 
-        public async Task<VendorResponse> GetVendorAsync(GetVendorRequest request)
+        public async Task<VendorResponse> GetVendorAsync(GetVendorEventRequest request)
         {
-            if (request?.Id == null) throw new ArgumentNullException();
+            if (request?.VendorId == null) throw new ArgumentNullException();
 
-            var entity = await _vendorRepository.GetAsync(request.Id);
+            var entity = await _vendorRepository.GetAsync( request.EventId, request.VendorId);
             return _vendorMapper.Map(entity);
         }
 
@@ -66,15 +72,52 @@ namespace PartyAgile.Domain.Services
 
         public async Task<VendorResponse> EditVendorAsync(EditVendorRequest request)
         {
-            var existingVendor = await _vendorRepository.GetAsync(request.Id);
+            //var existingVendor = await _vendorRepository.GetAsync(request.Id);
 
-            if(existingVendor == null) throw new ArgumentException($"Entity with {request.Id} is not present");
+          //  if(existingVendor == null) throw new ArgumentException($"Entity with {request.Id} is not present");
 
             var entity = _vendorMapper.Map(request);
             var result = _vendorRepository.Update(entity);
 
             await _vendorRepository.UnitOfWork.SaveChangesAsync();
+
+            var vendorEvent = new VendorEvent { 
+                EventId = request.EventId, 
+                VendorId = request.Id ,
+                DepositPaid = new Price { Amount = request.DepositPaid.Amount, Currency = request.DepositPaid.Currency },
+                Budget = new Price { Amount = request.Budget.Amount, Currency = request.Budget.Currency },
+            };
+
+            _vendorEventRepository.Update(vendorEvent);
+            await _vendorEventRepository.UnitOfWork.SaveChangesAsync();
+
+
             return _vendorMapper.Map(result);
+        }
+
+        public async Task<VendorEventResponse> EditVendorEventAsync(EditVendorEvent request)
+        {
+            
+
+            var entity = _vendorEventMapper.Map(request);
+            var result = _vendorEventRepository.Update(entity);
+
+            await _vendorEventRepository.UnitOfWork.SaveChangesAsync();
+
+            
+
+            return _vendorEventMapper.Map(result);
+        }
+
+
+
+        public async Task<VendorEventResponse> AssignAsync(AssignVendorRequest request)
+        {
+            var vendorItem = _vendorEventMapper.MapRequest(request);
+            var result = _vendorEventRepository.Add(vendorItem);
+            await _vendorEventRepository.UnitOfWork.SaveChangesAsync();
+
+            return _vendorEventMapper.Map(result);
         }
     }
 }

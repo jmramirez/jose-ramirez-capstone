@@ -35,5 +35,11 @@ namespace PartyAgile.Infrastructure.Repositories
 
             return item;
         }
+
+        public VendorEvent Update(VendorEvent vendorItem)
+        {
+            _context.Entry(vendorItem).State = EntityState.Modified;
+            return vendorItem;
+        }
     }
 }

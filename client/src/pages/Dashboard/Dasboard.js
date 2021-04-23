@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import  { url } from '../../config'
 import EventDetails from '../../components/EventDetails/EventDetails'
 import {useHistory} from 'react-router-dom'
+import {VendorsSelect} from '../../components/VendorsSelect/VendorsSelect'
 
 
 export const Dashboard = ({match, handleLogout, user}) => {
@@ -32,11 +33,10 @@ export const Dashboard = ({match, handleLogout, user}) => {
         axios.get(`${url}events/${eventId}/eventvendor`).then(response =>{
           setEventSelected(response.data)
           setEventLoading(false)
-          console.log(response)
         })
       }
     }
-  }, [eventId])
+  }, [eventId, role])
 
   /*useEffect(()=> {
     if(eventId){
@@ -53,11 +53,33 @@ export const Dashboard = ({match, handleLogout, user}) => {
     history.push('/')
   }
 
+
+
   return(
     <div className="dashboard">
-      <button onClick={logOut}/>
+      {/*<div className="dashboard__user">
+        <div className="dashboard__user__user_info">
+          <div className="dashboard__top">
+            <h3 className="event__heading">Hello: {user && user.name}</h3>
+            <button onClick={logOut} className="add-vendor__add-button">Log Out</button>
+          </div>
+
+        </div>
+      </div>*/}
       <div className="dashboard-content">
-        { !eventId? <p>No event id</p> : (eventLoading? <p>Loading</p> : <EventDetails eventItem={eventSelected} user={user} />) }
+        <div className="dashboard__user">
+          <div className="dashboard__user__user_info">
+            <div className="dashboard__top">
+              <h3 className="event__heading">Hello: {user && user.name}</h3>
+              <button onClick={logOut} className="add-vendor__add-button">Log Out</button>
+            </div>
+
+          </div>
+        </div>
+        { !eventId?
+          ''
+          :
+          (eventLoading? <p>Loading</p> : <EventDetails eventItem={eventSelected} user={user} />) }
       </div>
     </div>
   )
