@@ -31,6 +31,7 @@ namespace PartyAgile.Infrastructure
             modelBuilder.ApplyConfiguration(new TaskEntitySchemaDefinition());
             modelBuilder.ApplyConfiguration(new CommentEntitySchemaDefinition());
             modelBuilder.ApplyConfiguration(new VendorEventEntitySchemaDefinition());
+            modelBuilder.ApplyConfiguration(new RolesSchemaDefinition());
             base.OnModelCreating(modelBuilder);
         }
 

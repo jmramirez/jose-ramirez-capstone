@@ -14,7 +14,6 @@ namespace PartyAgile.API.Extensions
         public static IServiceCollection AddPADbContext(this IServiceCollection services, string connectionString)
         {
             return services
-                .AddEntityFrameworkSqlServer()
                 .AddDbContext<PartyAgileDbContext>(opt =>
                 {
                     opt.UseSqlServer(
