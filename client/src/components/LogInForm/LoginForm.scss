@@ -51,19 +51,7 @@
   }
 
   &__submit {
+    @include default_link($primary-purple, $secondary-purple);
     margin-top: 1.5rem;
-    height: 2.3rem;
-    color: $primary-white;
-    background-color: #52489C;
-    font-size: .9rem;
-    border: none;
-    cursor: pointer;
-    transition: all .1s ease-in-out;
-    border-radius: 6px;
-
-    &:hover {
-      background: #8179b3;
-      border: 1px solid #52489C;
-    }
   }
 }
