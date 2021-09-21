@@ -47,9 +47,15 @@ namespace PartyAgile.API.Controllers
         [HttpPost]
         public async Task<IActionResult> SignUp(SignUpRequest request)
         {
-            var user = await _userService.SignUpAsync(request);
+            var user = await _userService.GetUserAsync(new GetUserRequest { Email = request.Email });
+
+            if (user != null)
+                return BadRequest(new { message = "An user with that email address already exists!" });
+
+            user = await _userService.SignUpAsync(request);
             if (user == null) return BadRequest();
-            return CreatedAtAction(nameof(Get), new { }, null);
+            var token = await _userService.SignInAsync(new SignInRequest { Email = user.Email, Password = request.Password });
+            return Ok(token);
         }
     }
 }
