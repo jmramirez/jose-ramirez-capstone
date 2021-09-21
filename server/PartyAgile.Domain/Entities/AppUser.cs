@@ -9,8 +9,5 @@ namespace PartyAgile.Domain.Entities
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        
-        public Guid VendorId { get; set; }
-        
     }
 }

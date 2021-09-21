@@ -37,21 +37,12 @@ namespace PartyAgile.Domain.Services
         {
             var response = await _userRepository.GetByEmailAsync(request.Email, cancellationToken);
 
-            var vendorId = response.VendorId.CompareTo(Guid.Parse("00000000-0000-0000-0000-000000000000"));
+            if (response == null) return null;
 
-            var role = "";
+            var roles = await _userRepository.GetRoles(request.Email);
+            var role = roles.First();
 
-            if(vendorId == 1)
-            {
-                role = "Vendor";
-            }
-
-            if(vendorId == 0)
-            {
-                role = "Planer";
-            }
-
-            return new UserResponse { Id = response.Id, Name = $"{response.FirstName} {response.LastName}", Email = response.Email, VendorId = response.VendorId, Role = role };
+            return new UserResponse { Id = response.Id, Name = $"{response.FirstName} {response.LastName}", Email = response.Email, Role = role };
         }
 
         public async Task<UserResponse> SignUpAsync(SignUpRequest request, CancellationToken cancellationToken)
