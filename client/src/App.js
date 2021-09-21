@@ -119,7 +119,8 @@ export const App = () => {
       <BrowserRouter>
         {authenticated &&   <Sidebar events={events} user={user} />}
         <Switch>
-          <Route path="/login" render={(routerProps) => <MainPage {...routerProps}  handleLogin={handleLogin} handleLogout={handleLogout} user={user} />} />
+          <Route path="/login" render={(routerProps) => <MainPage {...routerProps}  handleLogin={handleLogin} handleLogout={handleLogout} user={user} action='signin'/>} />
+          <Route path="/signup" render={(routerProps) => <MainPage {...routerProps}  handleLogin={handleLogin} handleLogout={handleLogout} user={user} action='signup' />} />
           <PrivateRoute path="/event/add" render={(routerProps) => <EventForm {...routerProps} action="add"  handleUpdate={handleUpdate} handleLogout={handleLogout} user={user}  />} />
           {/*<Route path="/event/add" render={(routerProps) => <EventForm {...routerProps} action="add"  handleUpdate={handleUpdate} />}/>*/}
           <PrivateRoute path="/event/edit/:eventId" render={(routerProps) => <EventForm {...routerProps} action="edit" handleUpdate={handleUpdate} handleLogout={handleLogout} user={user} />} />
