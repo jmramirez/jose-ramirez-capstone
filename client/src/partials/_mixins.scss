@@ -1,5 +1,17 @@
 @use './variables' as *;
 
+@mixin tablet {
+  @media (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: 1280px) {
+    @content;
+  }
+}
+
 @mixin h1 {
   font-size: 2rem;
   font-family: $heading-font;

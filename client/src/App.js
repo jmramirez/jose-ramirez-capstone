@@ -9,6 +9,8 @@ import EventForm from './pages/EventForm/EventForm'
 import VendorForm from './pages/VendorForm/VendorForm'
 import {useEffect, useState} from 'react'
 import PrivateRoute from './components/PrivateRoutes/PrivateRoutes'
+import {EventsPage} from './pages/EventsPage/EventsPage';
+import {Header} from './components/Header/Header';
 
 export const App = () => {
   const [events, setEvents ] = useState([])
@@ -117,8 +119,10 @@ export const App = () => {
   return(
     <div className="App">
       <BrowserRouter>
-        {authenticated &&   <Sidebar events={events} user={user} />}
+        <Header />
+        {/*{authenticated &&   <Sidebar events={events} user={user} />}*/}
         <Switch>
+          <Route exact path="/" component={EventsPage} />
           <Route path="/login" render={(routerProps) => <MainPage {...routerProps}  handleLogin={handleLogin} handleLogout={handleLogout} user={user} action='signin'/>} />
           <Route path="/signup" render={(routerProps) => <MainPage {...routerProps}  handleLogin={handleLogin} handleLogout={handleLogout} user={user} action='signup' />} />
           <PrivateRoute path="/event/add" render={(routerProps) => <EventForm {...routerProps} action="add"  handleUpdate={handleUpdate} handleLogout={handleLogout} user={user}  />} />
@@ -131,7 +135,8 @@ export const App = () => {
           {/*<Route path="/vendor/edit/:vendorId/:eventId" render={(routerProps) => <VendorForm {...routerProps}  action="Edit"  handleUpdate={handleUpdate} />}/>*/}
           <PrivateRoute path="/getevent/:id" render={(routerProps) => <Dashboard {...routerProps} handleLogout={handleLogout} user={user} />}/>
           {/*<Route path="/getevent/:id" render={(routerProps) => <Dashboard {...routerProps} />}/>*/}
-          <PrivateRoute path="/" render={(routerProps) => <Dashboard {...routerProps} handleLogout={handleLogout} user={user}/>}/>
+          {/*<PrivateRoute path="/" render={(routerProps) => <Dashboard {...routerProps} handleLogout={handleLogout} user={user}/>}/>*/}
+
 
         </Switch>
       </BrowserRouter>
