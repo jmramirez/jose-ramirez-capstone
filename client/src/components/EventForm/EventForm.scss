@@ -1,19 +1,36 @@
 @use "../../partials/mixins" as *;
 @use "../../partials/variables" as *;
 
-.add-event {
+.eventsForm {
   margin: 12.25rem auto 0 auto;
-  width: 50rem;
   background-color: $primary-white;
   box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 8%);
   border-radius: 6px;
   border-top: 0.25rem solid #52489C;
   padding: 0.1rem;
+  min-width: 18rem;
+
+  @include tablet{
+    width: 50rem;
+  }
 
   &__header {
     @include h2;
     padding: 2rem 2rem 1rem 2rem;
     border-bottom: 1px solid #ecf3fa;
+  }
+
+  &__error {
+    font-size: .72rem;
+    font-weight: 600;
+    color: red;
+    margin-top: .3rem;
+    display: flex;
+    align-items: center;
+
+    &-icon {
+      font-size: 0.9rem;
+    }
   }
 
   &__form {
@@ -24,10 +41,16 @@
 
     &-row {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      margin-bottom: .7rem;
+
+      @include tablet {
+        justify-content: space-between;
+        flex-direction: row;
+      }
     }
 
-    &__controls {
+    &-controls {
       display: flex;
       flex-direction: column;
       width: 40%;
@@ -35,6 +58,25 @@
       &--text {
         display: flex;
         flex-direction: column;
+      }
+    }
+
+    &-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 1rem;
+
+      &__link {
+        @include default_link($secondary-purple, $primary-purple);
+        width: 8rem;
+      }
+
+      &__button {
+        @include default_link($primary-purple, $secondary-purple);
+        font: inherit;
+        width: 11rem;
+        margin-left: 1rem;
+        cursor: pointer;
       }
     }
 
@@ -50,7 +92,7 @@
       border: 1px solid #E6E4E4;
       background-color: #fafafa;
       padding: 0.2rem 1rem;
-      font-weight: 600;
+      width: 100%;
 
       &:focus {
         outline-color: #52489C;
@@ -130,6 +172,31 @@
       display: flex;
       justify-content: flex-end;
       margin-top: 1rem;
+    }
+
+    .react-datepicker {
+      border: 1px solid #E6E4E4;
+      width: 100%;
+      height: auto;
+
+      &__header {
+        background-color: $primary-white;
+      }
+
+      &__day--selected {
+        background-color: #52489C;
+        border-radius: 0;
+
+        &:hover {
+          background-color: #52489C;
+          border-radius: 0;
+        }
+      }
+
+      &__day--keyboard-selected {
+        background-color: #52489C;
+        border-radius: 0;
+      }
     }
   }
 }
