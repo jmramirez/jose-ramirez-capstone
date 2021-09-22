@@ -33,7 +33,7 @@ namespace PartyAgile.Infrastructure.Repositories
         public async Task<bool> SignUpAsync(AppUser user, string password, CancellationToken cancellation)
         {
             var result = await _userManager.CreateAsync(user, password);
-            await _userManager.AddToRoleAsync(user, "Planer");
+            await _userManager.AddToRoleAsync(user, "Planner");
             return result.Succeeded;
         }
 
