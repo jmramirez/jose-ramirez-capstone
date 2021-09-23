@@ -2,7 +2,7 @@
 @use "../../partials/variables" as *;
 
 .eventsForm {
-  margin: 3rem 1rem 0 1rem;
+  margin: 3rem 1rem 2rem 1rem;
   background-color: $primary-white;
   box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 8%);
   border-radius: 6px;
@@ -12,6 +12,10 @@
 
   @include tablet{
     width: 50rem;
+    margin: 11rem 1.5rem 2rem 1.5rem;
+  }
+
+  @include desktop {
     margin: 12.25rem auto 0 auto;
   }
 
