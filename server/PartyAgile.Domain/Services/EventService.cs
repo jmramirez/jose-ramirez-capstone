@@ -17,7 +17,7 @@ namespace PartyAgile.Domain.Services
         Task<EventResponse> GetEventAsync(GetEventRequest request);
         Task<EventWithVendorsReponse> GetEventWithVendorsAsync(GetEventRequest request);
         Task<IEnumerable<VendorWithTaskResponse>> GetVendorsEventAsync(GetEventRequest request);
-        Task<EventResponse> AddEventAsync(AddEventRequest request);
+        Task<EventResponse> AddEventAsync(AddEventRequest request, string username);
         Task<EventResponse> EditEventAsync(EditEventRequest request);
         Task<IEnumerable<EventResponse>> GetEventsByVendorIdAsync(GetVendorRequest request);
         Task<VendorEventResponse> GetEventVendorByEventId(GetEventRequest request);
@@ -30,14 +30,16 @@ namespace PartyAgile.Domain.Services
         private readonly IEventRepository _eventRepository;
         private readonly IVendorEventMapper _vendorEventMapper;
         private readonly IVendorEventRepository _vendorEventRepository;
+        private readonly IUserRepository _userRepository;
 
-        public EventService(IEventRepository eventRepository, IEventMapper eventMapper, IVendorMapper vendorMapper, IVendorEventRepository vendorEventRepository, IVendorEventMapper vendorEventMapper)
+        public EventService(IEventRepository eventRepository, IEventMapper eventMapper, IVendorMapper vendorMapper, IVendorEventRepository vendorEventRepository, IVendorEventMapper vendorEventMapper, IUserRepository userRepository)
         {
             _eventMapper = eventMapper;
             _eventRepository = eventRepository;
             _vendorMapper = vendorMapper;
             _vendorEventMapper = vendorEventMapper;
             _vendorEventRepository = vendorEventRepository;
+            _userRepository = userRepository;
         }
 
         public async Task<IEnumerable<EventResponse>> GetEventsAsync()
@@ -86,9 +88,12 @@ namespace PartyAgile.Domain.Services
             return result;
         }
 
-        public async Task<EventResponse> AddEventAsync(AddEventRequest request)
+        public async Task<EventResponse> AddEventAsync(AddEventRequest request, string username)
         {
+            var user = await _userRepository.GetByEmailAsync(username);
             var eventItem = _eventMapper.Map(request);
+            eventItem.CreatorId = user.Id;
+            eventItem.CreatorName = user.FirstName + ' ' + user.LastName;
             eventItem.CreatedAt = DateTimeOffset.UtcNow;
             var result = _eventRepository.Add(eventItem);
             await _eventRepository.UnitOfWork.SaveChangesAsync();

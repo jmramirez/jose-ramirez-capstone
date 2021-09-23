@@ -67,7 +67,7 @@ namespace PartyAgile.API.Controllers
         public async Task<IActionResult> Post(AddEventRequest request)
         {
             var username = HttpContext.User.Identity.Name;
-            var result = await _eventService.AddEventAsync(request);
+            var result = await _eventService.AddEventAsync(request, username);
             return CreatedAtAction(nameof(GetById), new { id = result.Id }, null);
         }
 
