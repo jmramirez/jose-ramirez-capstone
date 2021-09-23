@@ -37,7 +37,7 @@ namespace PartyAgile.Domain.Mappers
                 Title = request.Title,
                 Description = request.Description,
                 EventDate = request.EventDate,
-                Guests = request.Guets
+                Guests = request.Guests
             };
 
             if(request.Budget != null)

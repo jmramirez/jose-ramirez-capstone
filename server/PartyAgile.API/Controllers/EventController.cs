@@ -7,10 +7,11 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using PartyAgile.Domain.Requests.Vendor;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PartyAgile.API.Controllers
 {
-
+    [Authorize]
     [Route("api/events")]
     [ApiController]
     public class EventController : ControllerBase
@@ -65,6 +66,7 @@ namespace PartyAgile.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(AddEventRequest request)
         {
+            var username = HttpContext.User.Identity.Name;
             var result = await _eventService.AddEventAsync(request);
             return CreatedAtAction(nameof(GetById), new { id = result.Id }, null);
         }
