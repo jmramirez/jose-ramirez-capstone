@@ -44,12 +44,12 @@ const RegisterForm = ({ handleLogin }) => {
       <h2 className="signUp-form__heading">Sign In</h2>
       <form className="signUp-form" onSubmit={handleSubmit(onSubmit)}>
         <div className="signUp-form__fullName">
-          <div>
+          <div className="signUp-form__fullName__section">
             <label className="signUp-form__label">First Name</label>
             <input type="text" className="signUp-form__input" {...register("firstName", { required: true })}/>
             {errors.firstName && (<p className="logIn-form__error">First Name is required</p>)}
           </div>
-          <div>
+          <div className="signUp-form__fullName__section">
             <label className="signUp-form__label">Last Name</label>
             <input type="text" className="signUp-form__input" {...register("lastName", { required: true })}/>
             {errors.lastName && (<p className="logIn-form__error">Last Name is required</p>)}

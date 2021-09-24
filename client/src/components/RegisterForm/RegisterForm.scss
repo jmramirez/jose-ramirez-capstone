@@ -13,8 +13,23 @@
 
   &__fullName {
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
     padding-top: 1rem;
+
+    @include tablet {
+      flex-direction: row;
+    }
+
+    &__section {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      @include tablet {
+        width: 49%;
+      }
+    }
   }
 
   &__label {
