@@ -32,6 +32,17 @@ namespace PartyAgile.Infrastructure.Repositories
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<Event>> GetEventsByUserIdAsync(Guid id)
+        {
+            var now = new DateTimeOffset(DateTime.Today);
+            return await _context
+                .Events
+                .Where(x => x.CreatorId == id)
+                .Where(x => x.EventDate.CompareTo(now) > 0)
+                .ToListAsync();
+
+        }
+
         //Method to get an Event by id
         public async Task<Event> GetAsync(Guid id)
         {
@@ -41,6 +52,8 @@ namespace PartyAgile.Infrastructure.Repositories
 
             return eventItem;
         }
+
+        
 
         public async Task<Event> GetEventWithVendorsAsync(Guid id)
         {

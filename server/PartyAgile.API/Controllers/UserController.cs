@@ -34,6 +34,14 @@ namespace PartyAgile.API.Controllers
             return Ok(token);
         }
 
+        [HttpGet("events")]
+        public async Task<IActionResult> GetEventsById(Guid id)
+        {
+            var username = HttpContext.User.Identity.Name;
+            var result = await _userService.GetEventsByUserId(new GetUserRequest { Email = username });
+            return Ok(result);
+        }
+
         [AllowAnonymous]
         [HttpPost("auth")]
         public async Task<IActionResult> SignIn(SignInRequest request)

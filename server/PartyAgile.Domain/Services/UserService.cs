@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using PartyAgile.Domain.Configurations;
+using PartyAgile.Domain.Mappers;
 using PartyAgile.Domain.Repositories;
 using PartyAgile.Domain.Requests.User;
 using PartyAgile.Domain.Responses;
@@ -20,17 +21,22 @@ namespace PartyAgile.Domain.Services
         Task<UserResponse> GetUserAsync(GetUserRequest request, CancellationToken cancellationToken = default);
         Task<UserResponse> SignUpAsync(SignUpRequest request, CancellationToken cancellationToken = default);
         Task<TokenResponse> SignInAsync(SignInRequest request, CancellationToken cancellationToken = default);
+        Task<IEnumerable<EventResponse>> GetEventsByUserId(GetUserRequest request);
     }
 
     public class UserService : IUserService
     {
         private readonly AuthenticationSettings _authenticationSettings;
         private readonly IUserRepository _userRepository;
+        private readonly IEventRepository _eventRepository;
+        private readonly IEventMapper _eventMapper; 
 
-        public UserService(IUserRepository userRepository, IOptions<AuthenticationSettings> authenticationSettings)
+        public UserService(IUserRepository userRepository, IOptions<AuthenticationSettings> authenticationSettings, IEventRepository eventRepository, IEventMapper eventMapper)
         {
             _userRepository = userRepository;
             _authenticationSettings = authenticationSettings.Value;
+            _eventMapper = eventMapper;
+            _eventRepository = eventRepository;
         }
 
         public async Task<UserResponse> GetUserAsync(GetUserRequest request, CancellationToken cancellationToken)
@@ -61,6 +67,14 @@ namespace PartyAgile.Domain.Services
             return !isAuthenticated ? null : new TokenResponse { Token = GenerateSecurityToken(request) };
         }
 
+        public async Task<IEnumerable<EventResponse>> GetEventsByUserId(GetUserRequest request)
+        {
+            if (request == null) throw new ArgumentNullException();
+            var user = await _userRepository.GetByEmailAsync(request.Email);
+            var result = await _eventRepository.GetEventsByUserIdAsync(user.Id);
+            return result.Select(x => _eventMapper.Map(x));
+        }
+
         private string GenerateSecurityToken(SignInRequest request)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -70,10 +84,9 @@ namespace PartyAgile.Domain.Services
                 Subject = new ClaimsIdentity(new[]
                 {
                     new Claim(ClaimTypes.Email, request.Email),
+                    new Claim(ClaimTypes.Name, request.Email),
                     new Claim(ClaimTypes.Role, "Planer")
                 }),
-                
-                
 
                 Expires = DateTime.UtcNow.AddDays(_authenticationSettings.ExpirationDays),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
