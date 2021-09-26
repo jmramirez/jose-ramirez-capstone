@@ -69,10 +69,11 @@
 
     @include tablet {
       padding: 1.5rem;
+      flex-direction: row;
+      flex-wrap: wrap;
     }
 
     @include desktop {
-      flex-direction: row;
       padding: 2rem;
     }
 
@@ -80,6 +81,10 @@
       font-size: 1.1rem;
       width: 100%;
       margin-bottom: .8rem;
+
+      @include tablet {
+        width: 50%;
+      }
 
       @include desktop {
         width: 24%;
@@ -90,6 +95,10 @@
         font-size: 1.1rem;
         width: 100%;
         margin-bottom: .8rem;
+
+        @include tablet {
+          width: 50%;
+        }
 
         @include desktop {
           width: 21%;
@@ -102,6 +111,10 @@
         width: 100%;
         line-height: 1.5rem;
         margin-bottom: .8rem;
+
+        @include tablet {
+          width: 50%;
+        }
 
         @include desktop {
           width: 31%;
