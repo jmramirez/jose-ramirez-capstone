@@ -41,35 +41,72 @@
 
   &__header {
     @include h3;
-    padding: 1rem 2rem;
+    padding: 1rem 1rem;
     text-decoration: none;
     color: $primary-black;
     transition: all .3s ease-in-out;
+
+    @include tablet {
+      padding: 1rem 1.5rem;
+    }
+
+    @include desktop {
+      padding: 1rem 2rem;
+    }
+
     &:hover {
       color: #515FFF;
     }
   }
 
   &__content {
-    padding: 2rem;
+    padding: 1rem 1rem 0.2rem 1rem;
     border-top: 1px solid #ECF3F4;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-direction: column;
+
+    @include tablet {
+      padding: 1.5rem;
+    }
+
+    @include desktop {
+      flex-direction: row;
+      padding: 2rem;
+    }
 
     &__text {
       font-size: 1.1rem;
-      width: 24%;
+      width: 100%;
+      margin-bottom: .8rem;
+
+      @include desktop {
+        width: 24%;
+        margin-bottom: 0;
+      }
 
       &--date {
         font-size: 1.1rem;
-        width: 21%;
+        width: 100%;
+        margin-bottom: .8rem;
+
+        @include desktop {
+          width: 21%;
+          margin-bottom: 0;
+        }
       }
 
       &--description {
         font-size: 1.1rem;
-        width: 31%;
+        width: 100%;
         line-height: 1.5rem;
+        margin-bottom: .8rem;
+
+        @include desktop {
+          width: 31%;
+          margin-bottom: 0;
+        }
       }
     }
 
