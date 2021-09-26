@@ -1,6 +1,7 @@
 @use '../../partials/mixins' as *;
 @use '../../partials/variables' as *;
 
+/*
 .event-item {
   text-decoration: none;
   color: #ffffff;
@@ -15,5 +16,66 @@
   &-date {
     @include p;
     margin-top: 0.3rem;
+  }
+}*/
+
+
+.eventItem {
+  width: 100%;
+  background-color: $primary-white;
+  margin-bottom: 2rem;
+  border-top: .25rem solid $primary-purple;
+  border-radius: 6px;
+  display: flex;
+  transition: all .3s ease-in-out;
+  color: $primary-black;
+  flex-direction: column;
+  border-left: 1px solid #ECF3F4;
+  border-right: 1px solid #ECF3F4;
+  border-bottom: 1px solid #ECF3F4;
+
+  &:hover {
+    border-top-color: #515FFF;
+    box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 8%);
+  }
+
+  &__header {
+    @include h3;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    color: $primary-black;
+    transition: all .3s ease-in-out;
+    &:hover {
+      color: #515FFF;
+    }
+  }
+
+  &__content {
+    padding: 2rem;
+    border-top: 1px solid #ECF3F4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__text {
+      font-size: 1.1rem;
+      width: 24%;
+
+      &--date {
+        font-size: 1.1rem;
+        width: 21%;
+      }
+
+      &--description {
+        font-size: 1.1rem;
+        width: 31%;
+        line-height: 1.5rem;
+      }
+    }
+
+    &__label {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
   }
 }
