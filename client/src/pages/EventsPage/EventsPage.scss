@@ -1,0 +1,15 @@
+@use '../../partials/variables' as *;
+@use "../../partials/mixins" as *;
+
+.events {
+  min-width: 18rem;
+
+  @include desktop {
+    max-width: 67.7rem;
+    margin: 0 auto;
+  }
+
+  &-content {
+    margin-top: 4rem;
+  }
+}
