@@ -1,0 +1,45 @@
+@use '../../partials/variables' as *;
+@use '../../partials/mixins' as *;
+
+.pageHeader {
+  width: 100%;
+  margin: 3.5rem auto 0 auto;
+  border-top: 0.25rem solid $primary-purple;
+  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 8%);
+  border-radius: 6px;
+  background-color: $primary-white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 18rem;
+
+  @include tablet {
+    padding: 1rem 3rem;
+    margin: 8rem auto 0 auto;
+  }
+
+
+  &-heading {
+    @include h1
+
+  }
+
+  &__actions-link {
+    @include default_link($primary-purple, $secondary-purple);
+    padding: 0.3rem 0.3rem;
+
+    @include tablet{
+      width: 13rem;
+      padding: 0.5rem 0;
+    }
+
+    &__text {
+      display: none;
+
+      @include tablet{
+        display: flex;
+      }
+    }
+  }
+}
