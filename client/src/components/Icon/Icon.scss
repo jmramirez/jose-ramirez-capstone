@@ -1,4 +1,10 @@
+@use "../../partials/mixins" as *;
+@use "../../partials/variables" as *;
+
 .icon {
   font-size: 1.3rem;
-  margin-right: 0.2rem;
+
+  @include tablet {
+    margin-right: 0.2rem;
+  }
 }
