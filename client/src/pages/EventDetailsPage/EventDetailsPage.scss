@@ -1,0 +1,101 @@
+@use '../../partials/variables' as *;
+@use '../../partials/mixins' as *;
+
+.event {
+  min-width: 18rem;
+  margin: 0 1rem;
+
+  @include tablet {
+    margin: 0 1.5rem;
+  }
+
+  @include desktop {
+    max-width: 67.7rem;
+    margin: 0 auto;
+  }
+
+  &-header {
+    @include basic_header;
+
+    &__heading {
+      @include h1;
+    }
+
+    &__action {
+      display: flex;
+
+      &__links {
+        @include default_link($primary-purple, $secondary-purple);
+        padding: 0.3rem 0.3rem;
+
+        @include tablet {
+          width: 10rem;
+          padding: 0.5rem 0;
+        }
+
+        &:last-of-type {
+          margin-left: 0.5rem;
+        }
+      }
+    }
+  }
+
+  &-details {
+    margin-top: 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 8%);
+
+    @include desktop {
+      box-shadow: none;
+    }
+
+
+    &__item {
+      background-color: $primary-white;
+      width: 100%;
+      height: 8rem;
+      border-top: 0.25rem solid #52489C;
+
+      &:first-of-type {
+        border-bottom-left-radius: 6px;
+        border-top-left-radius: 6px;
+      }
+
+      &:last-of-type {
+        border-bottom-right-radius: 6px;
+        border-top-right-radius: 6px;
+      }
+
+
+      @include desktop {
+        box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 8%);
+        width: 14rem;
+        border-radius: 6px;
+      }
+
+      &__heading {
+        @include h2;
+        padding: 1rem 2rem;
+        font-size: 1.2rem;
+      }
+
+      &__content {
+        display: flex;
+        height: 50%;
+        align-items: center;
+
+        &-text {
+          @include h3;
+          padding: 1rem 2rem;
+          font-size: 1.5rem;
+          font-weight: 700;
+
+          &--red {
+            color: red;
+          }
+        }
+      }
+    }
+  }
+}
