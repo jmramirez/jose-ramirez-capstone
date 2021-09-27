@@ -1,5 +1,6 @@
 import './EventItem.scss'
 import {Link} from 'react-router-dom'
+import {Icon} from '../Icon/Icon';
 
 /*
 export const EventItem = ({ event }) => (
@@ -12,7 +13,7 @@ export const EventItem = ({ event }) => (
 
 export const EventItem = ({ event }) => (
   <div className="eventItem">
-    <Link to="/" className="eventItem__header">{event.title}</Link>
+    <Link to={`/events/${event.id}`} className="eventItem__header"><p className="eventItem__header__text">{event.title}</p> <Icon name="trending_flat" /></Link>
     <div className="eventItem__content">
       <p className="eventItem__content__text--description"><span className="eventItem__content__label">Description: </span>{event.description}</p>
       <p className="eventItem__content__text--date"><span className="eventItem__content__label">Event Date: </span>{new Date(event.eventDate).toLocaleDateString()}</p>

@@ -16,9 +16,42 @@
 
   &-header {
     @include basic_header;
+    padding: 1rem .5rem;
 
-    &__heading {
-      @include h1;
+    @include tablet {
+      padding: 1rem 1rem;
+    }
+
+    &__top {
+      display: flex;
+      align-items: center;
+
+      &__button {
+        border-radius: 2.5rem;
+        padding: 0.2rem 0.2rem 0.2rem 0.1rem;
+        display: flex;
+        align-items: center;
+        color: $primary-white;
+        background-color: $secondary-purple;
+        border: none;
+        cursor: pointer;
+
+        @include tablet {
+          padding: 0.3rem 0.2rem;
+        }
+      }
+
+      &__heading {
+        @include h1;
+        border-left: 1px solid $primary-black;
+        padding-left: 0.2rem;
+        margin-left: 0.2rem;
+
+        @include tablet{
+          padding-left: 0.5rem;
+          margin-left: 0.5rem;
+        }
+      }
     }
 
     &__action {

@@ -43,11 +43,22 @@
     @include h3;
     padding: 1rem 1rem;
     text-decoration: none;
-    color: $primary-black;
-    transition: all .3s ease-in-out;
+    color: $secondary-purple;
+    display: flex;
+    align-items: center;
+
+    &__text {
+      margin-right: 0.5rem;
+      transition: all .3s ease-in-out;
+
+      &:hover {
+        margin-right: 1rem;
+      }
+    }
 
     @include tablet {
       padding: 1rem 1.5rem;
+      font-size: 1.3rem;
     }
 
     @include desktop {
