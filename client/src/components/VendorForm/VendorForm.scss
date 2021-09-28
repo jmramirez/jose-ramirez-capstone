@@ -4,6 +4,10 @@
 .vendorForm {
   @include form_container;
 
+  &__error {
+    @include form_errors;
+  }
+
   &__header {
     @include form_header;
     display: flex;
