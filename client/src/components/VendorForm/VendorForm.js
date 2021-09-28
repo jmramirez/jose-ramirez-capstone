@@ -2,7 +2,7 @@ import { Component } from 'react'
 import  { url } from '../../config'
 
 
-import './AddVendorForm.scss'
+import './VendorForm.scss'
 import axios from 'axios'
 import {VendorsSelect} from '../VendorsSelect/VendorsSelect'
 import {useForm} from 'react-hook-form'
@@ -11,7 +11,7 @@ import {Link, useHistory} from 'react-router-dom'
 import {Icon} from '../Icon/Icon';
 
 
-export const VendorsForm = ({match , action, children, handleUpdate, user }) => {
+export const VendorForm = ({match , action, children, handleUpdate, user }) => {
   const [addNew, setAddNew] = useState(false)
   const [vendors, setVendors] = useState([])
   const [vendorId, setVendorId] = useState('')
@@ -162,38 +162,38 @@ export const VendorsForm = ({match , action, children, handleUpdate, user }) => 
           </div>
           :(
           <>
-        <div className="add-event__form-row">
-          <div className="add-event__form__controls">
-            <label className="add-event__form__label">Vendor Type</label>
-            <input className="add-event__form__input" type="text" name={'type'} {...register("type")} autoComplete="off"/>
+        <div className="vendorForm__form__row">
+          <div className="vendorForm__form__row-controls">
+            <label className="vendorForm__form__row-controls__label">Vendor Type</label>
+            <input className="vendorForm__form__row-controls__input" type="text" name={'type'} {...register("type")} autoComplete="off"/>
           </div>
-          <div className="add-event__form__controls">
-            <label className="add-event__form__label">Vendor Name</label>
-            <input className="add-event__form__input" type="text" name={'name'}  {...register("name")} autoComplete="off"/>
-          </div>
-        </div>
-        <div className="add-event__form-row">
-          <div className="add-event__form__controls">
-            <label className="add-event__form__label">Contact Name</label>
-            <input className="add-event__form__input" type="text" name={'contactName'}  {...register("contactName")} autoComplete="off"/>
-          </div>
-          <div className="add-event__form__controls">
-            <label className="add-event__form__label">Contact Email</label>
-            <input className="add-event__form__input" type="text" name={'contactEmail'} {...register("contactEmail")} autoComplete="off"/>
+          <div className="vendorForm__form__row-controls">
+            <label className="vendorForm__form__row-controls__label">Vendor Name</label>
+            <input className="vendorForm__form__row-controls__input" type="text" name={'name'}  {...register("name")} autoComplete="off"/>
           </div>
         </div>
-        <div className="add-event__form__controls--text">
-          <label className="add-event__form__label">Address</label>
-          <textarea className="add-event__form__input--text"  name={'address'}  {...register("address")} autoComplete="off" />
-        </div>
-        <div className="add-event__form-row">
-          <div className="add-event__form__controls">
-            <label className="add-event__form__label">Budget</label>
-            <input className="add-event__form__input" type="text" name={'budget'}  {...register("budget")} autoComplete="off"/>
+        <div className="vendorForm__form__row">
+          <div className="vendorForm__form__row-controls">
+            <label className="vendorForm__form__row-controls__label">Contact Name</label>
+            <input className="vendorForm__form__row-controls__input" type="text" name={'contactName'}  {...register("contactName")} autoComplete="off"/>
           </div>
-          <div className="add-event__form__controls">
-            <label className="add-event__form__label">Deposit Paid</label>
-            <input className="add-event__form__input" type="text"  name={'depositPaid'}  {...register("depositPaid")} autoComplete="off"/>
+          <div className="vendorForm__form__row-controls">
+            <label className="vendorForm__form__row-controls__label">Contact Email</label>
+            <input className="vendorForm__form__row-controls__input" type="text" name={'contactEmail'} {...register("contactEmail")} autoComplete="off"/>
+          </div>
+        </div>
+        <div className="vendorForm__form__row vendorForm__form__row--text">
+          <label className="vendorForm__form__row-controls__label">Address</label>
+          <textarea className="vendorForm__form__row-controls__inputText"  name={'address'}  {...register("address")} autoComplete="off" />
+        </div>
+        <div className="vendorForm__form__row">
+          <div className="vendorForm__form__row-controls">
+            <label className="vendorForm__form__row-controls__label">Budget</label>
+            <input className="vendorForm__form__row-controls__input" type="text" name={'budget'}  {...register("budget")} autoComplete="off"/>
+          </div>
+          <div className="vendorForm__form__row-controls">
+            <label className="vendorForm__form__row-controls__label">Deposit Paid</label>
+            <input className="vendorForm__form__row-controls__input" type="text"  name={'depositPaid'}  {...register("depositPaid")} autoComplete="off"/>
           </div>
         </div>
           </>
@@ -203,12 +203,9 @@ export const VendorsForm = ({match , action, children, handleUpdate, user }) => 
           <button className="vendorForm__form__actions__button">
             <Icon name="add" />
             {action} Vendor
-
           </button>
         </div>
-
       </form>
-
     </main>
   )
 }

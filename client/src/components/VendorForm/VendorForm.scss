@@ -1,0 +1,105 @@
+@use "../../partials/mixins" as *;
+@use "../../partials/variables" as *;
+
+.vendorForm {
+  @include form_container;
+
+  &__header {
+    @include form_header;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+
+    &__action {
+      @include default_link($primary-purple, $secondary-purple);
+      padding: 0.25rem 0.5rem;
+      font-size: 1rem;
+      display: flex;
+      justify-content: center;
+      font-family: 'Poppins', sans-serif;
+
+      @include tablet {
+        padding: 0.5rem 1rem;
+      }
+
+      &__text {
+        display: none;
+
+        @include tablet {
+          display: flex;
+        }
+      }
+    }
+  }
+
+  &__form {
+    @include form;
+
+    &__existing {
+      display: flex;
+      flex-direction: column;
+
+      &__select {
+        @include form_input;
+        margin-bottom: 1rem;
+      }
+
+      &__row {
+        @include form_controls_row;
+
+        &-controls {
+          @include form_controls;
+
+          &__label {
+            @include form_label;
+          }
+
+          &__input {
+            @include form_input;
+          }
+        }
+      }
+    }
+
+    &__row {
+      @include form_controls_row;
+
+      &--text {
+        display: flex;
+        flex-direction: column;
+      }
+
+      &-controls {
+        @include form_controls;
+
+        &__label {
+          @include form_label;
+        }
+
+        &__input {
+          @include form_input;
+        }
+
+        &__inputText {
+          @include form_input_text;
+        }
+      }
+    }
+
+    &__actions {
+      @include form_actions;
+
+      &__link {
+        @include form_link;
+      }
+
+      &__button {
+        @include form_button;
+
+        &:first-of-type {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+}
