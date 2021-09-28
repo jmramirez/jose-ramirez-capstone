@@ -17,7 +17,7 @@ const schema = yup.object().shape({
   guests: yup.number().typeError('Guests should be a valid number').min(0, "Number of guests should be greater thant 0")
 })
 
-export const EventForm = ({ action, match }) => {
+export const EventForm = ({ action, match, handleUpdate ,authenticated }) => {
   const [event, setEvent] = useState(null)
   const [ loading, setLoading ] = useState(true)
   const history = useHistory()
@@ -38,38 +38,30 @@ export const EventForm = ({ action, match }) => {
     }
   },[match.params.eventId])
 
-
-  /*componentDidMount() {
-    console.log(this.props.match)
-    if(this.props.action === "Edit"){
-      axios.get(`${url}events/${this.props.match.params.eventId}`)
-        .then(response => {
-          console.log(response.data.budget.amount)
-          this.setState({
-            eventTitle: response.data.title,
-            description: response.data.description,
-            budget: response.data.budget.amount,
-            eventDate: new Date(response.data.eventDate),
-            guestsNumber:response.data.guests,
-          })
-        })
-
-    }
-  }*/
-
-  /*handleChange = (e) => {
-    const { name, value } = e.target
-    this.setState({ [name]: value})
-  }
-
-  handleDateChange = (date) => {
-    console.log(date)
-    this.setState({
-      eventDate: date
+  const onSubmit = (data) => {
+    console.log(data)
+    axios.post(`${url}events`,{
+      title: data.title,
+      description: data.description,
+      budget: {
+        "amount": data.budget,
+        "currency": "CAD"
+      },
+      eventDate: data.eventDate,
+      guests: data.guests
+    },{
+      headers: {
+        'Authorization' : `Bearer ${authenticated}`
+      }
     })
+      .then(response =>{
+        console.log(response.data)
+        handleUpdate()
+        history.push('/')
+      })
   }
 
-  handleSubmit =(e) =>{
+  /*handleSubmit =(e) =>{
     e.preventDefault()
     axios.post(`${url}events`,{
       title: this.state.eventTitle,
@@ -117,7 +109,7 @@ export const EventForm = ({ action, match }) => {
   return(
     <main className="eventsForm">
       <h2 className="eventsForm__header">{action} Event</h2>
-      <form className="eventsForm__form">
+      <form className="eventsForm__form" onSubmit={handleSubmit(onSubmit)}>
         <div className="eventsForm__form-row">
           <div className="eventsForm__form-controls">
             <label className="eventsForm__form__label">Event Title</label>
@@ -158,7 +150,7 @@ export const EventForm = ({ action, match }) => {
           <label className="eventsForm__form__label">Description</label>
           <textarea className="eventsForm__form__input--text" { ...register("description")} />
         </div>
-        <div className="eventsForm__form__actions">
+        <div className="eventsForm__form-actions">
           <Link to="/" className="eventsForm__form-actions__link">Cancel</Link>
           <button className="eventsForm__form-actions__button"><Icon name="add"/> Create Event</button>
         </div>

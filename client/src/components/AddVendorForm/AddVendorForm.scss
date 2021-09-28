@@ -1,24 +1,86 @@
 @use "../../partials/mixins" as *;
 @use "../../partials/variables" as *;
 
-.add-vendor {
-  margin: 12.25rem auto 0 auto;
-  width: 50rem;
-  background-color: $primary-white;
-  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%);
-  padding: 0.1rem;
+.vendorForm {
+  @include form_container;
 
-  &__heading {
+  &__header {
+    @include form_header;
     display: flex;
     align-items: baseline;
     justify-content: space-between;
+
+    &__action {
+      @include default_link($primary-purple, $secondary-purple);
+      padding: 0.25rem 0.5rem;
+      font-size: 1rem;
+      display: flex;
+      justify-content: center;
+      font-family: 'Poppins', sans-serif;
+
+      @include tablet {
+        padding: 0.5rem 1rem;
+      }
+
+      &__text {
+        display: none;
+
+        @include tablet {
+          display: flex;
+        }
+      }
+    }
   }
 
-  &__budget {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
+  &__form {
+    @include form;
+
+    &__existing {
+      display: flex;
+      flex-direction: column;
+
+      &__select {
+        @include form_input;
+        margin-bottom: 1rem;
+      }
+
+      &__row {
+        @include form_controls_row;
+
+        &-controls {
+          @include form_controls;
+
+          &__label {
+            @include form_label;
+          }
+
+          &__input {
+            @include form_input;
+          }
+        }
+      }
+    }
+
+    &__actions {
+      @include form_actions;
+
+      &__link {
+        @include form_link;
+      }
+
+      &__button {
+        @include form_button;
+
+        &:first-of-type {
+          margin-left: 0;
+        }
+      }
+    }
   }
+}
+
+.add-vendor {
+
 
   &__old-vendor {
     display: flex;
@@ -42,20 +104,7 @@
   }
 
   &__select {
-    height: 2rem;
-    font-family: inherit;
-    border: 1px solid #E6E4E4;
-    background-color: #fafafa;
-    padding: 0.2rem 1rem;
-    font-weight: 600;
-    width: 100%;
-    margin-bottom: 1rem;
-
-    &:focus {
-      outline-color: #52489C;
-      color: $primary-black;
-      border-radius: 0;
-    }
+    @include form_input
   }
 
   &__add-button {

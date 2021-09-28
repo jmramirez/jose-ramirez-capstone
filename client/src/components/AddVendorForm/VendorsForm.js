@@ -8,6 +8,7 @@ import {VendorsSelect} from '../VendorsSelect/VendorsSelect'
 import {useForm} from 'react-hook-form'
 import { useState, useEffect } from 'react'
 import {Link, useHistory} from 'react-router-dom'
+import {Icon} from '../Icon/Icon';
 
 
 export const VendorsForm = ({match , action, children, handleUpdate, user }) => {
@@ -120,46 +121,42 @@ export const VendorsForm = ({match , action, children, handleUpdate, user }) => 
   }
 
   return(
-    <main className="add-event">
-      <div className="add-vendor__heading">
-        <h2 className="add-event__header">{action} Vendor</h2>
+    <main className="vendorForm">
+      <div className="vendorForm__header">
+        <h2>{action} Vendor</h2>
         {!addNew && action==="Add" &&(
-        <div className="event__actions">
-          <button className="add-vendor__add-button" onClick={handleNew}>
-            <span className="material-icons add-event__form__submit__icon">add</span> Add New Vendor
+          <button className="vendorForm__header__action" onClick={handleNew}>
+            <Icon name="add" />New <span className="vendorForm__header__action__text">&nbsp;Vendor</span>
           </button>
-        </div>
         )}
       </div>
 
 
 
-      <form className="add-event__form" onSubmit={handleSubmit(onSubmit)}>
+      <form className="vendorForm__form" onSubmit={handleSubmit(onSubmit)}>
         {(!addNew && action ==="Add") ?
-          <div className="add-vendor__old-vendor">
-            <div className="add-vendor__old-vendor__header">
-              <select
-                id="vendors"
-                name="vendors"
-                value={vendors.id}
-                className="add-vendor__select"
-                onChange={handleChange}
-                {...register("vendorId")}
-              >
-                <option value="" disabled selected hidden>Please Select Vendor</option>
-                {vendors.map(vendor =>(
-                  <option value={vendor.id}>Name: {vendor.name} </option>
-                ))}
-              </select>
-            </div>
-            <div className="add-vendor__budget">
-              <div className="add-event__form__controls">
-                <label className="add-event__form__label">Budget</label>
-                <input className="add-event__form__input" type="text" name={'budget'}  {...register("budget")} autoComplete="off"/>
+          <div className="vendorForm__form__existing">
+            <select
+              id="vendors"
+              name="vendors"
+              value={vendors.id}
+              className="vendorForm__form__existing__select"
+              onChange={handleChange}
+              {...register("vendorId")}
+            >
+              <option value="" disabled selected hidden>Please Select Vendor</option>
+              {vendors.map(vendor =>(
+                <option value={vendor.id}>Name: {vendor.name} </option>
+              ))}
+            </select>
+            <div className="vendorForm__form__existing__row">
+              <div className="vendorForm__form__existing__row-controls">
+                <label className="vendorForm__form__existing__row-controls__label">Budget</label>
+                <input className="vendorForm__form__existing__row-controls__input" type="text" name={'budget'}  {...register("budget")} autoComplete="off"/>
               </div>
-              <div className="add-event__form__controls">
-                <label className="add-event__form__label">Deposit Paid</label>
-                <input className="add-event__form__input" type="text"  name={'depositPaid'}  {...register("depositPaid")} autoComplete="off"/>
+              <div className="vendorForm__form__existing__row-controls">
+                <label className="vendorForm__form__existing__row-controls__label">Deposit Paid</label>
+                <input className="vendorForm__form__existing__row-controls__input" type="text"  name={'depositPaid'}  {...register("depositPaid")} autoComplete="off"/>
               </div>
             </div>
           </div>
@@ -201,10 +198,10 @@ export const VendorsForm = ({match , action, children, handleUpdate, user }) => 
         </div>
           </>
           )}
-        <div className="add-event__form__actions">
-          <button onClick={handleClick} className="add-vendor__add-button__cancel">Cancel</button>
-          <button className="add-vendor__add-button">
-            <span className="material-icons add-event__form__submit__icon">add</span>
+        <div className="vendorForm__form__actions">
+          <button onClick={handleClick} className="vendorForm__form__actions__button">Cancel</button>
+          <button className="vendorForm__form__actions__button">
+            <Icon name="add" />
             {action} Vendor
 
           </button>
