@@ -11,7 +11,7 @@ namespace PartyAgile.Domain.Repositories
     public interface IUserRepository
     {
         Task<bool> AuthenticateAsync(string email, string password, CancellationToken cancellationToken = default);
-        Task<bool> SignUpAsync(AppUser user, string password, CancellationToken cancellationToken = default);
+        Task<bool> SignUpAsync(AppUser user, string password, string role = default, CancellationToken cancellationToken = default);
         Task<AppUser> GetByEmailAsync(string requestEmail, CancellationToken cancellation = default);
         Task<IList<string>> GetRoles(string requestEmail, CancellationToken cancellationToken = default);
     }

@@ -54,7 +54,7 @@ namespace PartyAgile.Domain.Services
         public async Task<UserResponse> SignUpAsync(SignUpRequest request, CancellationToken cancellationToken)
         {
             var user = new Entities.AppUser { Email = request.Email, UserName = request.Email, FirstName = request.FirstName, LastName = request.LastName };
-            bool isCreated = await _userRepository.SignUpAsync(user, request.Password, cancellationToken);
+            bool isCreated = await _userRepository.SignUpAsync(user, request.Password, "Planner", cancellationToken);
 
             return !isCreated ? null : new UserResponse { Name = $"{request.FirstName} {request.LastName}", Email = request.Email };
         }
@@ -64,7 +64,9 @@ namespace PartyAgile.Domain.Services
         {
             bool isAuthenticated = await _userRepository.AuthenticateAsync(request.Email, request.Password, cancellationToken);
 
-            return !isAuthenticated ? null : new TokenResponse { Token = GenerateSecurityToken(request) };
+            var role = await _userRepository.GetRoles(request.Email, cancellationToken);
+
+            return !isAuthenticated ? null : new TokenResponse { Token = GenerateSecurityToken(request, role.First()) };
         }
 
         public async Task<IEnumerable<EventResponse>> GetEventsByUserId(GetUserRequest request)
@@ -75,7 +77,7 @@ namespace PartyAgile.Domain.Services
             return result.Select(x => _eventMapper.Map(x));
         }
 
-        private string GenerateSecurityToken(SignInRequest request)
+        private string GenerateSecurityToken(SignInRequest request, string role)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_authenticationSettings.Secret);
@@ -85,7 +87,7 @@ namespace PartyAgile.Domain.Services
                 {
                     new Claim(ClaimTypes.Email, request.Email),
                     new Claim(ClaimTypes.Name, request.Email),
-                    new Claim(ClaimTypes.Role, "Planer")
+                    new Claim(ClaimTypes.Role, role)
                 }),
 
                 Expires = DateTime.UtcNow.AddDays(_authenticationSettings.ExpirationDays),
