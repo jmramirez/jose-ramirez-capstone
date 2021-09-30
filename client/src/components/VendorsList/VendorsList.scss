@@ -19,7 +19,6 @@
   &-list{
 
     &__no-vendors {
-      width: 70rem;
       background-color: #ffffff;
       margin: 0 auto 3rem auto;
       border-top: 0.25rem solid #52489C;
@@ -29,7 +28,18 @@
       &__header {
         @include h2;
         font-weight: 700;
-        padding: 1rem 2rem;
+        padding: 1rem 0.5rem;
+        font-size: 0.9rem;
+
+        @include tablet {
+          font-size: 1.1rem;
+          padding: 1rem 1rem;
+        }
+
+        @include desktop {
+          padding: 1rem 2rem;
+          font-size: 1.3rem;
+        }
       }
     }
   }
