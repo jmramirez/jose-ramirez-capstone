@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PartyAgile.Domain.Requests.User;
 using PartyAgile.Domain.Requests.Vendor;
 using PartyAgile.Domain.Services;
 using System;
@@ -9,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace PartyAgile.API.Controllers
 {
+    [Authorize]
     [Route("api/vendor")]
     [ApiController]
     public class VendorController : ControllerBase
@@ -34,11 +37,19 @@ namespace PartyAgile.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("events")]
+        public async Task<IActionResult> GetEvents()
+        {
+            var username = HttpContext.User.Identity.Name;
+            var result = await _vendorService.GetEventsByVendorEmail(new GetUserRequest { Email = username});
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post(AddVendorRequest request)
         {
             var result = await _vendorService.AddVendorAsync(request);
-            return CreatedAtAction(nameof(GetById), new { id = result.Id }, null);
+            return Ok(result);
         }
 
         [HttpPost("event")]

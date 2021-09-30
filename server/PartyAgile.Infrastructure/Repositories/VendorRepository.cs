@@ -46,6 +46,14 @@ namespace PartyAgile.Infrastructure.Repositories
             return vendorItem;
         }
 
+        public async Task<Vendor> GetByUserId(Guid userId)
+        {
+            return await _context
+                .Vendors
+                .AsNoTracking()
+                .Where(x => x.UserId == userId).FirstOrDefaultAsync();
+        }
+
         public async Task<IEnumerable<Vendor>> GetVendorTasksByEventId(Guid eventId)
         {
             var items = await _context.VendorsEvent.Select(

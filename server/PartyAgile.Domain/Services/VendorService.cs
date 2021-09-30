@@ -1,6 +1,7 @@
 ﻿using PartyAgile.Domain.Entities;
 using PartyAgile.Domain.Mappers;
 using PartyAgile.Domain.Repositories;
+using PartyAgile.Domain.Requests.User;
 using PartyAgile.Domain.Requests.Vendor;
 using PartyAgile.Domain.Responses;
 using System;
@@ -15,6 +16,7 @@ namespace PartyAgile.Domain.Services
     {
         Task<IEnumerable<VendorResponse>> GetVendorsAsync();
         Task<VendorResponse> GetVendorAsync(GetVendorEventRequest request);
+        Task<IEnumerable<EventResponse>> GetEventsByVendorEmail(GetUserRequest request);
         Task<VendorResponse> AddVendorAsync(AddVendorRequest request);
 
         Task<VendorEventResponse> AssignAsync(AssignVendorRequest request);
@@ -28,15 +30,20 @@ namespace PartyAgile.Domain.Services
         private readonly IVendorEventRepository _vendorEventRepository;
         private readonly IVendorMapper _vendorMapper;
         private readonly IVendorEventMapper _vendorEventMapper;
+        private readonly IEventMapper _eventMapper;
+        private readonly IUserRepository _userRepository;
 
 
-        public VendorService(IVendorMapper vendorMapper, IVendorRepository vendorRepository, IEventRepository eventRepository, IVendorEventRepository vendorEventRepository, IVendorEventMapper vendorEventMapper)
+        public VendorService(IVendorMapper vendorMapper, IVendorRepository vendorRepository, IEventRepository eventRepository, IVendorEventRepository vendorEventRepository, IVendorEventMapper vendorEventMapper, 
+            IEventMapper eventMapper, IUserRepository userRepository)
         {
             _vendorRepository = vendorRepository;
             _vendorMapper = vendorMapper;
             _vendorEventRepository = vendorEventRepository;
             _eventRepository = eventRepository;
             _vendorEventMapper = vendorEventMapper;
+            _eventMapper = eventMapper;
+            _userRepository = userRepository;
         }
 
         public async Task<IEnumerable<VendorResponse>> GetVendorsAsync()
@@ -53,19 +60,41 @@ namespace PartyAgile.Domain.Services
             return _vendorMapper.Map(entity);
         }
 
+        public async Task<IEnumerable<EventResponse>> GetEventsByVendorEmail(GetUserRequest request)
+        {
+            if (request == null) throw new ArgumentNullException();
+            var user = await _userRepository.GetByEmailAsync(request.Email);
+            var vendor = await _vendorRepository.GetByUserId(user.Id);
+            var result = await _eventRepository.GetEventsByVendorIdAsync(vendor.Id);
+            return result.Select(x => _eventMapper.Map(x));
+        }
+
 
         public async Task<VendorResponse> AddVendorAsync(AddVendorRequest request)
         {
             var vendorItem = _vendorMapper.Map(request);
 
+            var newUser = new Entities.AppUser { UserName = request.ContactEmail, Email = request.ContactEmail };
+            bool isCreated = await _userRepository.SignUpAsync(newUser, "partyAgile21", "Vendor");
+
+            if (isCreated)
+            {
+                vendorItem.UserId = newUser.Id;
+            }
+
             var result = _vendorRepository.Add(vendorItem);
 
             await _vendorRepository.UnitOfWork.SaveChangesAsync();
 
-            var vendorEvent = new VendorEvent { Vendor = result, EventId = request.EventId};
+            var vendorEvent = new VendorEvent 
+            { 
+                Vendor = result, 
+                EventId = request.EventId, 
+                Budget = new Price { Amount = request.Budget.Amount, Currency = request.Budget.Currency },
+                DepositPaid = new Price { Amount = request.DepositPaid.Amount, Currency = request.DepositPaid.Currency }
+            };
             _vendorEventRepository.Add(vendorEvent);
             await _vendorEventRepository.UnitOfWork.SaveChangesAsync();
-
 
             return _vendorMapper.Map(result);
         }
