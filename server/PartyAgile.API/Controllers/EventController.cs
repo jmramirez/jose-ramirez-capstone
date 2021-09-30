@@ -31,6 +31,8 @@ namespace PartyAgile.API.Controllers
             var result = await _eventService.GetEventsAsync();
             return Ok(result);
         }
+
+
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> GetById(Guid id)
         {
@@ -42,12 +44,12 @@ namespace PartyAgile.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{id:guid}/vendor")]
+        /*[HttpGet("{id:guid}/vendor")]
         public async Task<IActionResult> GetEventByVendorById(Guid id)
         {
             var result = await _eventService.GetEventsByVendorIdAsync(new GetVendorRequest { Id = id });
             return Ok(result);
-        }
+        } */
 
         [HttpGet("{id:guid}/eventvendor")]
         public async Task<IActionResult>  GetEventVendorByEventId(Guid id)
@@ -59,7 +61,8 @@ namespace PartyAgile.API.Controllers
         [HttpGet("{id:guid}/vendors")]
         public async Task<IActionResult> GetWithVendorById(Guid id)
         {
-            var result = await _eventService.GetVendorsEventAsync(new GetEventRequest { Id = id });
+            var email = HttpContext.User.Identity.Name;
+            var result = await _eventService.GetVendorsEventAsync(new GetEventRequest { Id = id }, email);
             return Ok(result);
         }
 

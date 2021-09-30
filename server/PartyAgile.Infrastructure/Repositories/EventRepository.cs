@@ -32,17 +32,6 @@ namespace PartyAgile.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Event>> GetEventsByUserIdAsync(Guid id)
-        {
-            var now = new DateTimeOffset(DateTime.Today);
-            return await _context
-                .Events
-                .Where(x => x.CreatorId == id)
-                .Where(x => x.EventDate.CompareTo(now) > 0)
-                .ToListAsync();
-
-        }
-
         //Method to get an Event by id
         public async Task<Event> GetAsync(Guid id)
         {
@@ -53,7 +42,38 @@ namespace PartyAgile.Infrastructure.Repositories
             return eventItem;
         }
 
-        
+
+        //Method to get an Event by User id
+        public async Task<IEnumerable<Event>> GetEventsByUserIdAsync(Guid id)
+        {
+            var now = new DateTimeOffset(DateTime.Today);
+            return await _context
+                .Events
+                .Where(x => x.CreatorId == id)
+                .Where(x => x.EventDate.CompareTo(now) >= 0)
+                .ToListAsync();
+
+        }
+
+
+        //Method to get an Event by Vendor id
+        public async Task<IEnumerable<Event>> GetEventsByVendorIdAsync(Guid id)
+        {
+            var now = new DateTimeOffset(DateTime.Today);
+            var items = await _context.VendorsEvent
+                .Where(x => x.VendorId == id)
+                .Where(x => x.Event.EventDate.CompareTo(now) >= 0)
+                .Select(
+                e => new Event
+                {
+                    Id = e.Event.Id,
+                    Title = e.Event.Title,
+                    Description = e.Event.Description,
+                    EventDate = e.Event.EventDate
+                }).ToListAsync();
+
+            return items;
+        }
 
         public async Task<Event> GetEventWithVendorsAsync(Guid id)
         {
@@ -64,18 +84,22 @@ namespace PartyAgile.Infrastructure.Repositories
             return eventItem;
         }
 
-        public async Task<IEnumerable<Vendor>> GetVendorsByEventIdAsync(Guid id)
+        public async Task<IEnumerable<Vendor>> GetVendorsByEventIdAsync(Guid id, Guid userId)
         {
-            var items = await _context.VendorsEvent.Where(x => x.EventId == id).Select(
+            var items = await _context.VendorsEvent
+                .Where(x => x.EventId == id)
+                .Where(x => x.Event.CreatorId == userId)
+                .Select(
                 v => new Vendor
-                {
-                    Id = v.Vendor.Id,
-                    Name = v.Vendor.Name,
-                    Type = v.Vendor.Type,
-                    Budget = new Price { Amount = v.Budget.Amount, Currency = v.Budget.Currency },
-                    DepositPaid = new Price { Amount = v.DepositPaid.Amount, Currency = v.DepositPaid.Currency },
-                    Tasks = v.Vendor.Tasks
-                }).ToListAsync();
+                    {
+                        Id = v.Vendor.Id,
+                        Name = v.Vendor.Name,
+                        Type = v.Vendor.Type,
+                        Budget = new Price { Amount = v.Budget.Amount, Currency = v.Budget.Currency },
+                        DepositPaid = new Price { Amount = v.DepositPaid.Amount, Currency = v.DepositPaid.Currency },
+                        Tasks = v.Vendor.Tasks
+                    }
+                ).ToListAsync();
 
             return items;
         }
@@ -90,20 +114,6 @@ namespace PartyAgile.Infrastructure.Repositories
         {
             _context.Entry(eventItem).State = EntityState.Modified;
             return eventItem;
-        }
-
-        public async Task<IEnumerable<Event>> GetEventsByVendorAsync(Guid id)
-        {
-            var items = await _context.VendorsEvent.Where(x => x.VendorId == id).Select(
-                e => new Event
-                {
-                    Id = e.Event.Id,
-                    Title = e.Event.Title,
-                    Description = e.Event.Description,
-                    EventDate = e.Event.EventDate
-                }).ToListAsync();
-
-            return items;
         }
     }
 }

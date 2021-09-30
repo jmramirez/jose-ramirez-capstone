@@ -16,10 +16,10 @@ namespace PartyAgile.Domain.Services
         Task<IEnumerable<EventResponse>> GetEventsAsync();
         Task<EventResponse> GetEventAsync(GetEventRequest request);
         Task<EventWithVendorsReponse> GetEventWithVendorsAsync(GetEventRequest request);
-        Task<IEnumerable<VendorWithTaskResponse>> GetVendorsEventAsync(GetEventRequest request);
+        Task<IEnumerable<VendorWithTaskResponse>> GetVendorsEventAsync(GetEventRequest request, string email);
         Task<EventResponse> AddEventAsync(AddEventRequest request, string username);
         Task<EventResponse> EditEventAsync(EditEventRequest request);
-        Task<IEnumerable<EventResponse>> GetEventsByVendorIdAsync(GetVendorRequest request);
+        /*Task<IEnumerable<EventResponse>> GetEventsByVendorIdAsync(GetVendorRequest request);*/
         Task<VendorEventResponse> GetEventVendorByEventId(GetEventRequest request);
     }
 
@@ -48,12 +48,12 @@ namespace PartyAgile.Domain.Services
             return result.Select(x => _eventMapper.Map(x));
         }
 
-        public async Task<IEnumerable<EventResponse>> GetEventsByVendorIdAsync(GetVendorRequest request)
+        /*public async Task<IEnumerable<EventResponse>> GetEventsByVendorIdAsync(GetVendorRequest request)
         {
             if (request?.Id == null) throw new ArgumentNullException();
             var result = await _eventRepository.GetEventsByVendorAsync(request.Id);
             return result.Select(x => _eventMapper.Map(x));
-        }
+        }*/
 
         public async Task<EventResponse> GetEventAsync(GetEventRequest request)
         {
@@ -79,10 +79,11 @@ namespace PartyAgile.Domain.Services
 
 
 
-        public async Task<IEnumerable<VendorWithTaskResponse>> GetVendorsEventAsync(GetEventRequest request)
+        public async Task<IEnumerable<VendorWithTaskResponse>> GetVendorsEventAsync(GetEventRequest request, string email)
         {
             if (request?.Id == null) throw new ArgumentNullException();
-            var events = await _eventRepository.GetVendorsByEventIdAsync(request.Id);
+            var user = await _userRepository.GetByEmailAsync(email);
+            var events = await _eventRepository.GetVendorsByEventIdAsync(request.Id, user.Id);
             var result = events.Select(x => _vendorMapper.MapVendor(x));
 
             return result;
