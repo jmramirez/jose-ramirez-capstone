@@ -28,6 +28,11 @@ namespace PartyAgile.Infrastructure.SchemaDefinitions
                 .IsRequired()
                 .HasMaxLength(128);
 
+            builder
+                .HasOne(p => p.User)
+                .WithMany(p => p.Vendors)
+                .HasForeignKey(fk => fk.UserId);
+
             builder.Property(p => p.Budget).HasConversion(
                 _ => $"{_.Amount}:{_.Currency}",
                 _ => new Price
