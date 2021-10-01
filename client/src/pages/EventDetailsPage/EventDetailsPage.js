@@ -10,7 +10,9 @@ import VendorList from '../../components/VendorsList/VendorsList';
 export const EventDetailsPage = ({ match, user, authenticated }) => {
   const [eventId, setEventId] = useState('')
   const [event, setEvent] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [vendors, setVendors] = useState(null)
+  const [loadingEvent, setLoadingEvent] = useState(true)
+  const [loadingVendors, setLoadingVendors] = useState(true)
   const [budgetCovered, setBudgetCovered ] = useState(0)
   const history = useHistory()
 
@@ -23,7 +25,14 @@ export const EventDetailsPage = ({ match, user, authenticated }) => {
       })
         .then(response => {
           setEvent(response.data)
-          setLoading(false)
+          setLoadingEvent(false)
+          return axios.get(`${url}events/${eventId}/vendors`)
+        })
+        .then((response) => {
+          console.log(response.data)
+          console.log('finished vendors')
+          setVendors(response.data)
+          setLoadingVendors(false)
         })
     }
     if(authenticated && match.params.eventId)
@@ -32,12 +41,12 @@ export const EventDetailsPage = ({ match, user, authenticated }) => {
 
 
   const goBack = () => {
-    history.goBack()
+    history.push('/')
   }
 
   return(
-    loading ?
-      <h2>Loading...</h2>
+    loadingEvent ?
+      <h2>Loading Event...</h2>
     :
       <div className="event">
         <div className="event-header">
@@ -52,10 +61,10 @@ export const EventDetailsPage = ({ match, user, authenticated }) => {
             user && user.role === 'Planner' &&(
               <div className="event-header__action">
 
-                <Link to="/" className="event-header__action__links">
+                <Link to={`/events/${event.id}/editEvent`} className="event-header__action__links">
                   <Icon name="edit_calendar" /><p className="event-header__action__links-text">Edit Event</p>
                 </Link>
-                <Link to="/" className="event-header__action__links">
+                <Link to={`/events/${event.id}/addVendor`} className="event-header__action__links">
                   <Icon name="add" /><p className="event-header__action__links-text">Add Vendor</p>
                 </Link>
               </div>
@@ -96,6 +105,12 @@ export const EventDetailsPage = ({ match, user, authenticated }) => {
             </div>
           </div>
         </div>
+        {
+          loadingVendors ?
+            <h2>Loading Vendors ...</h2>
+            :
+            user && user.role === 'Planner' && <VendorList vendors={vendors} />
+        }
         {/*{user && user.role === 'Planner' && <VendorList />}*/}
       </div>
 
