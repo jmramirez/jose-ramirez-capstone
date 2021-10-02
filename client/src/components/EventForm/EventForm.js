@@ -21,16 +21,25 @@ export const EventForm = ({ action, match, handleUpdate ,authenticated }) => {
   const [event, setEvent] = useState(null)
   const [ loading, setLoading ] = useState(true)
   const history = useHistory()
-  const { register, handleSubmit, formState: { errors }, control } = useForm({
+  const { register, handleSubmit, formState: { errors }, control, setValue } = useForm({
     mode: 'onBlur',
     resolver: yupResolver(schema)
   })
 
   useEffect(() =>{
     const getEvent = (eventId) => {
-      axios.get(`${url}events/${eventId}`)
+      axios.get(`${url}events/${eventId}`,{
+        headers: {
+          'Authorization' : `Bearer ${authenticated}`
+        }
+      })
         .then(response => {
-          console.log(response.data)
+          setEvent(response.data)
+          const fields = ['title','guests','description']
+          fields.forEach(field => setValue(field, response.data[field]))
+          setValue('budget',response.data.budget.amount)
+          setValue('eventDate', new Date(response.data.eventDate))
+          setLoading(false)
         })
     }
     if(match.params.eventId){
@@ -40,7 +49,7 @@ export const EventForm = ({ action, match, handleUpdate ,authenticated }) => {
 
   const onSubmit = (data) => {
     console.log(data)
-    axios.post(`${url}events`,{
+    const event = {
       title: data.title,
       description: data.description,
       budget: {
@@ -49,62 +58,32 @@ export const EventForm = ({ action, match, handleUpdate ,authenticated }) => {
       },
       eventDate: data.eventDate,
       guests: data.guests
-    },{
-      headers: {
-        'Authorization' : `Bearer ${authenticated}`
-      }
-    })
-      .then(response =>{
-        console.log(response.data)
-        handleUpdate()
-        history.push('/')
+    }
+    if(action === "Add New") {
+      axios.post(`${url}events`,event,{
+        headers: {
+          'Authorization' : `Bearer ${authenticated}`
+        }
       })
+        .then(response =>{
+          handleUpdate()
+          history.push('/')
+        })
+    }
+
+    if(action === "Edit") {
+      event.id = match.params.eventId
+      axios.put(`${url}events/${match.params.eventId}`, event, {
+        headers: {
+          'Authorization' : `Bearer ${authenticated}`
+        }
+      })
+        .then(response => {
+          handleUpdate()
+          history.goBack()
+        })
+    }
   }
-
-  /*handleSubmit =(e) =>{
-    e.preventDefault()
-    axios.post(`${url}events`,{
-      title: this.state.eventTitle,
-      description: this.state.description,
-      budget: {
-        "amount":this.state.budget,
-        "currency": "CAD"
-      },
-      eventDate: this.state.eventDate,
-      guets: this.state.guestsNumber
-    })
-      .then(res =>{
-        this.props.handleUpdate()
-        this.props.history.push('/')
-      })
-  }
-
-  handleUpdate = (e) => {
-    e.preventDefault()
-    axios.put(`${url}events/${this.props.match.params.eventId}`,{
-      id: this.props.match.params.eventId,
-      title: this.state.eventTitle,
-      description: this.state.description,
-      budget: {
-        "amount":this.state.budget,
-        "currency": "CAD"
-      },
-      eventDate: this.state.eventDate,
-      guets: this.state.guestsNumber
-      })
-      .then(()=>{
-        this.props.handleUpdate()
-        this.props.history.goBack()
-      })
-  }
-
-  handleClick() {
-    console.log(this.props)
-    this.props.action ==="Edit"? this.props.history.push(`/getevent/${this.props.match.params.eventId}`) : this.props.history.push('/')
-  }*/
-
-
-
 
   return(
     <main className="eventsForm">
@@ -151,8 +130,10 @@ export const EventForm = ({ action, match, handleUpdate ,authenticated }) => {
           <textarea className="eventsForm__form__input--text" { ...register("description")} />
         </div>
         <div className="eventsForm__form-actions">
-          <Link to="/" className="eventsForm__form-actions__link">Cancel</Link>
-          <button className="eventsForm__form-actions__button"><Icon name="add"/> Create Event</button>
+          {action && action === 'Add New' && <Link to="/" className="eventsForm__form-actions__link">Cancel</Link>}
+          {action && action === 'Edit' && <Link to={`/events/${match.params.eventId}`} className="eventsForm__form-actions__link">Cancel</Link>}
+          {action === 'Add New' && <button className="eventsForm__form-actions__button"><Icon name="add"/>Create  Event</button> }
+          {action === 'Edit' && <button className="eventsForm__form-actions__button"><Icon name="save"/>Update  Event</button> }
         </div>
       </form>
     </main>
