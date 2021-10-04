@@ -21,7 +21,7 @@ namespace PartyAgile.Domain.Services
         Task<UserResponse> GetUserAsync(GetUserRequest request, CancellationToken cancellationToken = default);
         Task<UserResponse> SignUpAsync(SignUpRequest request, CancellationToken cancellationToken = default);
         Task<TokenResponse> SignInAsync(SignInRequest request, CancellationToken cancellationToken = default);
-        Task<IEnumerable<EventResponse>> GetEventsByUserId(GetUserRequest request);
+        Task<IEnumerable<EventResponse>> GetEventsByUserId(GetUserRequest request, string timing);
     }
 
     public class UserService : IUserService
@@ -69,11 +69,11 @@ namespace PartyAgile.Domain.Services
             return !isAuthenticated ? null : new TokenResponse { Token = GenerateSecurityToken(request, role.First()) };
         }
 
-        public async Task<IEnumerable<EventResponse>> GetEventsByUserId(GetUserRequest request)
+        public async Task<IEnumerable<EventResponse>> GetEventsByUserId(GetUserRequest request, string timing)
         {
             if (request == null) throw new ArgumentNullException();
             var user = await _userRepository.GetByEmailAsync(request.Email);
-            var result = await _eventRepository.GetEventsByUserIdAsync(user.Id);
+            var result = await _eventRepository.GetEventsByUserIdAsync(user.Id,timing);
             return result.Select(x => _eventMapper.Map(x));
         }
 
