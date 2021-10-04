@@ -45,11 +45,16 @@
 
       &__select {
         @include form_input;
-        margin-bottom: 1rem;
+        font-size: 1rem;
+
+        &-option {
+          font-weight: 600;
+        }
       }
 
       &__row {
         @include form_controls_row;
+        margin-top: 1rem;
 
         &-controls {
           @include form_controls;
@@ -86,6 +91,23 @@
 
         &__inputText {
           @include form_input_text;
+        }
+
+        &--check {
+          flex-direction: row;
+          align-items: center;
+          margin-bottom: 1rem;
+
+          &__checkbox {
+            width: 1.2rem;
+            height: 1.2rem;
+            margin-right: 0.5rem;
+
+            &:checked {
+              background-color: #52489C;
+              box-shadow: 0 0 0 1px $secondary-purple;
+            }
+          }
         }
       }
     }
