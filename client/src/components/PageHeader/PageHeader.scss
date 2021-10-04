@@ -2,43 +2,66 @@
 @use '../../partials/mixins' as *;
 
 .pageHeader {
-  width: 100%;
-  margin: 3.5rem auto 0 auto;
-  border-top: 0.25rem solid $primary-purple;
-  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 8%);
-  border-radius: 6px;
-  background-color: $primary-white;
-  padding: 1rem 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  @include basic_header;
+  padding: 1.5rem 1rem;
   min-width: 18rem;
+  align-items: flex-start;
 
-  @include tablet {
-    padding: 1rem 3rem;
-    margin: 8rem auto 0 auto;
+  @include desktop{
+    align-items: center;
   }
 
+  &__header {
 
-  &-heading {
-    @include h1
-
-  }
-
-  &__actions-link {
-    @include default_link($primary-purple, $secondary-purple);
-    padding: 0.3rem 0.3rem;
-
-    @include tablet{
-      width: 13rem;
-      padding: 0.5rem 0;
+    @include tablet {
+      width: 35%;
     }
 
-    &__text {
-      display: none;
+    @include desktop {
+      display: flex;
+      flex: 1;
+    }
 
-      @include tablet{
-        display: flex;
+    &-heading {
+      @include h1
+    }
+
+    &-select {
+      @include form_input;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+      height: 2.1rem;
+
+      &-option {
+        font-weight: 600;
+      }
+
+      @include desktop {
+        margin-top: 0;
+        width: 40%;
+        margin-left: auto;
+        margin-right: 1rem;
+      }
+    }
+  }
+
+
+  &__actions {
+    &-link {
+      @include default_link($primary-purple, $secondary-purple);
+      padding: 0.3rem 0.3rem;
+
+      @include tablet {
+        width: 13rem;
+        padding: 0.5rem 0;
+      }
+
+      &__text {
+        display: none;
+
+        @include tablet {
+          display: flex;
+        }
       }
     }
   }

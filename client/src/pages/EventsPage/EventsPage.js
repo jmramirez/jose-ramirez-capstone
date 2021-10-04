@@ -6,7 +6,7 @@ import axios from 'axios';
 import {url} from '../../config';
 import EventDetails from '../../components/EventDetails/EventDetails';
 
-export const EventsPage = ({ events, match, authenticated }) => {
+export const EventsPage = ({ events, match, authenticated, handleChange }) => {
   const eventId = match.params.eventId
   const [event, setEvent] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -33,7 +33,7 @@ export const EventsPage = ({ events, match, authenticated }) => {
 
   return(
     <div className="events">
-      <PageHeader elementType="Events" buttonText="Create New Event"/>
+      <PageHeader elementType="Events" buttonText="Create New Event" handleChange={handleChange}/>
       <div className="events-content">
         <EventsList events={events} />
       </div>
