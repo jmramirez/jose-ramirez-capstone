@@ -33,26 +33,39 @@ namespace PartyAgile.Infrastructure.Repositories
         }
 
         //Method to get an Event by id
-        public async Task<Event> GetAsync(Guid id)
+        public async Task<Event> GetAsync(Guid id, Guid userId)
         {
             var eventItem = await _context.Events
                 .AsNoTracking()
-                .Where(x => x.Id == id).FirstOrDefaultAsync();
+                .Where(x => x.Id == id && x.CreatorId == userId)
+                .FirstOrDefaultAsync();
 
             return eventItem;
         }
 
 
         //Method to get an Event by User id
-        public async Task<IEnumerable<Event>> GetEventsByUserIdAsync(Guid id)
+        public async Task<IEnumerable<Event>> GetEventsByUserIdAsync(Guid id, string timing)
         {
             var now = new DateTimeOffset(DateTime.Today);
-            return await _context
+
+            if(timing == "newEvents")
+            {
+                return await _context
                 .Events
                 .Where(x => x.CreatorId == id)
                 .Where(x => x.EventDate.CompareTo(now) >= 0)
                 .ToListAsync();
+            }
 
+            else
+            {
+                return await _context
+                .Events
+                .Where(x => x.CreatorId == id)
+                .Where(x => x.EventDate.CompareTo(now) < 0)
+                .ToListAsync();
+            }
         }
 
 

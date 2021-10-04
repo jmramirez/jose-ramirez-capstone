@@ -14,11 +14,11 @@ namespace PartyAgile.Domain.Services
     public interface IEventService
     {
         Task<IEnumerable<EventResponse>> GetEventsAsync();
-        Task<EventResponse> GetEventAsync(GetEventRequest request);
+        Task<EventResponse> GetEventAsync(GetEventRequest request, string username);
         Task<EventWithVendorsReponse> GetEventWithVendorsAsync(GetEventRequest request);
         Task<IEnumerable<VendorWithTaskResponse>> GetVendorsEventAsync(GetEventRequest request, string email);
         Task<EventResponse> AddEventAsync(AddEventRequest request, string username);
-        Task<EventResponse> EditEventAsync(EditEventRequest request);
+        Task<EventResponse> EditEventAsync(EditEventRequest request, string username);
         /*Task<IEnumerable<EventResponse>> GetEventsByVendorIdAsync(GetVendorRequest request);*/
         Task<VendorEventResponse> GetEventVendorByEventId(GetEventRequest request);
     }
@@ -48,17 +48,11 @@ namespace PartyAgile.Domain.Services
             return result.Select(x => _eventMapper.Map(x));
         }
 
-        /*public async Task<IEnumerable<EventResponse>> GetEventsByVendorIdAsync(GetVendorRequest request)
+        public async Task<EventResponse> GetEventAsync(GetEventRequest request, string username)
         {
             if (request?.Id == null) throw new ArgumentNullException();
-            var result = await _eventRepository.GetEventsByVendorAsync(request.Id);
-            return result.Select(x => _eventMapper.Map(x));
-        }*/
-
-        public async Task<EventResponse> GetEventAsync(GetEventRequest request)
-        {
-            if (request?.Id == null) throw new ArgumentNullException();
-            var entity = await _eventRepository.GetAsync(request.Id);
+            var user = await _userRepository.GetByEmailAsync(username);
+            var entity = await _eventRepository.GetAsync(request.Id, user.Id);
             return _eventMapper.Map(entity);
         }
 
@@ -102,12 +96,14 @@ namespace PartyAgile.Domain.Services
             return _eventMapper.Map(result);
         }
 
-        public async Task<EventResponse> EditEventAsync(EditEventRequest request)
+        public async Task<EventResponse> EditEventAsync(EditEventRequest request, string username)
         {
-            var existingEvent = await _eventRepository.GetAsync(request.Id);
+            var user = await _userRepository.GetByEmailAsync(username);
+            var existingEvent = await _eventRepository.GetAsync(request.Id, user.Id);
 
             if (existingEvent == null) throw new ArgumentException($"Entity with {request.Id} is not present");
-
+            request.CreatorId = user.Id;
+            request.CreatorName = user.FirstName + " " + user.LastName;
             var entity = _eventMapper.Map(request);
             var result = _eventRepository.Update(entity);
 

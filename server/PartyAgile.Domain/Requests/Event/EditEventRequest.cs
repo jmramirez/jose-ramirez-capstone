@@ -10,6 +10,8 @@ namespace PartyAgile.Domain.Requests.Event
         public string Description { get; set; }
         public Price Budget { get; set; }
         public DateTimeOffset EventDate { get; set; }
-        public int Guets { get; set; }
+        public int Guests { get; set; }
+        public Guid CreatorId { get; set; }
+        public string CreatorName { get; set; }
     }
 }

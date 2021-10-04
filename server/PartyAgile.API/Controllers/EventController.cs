@@ -36,7 +36,8 @@ namespace PartyAgile.API.Controllers
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> GetById(Guid id)
         {
-            var result = await _eventService.GetEventAsync(new GetEventRequest { Id = id });
+            var username = HttpContext.User.Identity.Name;
+            var result = await _eventService.GetEventAsync(new GetEventRequest { Id = id }, username);
             if(result == null)
             {
                 return BadRequest();
@@ -77,8 +78,9 @@ namespace PartyAgile.API.Controllers
         [HttpPut("{id:guid}")]
         public async Task<IActionResult> Put(Guid id, EditEventRequest request)
         {
+            var username = HttpContext.User.Identity.Name;
             request.Id = id;
-            var result = await _eventService.EditEventAsync(request);
+            var result = await _eventService.EditEventAsync(request, username);
 
             return Ok(result);
         }

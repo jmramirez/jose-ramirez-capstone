@@ -58,7 +58,9 @@ namespace PartyAgile.Domain.Mappers
                 Title = request.Title,
                 Description = request.Description,
                 EventDate = request.EventDate,
-                Guests = request.Guets
+                Guests = request.Guests,
+                CreatorId = request.CreatorId,
+                CreatorName = request.CreatorName
             };
 
             if(request.Budget != null)
