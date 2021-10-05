@@ -17,7 +17,7 @@ namespace PartyAgile.Domain.Services
         Task<IEnumerable<VendorResponse>> GetVendorsAsync();
         Task<IEnumerable<VendorResponse>> GetByEventId(Guid id);
         Task<VendorResponse> GetVendorAsync(GetVendorEventRequest request);
-        Task<IEnumerable<EventResponse>> GetEventsByVendorEmail(GetUserRequest request);
+        Task<IEnumerable<VendorEventResponse>> GetEventsByVendorEmail(GetUserRequest request, string timing);
         Task<VendorResponse> AddVendorAsync(AddVendorRequest request);
 
         Task<VendorEventResponse> AssignAsync(AssignVendorRequest request);
@@ -70,13 +70,13 @@ namespace PartyAgile.Domain.Services
             return _vendorMapper.Map(entity);
         }
 
-        public async Task<IEnumerable<EventResponse>> GetEventsByVendorEmail(GetUserRequest request)
+        public async Task<IEnumerable<VendorEventResponse>> GetEventsByVendorEmail(GetUserRequest request, string timing)
         {
             if (request == null) throw new ArgumentNullException();
             var user = await _userRepository.GetByEmailAsync(request.Email);
             var vendor = await _vendorRepository.GetByUserId(user.Id);
-            var result = await _eventRepository.GetEventsByVendorIdAsync(vendor.Id);
-            return result.Select(x => _eventMapper.Map(x));
+            var result = await _vendorEventRepository.GetVendorEvents(vendor.Id, timing);
+            return result.Select(x => _vendorEventMapper.Map(x));
         }
 
 

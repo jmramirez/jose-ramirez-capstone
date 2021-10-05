@@ -27,17 +27,14 @@ namespace PartyAgile.Domain.Mappers
 
             if (item == null) return null;
 
-            if(item.Vendor != null)
-            {
-                response.CreatorName = item.Event.CreatorName;
-                response.CreatorPhone = item.Event.CreatorPhome;
-                response.Title = item.Event.Title;
-                response.Description = item.Event.Description;
-                response.Guests = item.Event.Guests;
-                response.EventDate = item.Event.EventDate;
-                
-            }
 
+            response.Id = item.EventId;
+            response.CreatorName = item.Event.CreatorName;
+            response.CreatorPhone = item.Event.CreatorPhome;
+            response.Title = item.Event.Title;
+            response.Description = item.Event.Description;
+            response.Guests = item.Event.Guests;
+            response.EventDate = item.Event.EventDate;
 
             if (item.Budget != null)
             {

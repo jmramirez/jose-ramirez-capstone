@@ -44,11 +44,11 @@ namespace PartyAgile.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("events")]
-        public async Task<IActionResult> GetEvents()
+        [HttpGet("events/{newEvents}")]
+        public async Task<IActionResult> GetEvents(string newEvents)
         {
             var username = HttpContext.User.Identity.Name;
-            var result = await _vendorService.GetEventsByVendorEmail(new GetUserRequest { Email = username});
+            var result = await _vendorService.GetEventsByVendorEmail(new GetUserRequest { Email = username}, newEvents);
             return Ok(result);
         }
 

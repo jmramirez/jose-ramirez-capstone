@@ -8,6 +8,7 @@ namespace PartyAgile.Domain.Responses
 {
     public class VendorEventResponse
     {
+        public Guid Id { get; set; }
         public string CreatorName { get; set; }
         public string CreatorPhone { get; set; }
         public string Title { get; set; }

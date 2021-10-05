@@ -10,6 +10,7 @@ namespace PartyAgile.Domain.Repositories
     public interface IVendorEventRepository : IRepository
     {
         VendorEvent Add(VendorEvent item);
+        Task<IEnumerable<VendorEvent>> GetVendorEvents(Guid vendorId, string timing);
         Task<VendorEvent> GetByEventIdAsync(Guid id);
         VendorEvent Update(VendorEvent item);
     }

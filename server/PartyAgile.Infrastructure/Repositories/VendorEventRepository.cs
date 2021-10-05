@@ -24,7 +24,36 @@ namespace PartyAgile.Infrastructure.Repositories
         {
             return _context.VendorsEvent.Add(item).Entity;
         }
-        
+
+        public async Task<IEnumerable<VendorEvent>> GetVendorEvents(Guid vendorId, string timing)
+        {
+            var now = new DateTimeOffset(DateTime.Today);
+
+            if(timing == "newEvents")
+            {
+                return await _context.VendorsEvent
+                .Where(x => x.VendorId == vendorId)
+                .Where(x => x.Event.EventDate.CompareTo(now) >= 0)
+                .Include(e => e.Event)
+                .AsNoTracking()
+                .ToListAsync();
+            }
+            else if(timing == "oldEvents")
+            {
+                return await _context.VendorsEvent
+                .Where(x => x.VendorId == vendorId)
+                .Where(x => x.Event.EventDate.CompareTo(now) < 0)
+                .Include(e => e.Event)
+                .AsNoTracking()
+                .ToListAsync();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+
         public async Task<VendorEvent> GetByEventIdAsync(Guid id)
         {
             var item =await _context.VendorsEvent
@@ -41,5 +70,7 @@ namespace PartyAgile.Infrastructure.Repositories
             _context.Entry(vendorItem).State = EntityState.Modified;
             return vendorItem;
         }
+
+        
     }
 }
