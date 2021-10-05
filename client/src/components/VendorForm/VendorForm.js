@@ -37,8 +37,8 @@ export const VendorForm = ({match , action, children, authenticated,  handleUpda
   const history = useHistory()
 
   useEffect(() => {
-    const getVendors = (auth) => {
-      axios.get(`${url}vendor`, {
+    const getVendors = (auth, vendorId) => {
+      axios.get(`${url}vendor/${vendorId}`, {
         headers: {
           'Authorization': `Bearer ${auth}`
         }
@@ -48,14 +48,15 @@ export const VendorForm = ({match , action, children, authenticated,  handleUpda
             setVendors(response.data)
           } else {
             setAddNew(true)
+            reset({...getValues(), addNew: true})
           }
           setLoading(false)
         })
     }
-    if(authenticated) {
-      getVendors(authenticated)
+    if(authenticated,match.params.eventId) {
+      getVendors(authenticated, match.params.eventId)
     }
-  }, [authenticated])
+  }, [authenticated, match.params.eventId])
 
   useEffect(() => {
     if(action === 'Edit'){
@@ -91,14 +92,12 @@ export const VendorForm = ({match , action, children, authenticated,  handleUpda
           "eventId" : match.params.eventId
         })
           .then(response => {
-            console.log('Im here')
-            console.log(response.data)
-            /*history.push(`/getevent/${children.params.eventId}`)*/
+            history.push(`/events/${match.params.eventId}`)
           })
       :
         (axios.post(`${url}vendor/event`,{
-          eventId: children.params.eventId,
-          vendorId: data.vendorId,
+          eventId: match.params.eventId,
+          vendorId: data.vendors,
           budget: {
             "amount": data.budget,
             "currency": "CAD"
@@ -109,9 +108,7 @@ export const VendorForm = ({match , action, children, authenticated,  handleUpda
           }
         })
           .then(() => {
-
-
-              history.push(`/getevent/${children.params.eventId}`)
+              history.push(`/events/${match.params.eventId}`)
         }))
       }
     }
