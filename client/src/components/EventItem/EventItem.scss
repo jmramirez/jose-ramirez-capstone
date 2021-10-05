@@ -88,6 +88,10 @@
       padding: 2rem;
     }
 
+    &--vendor {
+      width: 24%;
+    }
+
     &__text {
       font-size: 1.1rem;
       width: 100%;
@@ -100,6 +104,15 @@
       @include desktop {
         width: 24%;
         margin-bottom: 0;
+      }
+
+      &--budget {
+        width: 100%;
+      }
+
+      &--deposit {
+        width: 100%;
+        margin-top: 0.5rem;
       }
 
       &--date {
