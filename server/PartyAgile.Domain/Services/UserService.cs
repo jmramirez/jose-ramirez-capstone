@@ -29,14 +29,18 @@ namespace PartyAgile.Domain.Services
         private readonly AuthenticationSettings _authenticationSettings;
         private readonly IUserRepository _userRepository;
         private readonly IEventRepository _eventRepository;
-        private readonly IEventMapper _eventMapper; 
+        private readonly IEventMapper _eventMapper;
+        private readonly IVendorRepository _vendorRepository;
+        private readonly IVendorMapper _vendorMapper;
 
-        public UserService(IUserRepository userRepository, IOptions<AuthenticationSettings> authenticationSettings, IEventRepository eventRepository, IEventMapper eventMapper)
+        public UserService(IUserRepository userRepository, IOptions<AuthenticationSettings> authenticationSettings, IEventRepository eventRepository, IEventMapper eventMapper, IVendorRepository vendorRepository, IVendorMapper vendorMapper)
         {
             _userRepository = userRepository;
             _authenticationSettings = authenticationSettings.Value;
             _eventMapper = eventMapper;
             _eventRepository = eventRepository;
+            _vendorRepository = vendorRepository;
+            _vendorMapper = vendorMapper;
         }
 
         public async Task<UserResponse> GetUserAsync(GetUserRequest request, CancellationToken cancellationToken)
@@ -47,8 +51,16 @@ namespace PartyAgile.Domain.Services
 
             var roles = await _userRepository.GetRoles(request.Email);
             var role = roles.First();
+            var vendor = new VendorResponse();
 
-            return new UserResponse { Id = response.Id, Name = $"{response.FirstName} {response.LastName}", Email = response.Email, Role = role };
+            if(role == "Vendor")
+            {
+                var userVendor = await _vendorRepository.GetByUserId(response.Id);
+                vendor.Name = userVendor.Name;
+                vendor.Type = userVendor.Type;
+            }
+
+            return new UserResponse { Id = response.Id, Name = $"{response.FirstName} {response.LastName}", Email = response.Email, Role = role, Vendor = vendor };
         }
 
         public async Task<UserResponse> SignUpAsync(SignUpRequest request, CancellationToken cancellationToken)

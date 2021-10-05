@@ -12,5 +12,6 @@ namespace PartyAgile.Domain.Responses
         public string Name { get; set; }
         public string Email { get; set; }
         public string Role { get; set; }
+        public VendorResponse Vendor { get; set; }
     }
 }
