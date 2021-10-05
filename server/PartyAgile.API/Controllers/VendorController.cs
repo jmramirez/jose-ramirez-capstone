@@ -30,6 +30,13 @@ namespace PartyAgile.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("{eventId:guid}")]
+        public async Task<IActionResult> GetByEvent(Guid eventId)
+        {
+            var result = await _vendorService.GetByEventId(eventId);
+            return Ok(result);
+        }
+
         [HttpGet("{vendorId:guid}/{eventId:guid}")]
         public async Task<IActionResult> GetById(Guid vendorId, Guid eventId)
         {

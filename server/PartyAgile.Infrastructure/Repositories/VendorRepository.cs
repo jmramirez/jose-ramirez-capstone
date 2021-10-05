@@ -28,6 +28,20 @@ namespace PartyAgile.Infrastructure.Repositories
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<Vendor>> GetByEventId(Guid eventId)
+        {
+            return await _context
+                .VendorsEvent
+                .Where(x => x.EventId == eventId)
+                .Select(
+                v => new Vendor
+                {
+                    Id = v.Vendor.Id,
+                    Name = v.Vendor.Name
+                })
+                .ToListAsync();
+        }
+
         public async Task<Vendor> GetAsync(Guid eventId, Guid vendorId)
         {
             var vendorItem = await _context.Vendors
