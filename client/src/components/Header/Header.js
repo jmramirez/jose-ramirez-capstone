@@ -9,7 +9,8 @@ export const Header = ({ handleLogout, user }) => (
         Party Agile
       </Link>
       <div className="header__nav__right">
-        {user && <p className="header__nav__right-user">{user.name}</p>}
+        {user && user.role=== 'Vendor' && <p className="header__nav__right-user">Vendor: {user.vendor.name}</p>}
+        {user && user.role=== 'Planner' && <p className="header__nav__right-user">{`Planner: ${user.name}`}</p>}
         <div className="header__nav__right-actions">
           <Link to="/" className="header__nav__right__link">Events</Link>
           <button className="header__nav__right__button" onClick={handleLogout}>Logout</button>
