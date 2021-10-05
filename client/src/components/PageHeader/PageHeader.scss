@@ -3,19 +3,33 @@
 
 .pageHeader {
   @include basic_header;
-  padding: 1.5rem 1rem;
+  padding: 1rem 1rem;
   min-width: 18rem;
-  align-items: flex-start;
+  align-items: end;
+  flex-direction: column;
+
 
   @include desktop{
     align-items: center;
   }
 
-  &__header {
+  &--vendor {
+    flex-direction: column;
+  }
 
-    @include tablet {
-      width: 35%;
-    }
+  &__vendor-info {
+    display: flex;
+    flex-direction: column;
+    margin: 0.5rem 0 1rem 0;
+  }
+
+  &__header {
+    width: 100%;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-top: 1rem;
+
 
     @include desktop {
       display: flex;
@@ -30,7 +44,8 @@
       @include form_input;
       font-size: 1rem;
       margin-top: 0.5rem;
-      height: 2.1rem;
+      width: 58%;
+      max-width: 10rem;
 
       &-option {
         font-weight: 600;
@@ -40,7 +55,6 @@
         margin-top: 0;
         width: 40%;
         margin-left: auto;
-        margin-right: 1rem;
       }
     }
   }
