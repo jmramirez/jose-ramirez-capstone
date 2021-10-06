@@ -1,24 +1,6 @@
 @use '../../partials/mixins' as *;
 @use '../../partials/variables' as *;
 
-/*
-.event-item {
-  text-decoration: none;
-  color: #ffffff;
-  transition: border 0.1s ease-in-out, margin 0.1s linear;
-  border-left: 0;
-
-  &-title {
-    @include p;
-    font-size: 1rem;
-  }
-
-  &-date {
-    @include p;
-    margin-top: 0.3rem;
-  }
-}*/
-
 
 .eventItem {
   width: 100%;
@@ -39,7 +21,7 @@
     box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 8%);
   }
 
-  &__header {
+  &__link {
     @include h3;
     padding: 1rem 1rem;
     text-decoration: none;
@@ -67,6 +49,52 @@
 
     &:hover {
       color: #515FFF;
+    }
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 1rem 0.5rem;
+
+    @include tablet {
+      padding: 1rem 3rem;
+    }
+
+    &__text {
+      @include h3;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+
+    &__actions {
+      display: flex;
+
+      &__link {
+        @include default_link($primary-purple, $secondary-purple);
+        padding: 0.5rem 0.5rem;
+
+        @include tablet{
+          width: 12rem;
+        }
+
+        @include desktop{
+          width: 14rem;
+        }
+
+        &-text {
+          display: none;
+
+          @include tablet{
+            display: flex;
+          }
+        }
+
+        &:first-of-type {
+          margin-right: 0.5rem;
+        }
+      }
     }
   }
 

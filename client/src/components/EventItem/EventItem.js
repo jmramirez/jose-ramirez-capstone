@@ -11,9 +11,22 @@ export const EventItem = ({ event }) => (
 )*/
 
 
-export const EventItem = ({ event }) => (
+export const EventItem = ({ event, user }) => (
   <div className="eventItem">
-    <Link to={`/events/${event.id}`} className="eventItem__header"><p className="eventItem__header__text">{event.title}</p> <Icon name="trending_flat" /></Link>
+    {user && user.role ==='Planner' && <Link to={`/events/${event.id}`} className="eventItem__link"><p className="eventItem__link__text">{event.title}</p> <Icon name="trending_flat" /></Link>}
+    {user && user.role ==='Vendor' && (
+      <div className="eventItem__header">
+        <p className="eventItem__header__text">{event.title}</p>
+        <div className="eventItem__header__actions">
+          <Link to={`/vendor/edit/${event.id}/${event.id}`} className="eventItem__header__actions__link">
+            <Icon name="paid"/><p className="eventItem__header__actions__link-text">Register Payment</p>
+          </Link>
+          <Link to={`/vendor/edit/${event.id}/${event.id}`} className="eventItem__header__actions__link">
+            <Icon name="chat"/><p className="eventItem__header__actions__link-text">Chat with Planner</p>
+          </Link>
+        </div>
+      </div>
+    )}
     <div className="eventItem__content">
       <p className="eventItem__content__text--description"><span className="eventItem__content__label">Description: </span>{event.description}</p>
       <p className="eventItem__content__text--date"><span className="eventItem__content__label">Event Date: </span>{new Date(event.eventDate).toLocaleDateString()}</p>
