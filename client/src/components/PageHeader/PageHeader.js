@@ -15,17 +15,17 @@ export const PageHeader = ({ elementType, buttonText, handleChange, user}) => {
         <option value="newEvents" className="pageHeader__header-select-option">Next Events</option>
         <option value="oldEvents" className="pageHeader__header-select-option">Past Events</option>
       </select>
-      {user && user.role === 'Vendor' &&(
-        <div className="pageHeader__vendor-info">
-          <p><span>Vendor Name:</span> {user.vendor.name}</p>
-          <p><span>Vendor Type:</span> {user.vendor.type}</p>
-        </div>
-      )}
-      <div className="pageHeader__header">
+      <div className={"pageHeader__header" + (user && user.role==='Vendor' ?' pageHeader__header--vendor' : '')}>
         <h2 className="pageHeader__header-heading">
           {user && user.role === 'Planner' && `List of ${elementType}`}
           {user && user.role === 'Vendor' && 'Events Assigned'}
         </h2>
+        {user && user.role === 'Vendor' &&(
+          <div className="pageHeader__vendor-info">
+            <p className="pageHeader__vendor-info__label"><span className="pageHeader__vendor-info__label--heading">Vendor Name:</span> {user.vendor.name}</p>
+            <p className="pageHeader__vendor-info__label"><span className="pageHeader__vendor-info__label--heading">Vendor Type:</span> {user.vendor.type}</p>
+          </div>
+        )}
         {user && user.role === 'Planner' && (
           <div className="pageHeader__actions">
             <Link to={`/${elementType.toLowerCase()}/addEvent`} className="pageHeader__actions-link">

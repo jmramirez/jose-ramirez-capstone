@@ -14,13 +14,31 @@
   }
 
   &--vendor {
-    flex-direction: column;
+    align-items: end;
+
+    @include tablet{
+      flex-direction: row-reverse;
+      align-items: flex-start;
+    }
   }
 
   &__vendor-info {
     display: flex;
     flex-direction: column;
-    margin: 0.5rem 0 1rem 0;
+    margin: 0.5rem 0;
+
+    @include tablet{
+      margin:0 0 1.5rem 0;
+    }
+
+    &__label {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+
+      &--heading {
+        font-weight: 700;
+      }
+    }
   }
 
   &__header {
@@ -55,6 +73,15 @@
         margin-top: 0;
         width: 40%;
         margin-left: auto;
+      }
+    }
+
+    &--vendor {
+      display: flex;
+      flex-direction: column-reverse;
+
+      @include tablet{
+        margin-top: 0.5rem;
       }
     }
   }
