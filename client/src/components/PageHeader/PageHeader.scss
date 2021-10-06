@@ -9,8 +9,8 @@
   flex-direction: column;
 
 
-  @include desktop{
-    align-items: center;
+  @include tablet{
+    flex-direction: row-reverse;
   }
 
   &--vendor {
@@ -46,7 +46,11 @@
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
+
+    @include tablet {
+      margin-top: 1rem;
+    }
 
 
     @include desktop {
@@ -61,7 +65,7 @@
     &-select {
       @include form_input;
       font-size: 1rem;
-      margin-top: 0.5rem;
+      /*margin-top: 0.5rem;*/
       width: 58%;
       max-width: 10rem;
 
@@ -69,10 +73,10 @@
         font-weight: 600;
       }
 
-      @include desktop {
-        margin-top: 0;
-        width: 40%;
-        margin-left: auto;
+      @include tablet {
+        margin-top: 0.5rem;
+        width: 100%;
+        max-width: 12rem;
       }
     }
 
@@ -88,17 +92,28 @@
 
 
   &__actions {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    @include tablet {
+      width: auto;
+      height: 7rem;
+      flex-direction: column;
+    }
+
     &-link {
       @include default_link($primary-purple, $secondary-purple);
       padding: 0.3rem 0.3rem;
 
       @include tablet {
-        width: 13rem;
+        width: 12rem;
         padding: 0.5rem 0;
       }
 
       &__text {
         display: none;
+        margin-left: 0.3rem;
 
         @include tablet {
           display: flex;
