@@ -12,6 +12,7 @@ namespace PartyAgile.Domain.Mappers
     public interface IVendorEventMapper
     {
         VendorEventResponse Map(VendorEvent item);
+        EventVendorResponse MapVendor(VendorEvent item);
         VendorEvent MapRequest(AssignVendorRequest request);
 
         VendorEvent Map(EditVendorEvent request);
@@ -35,6 +36,31 @@ namespace PartyAgile.Domain.Mappers
             response.Description = item.Event.Description;
             response.Guests = item.Event.Guests;
             response.EventDate = item.Event.EventDate;
+
+            if (item.Budget != null)
+            {
+                response.Budget = new PriceResponse { Currency = item.Budget.Currency, Amount = item.Budget.Amount };
+            };
+
+            if (item.DepositPaid != null)
+            {
+                response.DepositPaid = new PriceResponse { Currency = item.DepositPaid.Currency, Amount = item.DepositPaid.Amount };
+            };
+
+            return response;
+        }
+
+        public EventVendorResponse MapVendor(VendorEvent item)
+        {
+            var response = new EventVendorResponse { };
+
+
+            if (item == null) return null;
+
+
+            response.Id = item.VendorId;
+            response.Name = item.Vendor.Name;
+            response.Type = item.Vendor.Type;
 
             if (item.Budget != null)
             {

@@ -52,10 +52,11 @@ namespace PartyAgile.API.Controllers
             return Ok(result);
         } */
 
-        [HttpGet("{id:guid}/eventvendor")]
-        public async Task<IActionResult>  GetEventVendorByEventId(Guid id)
+        [HttpGet("{id:guid}/eventvendors")]
+        public async Task<IActionResult> GetEventVendorByEventId(Guid id)
         {
-            var result = await _eventService.GetEventVendorByEventId(new GetEventRequest { Id = id });
+            var username = HttpContext.User.Identity.Name;
+            var result = await _eventService.GetEventVendorByVendorId(new GetEventRequest { Id = id }, username);
             return Ok(result);
         }
 

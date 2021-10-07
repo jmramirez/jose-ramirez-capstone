@@ -28,6 +28,16 @@ namespace PartyAgile.Infrastructure.Repositories
                 .ToListAsync();
         }
 
+        public async Task<Vendor> GetById(Guid vendorId, Guid userId)
+        {
+            return await _context
+                .Vendors
+                .AsNoTracking()
+                .Where(k => k.Id == vendorId)
+                .Where(u => u.UserId == userId)
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<IEnumerable<Vendor>> GetByEventId(Guid eventId)
         {
             return await _context
@@ -52,8 +62,7 @@ namespace PartyAgile.Infrastructure.Repositories
 
             var vendorEvent = await _context.VendorsEvent.Where(x => x.VendorId == vendorId && x.EventId == eventId).FirstOrDefaultAsync();
 
-            vendorItem.Budget = new Price { Amount = vendorItem.Budget.Amount, Currency = vendorItem.Budget.Currency };
-            vendorItem.DepositPaid = new Price { Amount = vendorItem.DepositPaid.Amount, Currency = vendorItem.DepositPaid.Currency };
+            
 
 
             _context.Entry(vendorItem).State = EntityState.Detached;
@@ -74,8 +83,6 @@ namespace PartyAgile.Infrastructure.Repositories
                 v => new Vendor { 
                     Name = v.Vendor.Name,
                     Type = v.Vendor.Type,
-                    Budget = new Price { Amount = v.Vendor.Budget.Amount, Currency = v.Vendor.Budget.Currency},
-                    DepositPaid = new Price { Amount = v.Vendor.DepositPaid.Amount, Currency = v.Vendor.DepositPaid.Currency},
                     Tasks = v.Vendor.Tasks
                 }).ToListAsync();
 
