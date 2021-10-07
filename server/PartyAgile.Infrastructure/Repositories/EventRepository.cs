@@ -108,8 +108,6 @@ namespace PartyAgile.Infrastructure.Repositories
                         Id = v.Vendor.Id,
                         Name = v.Vendor.Name,
                         Type = v.Vendor.Type,
-                        Budget = new Price { Amount = v.Budget.Amount, Currency = v.Budget.Currency },
-                        DepositPaid = new Price { Amount = v.DepositPaid.Amount, Currency = v.DepositPaid.Currency },
                         Tasks = v.Vendor.Tasks
                     }
                 ).ToListAsync();

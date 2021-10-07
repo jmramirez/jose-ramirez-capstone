@@ -32,16 +32,6 @@ namespace PartyAgile.Domain.Mappers
                Address = request.Address,
             };
 
-            if(request.Budget != null)
-            {
-                vendorItem.Budget = new Price { Amount = request.Budget.Amount, Currency = request.Budget.Currency };
-            }
-
-            if (request.DepositPaid != null)
-            {
-                vendorItem.DepositPaid = new Price { Amount = request.DepositPaid.Amount, Currency = request.DepositPaid.Currency };
-            }
-
             return vendorItem;
         }
 
@@ -59,16 +49,6 @@ namespace PartyAgile.Domain.Mappers
                 Address = request.Address,
             };
 
-            if (request.Budget != null)
-            {
-                vendorItem.Budget = new Price { Amount = request.Budget.Amount, Currency = request.Budget.Currency };
-            }
-
-            if (request.DepositPaid != null)
-            {
-                vendorItem.DepositPaid = new Price { Amount = request.DepositPaid.Amount, Currency = request.DepositPaid.Currency };
-            }
-
             return vendorItem;
         }
 
@@ -84,15 +64,6 @@ namespace PartyAgile.Domain.Mappers
                 Address = vendorItem.Address
             };
 
-            if (vendorItem.Budget != null)
-            {
-                response.Budget = new PriceResponse { Amount = vendorItem.Budget.Amount, Currency = vendorItem.Budget.Currency };
-            }
-
-            if (vendorItem.DepositPaid != null)
-            {
-                response.DepositPaid = new PriceResponse { Amount = vendorItem.DepositPaid.Amount, Currency = vendorItem.DepositPaid.Currency };
-            }
 
             return response;
         }
@@ -106,16 +77,6 @@ namespace PartyAgile.Domain.Mappers
                 Type = vendorItem.Type,
                 Tasks = vendorItem.Tasks.Select(x => new VendorTaskResponse { Id = x.Id, Description = x.Description, Name = x.Name, Status = x.Status })
             };
-
-            if (vendorItem.Budget != null)
-            {
-                response.Budget = new PriceResponse { Amount = vendorItem.Budget.Amount, Currency = vendorItem.Budget.Currency };
-            }
-
-            if (vendorItem.DepositPaid != null)
-            {
-                response.DepositPaid = new PriceResponse { Amount = vendorItem.DepositPaid.Amount, Currency = vendorItem.DepositPaid.Currency };
-            }
 
             return response;
         }

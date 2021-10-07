@@ -33,23 +33,7 @@ namespace PartyAgile.Infrastructure.SchemaDefinitions
                 .WithMany(p => p.Vendors)
                 .HasForeignKey(fk => fk.UserId);
 
-            builder.Property(p => p.Budget).HasConversion(
-                _ => $"{_.Amount}:{_.Currency}",
-                _ => new Price
-                {
-                    Amount = Convert.ToDecimal(_.Split(":", StringSplitOptions.None)[0]),
-                    Currency = _.Split(":", StringSplitOptions.None)[1]
-                });
             
-
-            builder.Property(p => p.DepositPaid).HasConversion(
-                _ => $"{_.Amount}:{_.Currency}",
-                _ => new Price
-                {
-                    Amount = Convert.ToDecimal(_.Split(":", StringSplitOptions.None)[0]),
-                    Currency = _.Split(":", StringSplitOptions.None)[1]
-                });
-
             builder.Property(p => p.Address)
                 .IsRequired();
 
