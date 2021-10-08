@@ -22,7 +22,7 @@ export const PageHeader = ({ elementType, buttonText, handleChange, user}) => {
           </Link>
         )}
         {user && user.role === 'Vendor' &&(
-          <Link to={`/${elementType.toLowerCase()}/addEvent`} className="pageHeader__actions-link">
+          <Link to={`/${elementType.toLowerCase()}/${user.vendor.id}/editVendor`} className="pageHeader__actions-link">
             <Icon name="mode_edit"/><p className="pageHeader__actions-link__text">{buttonText}</p>
           </Link>
         )}
