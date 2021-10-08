@@ -40,12 +40,13 @@ export const App = () => {
             return axios.get(`${url}user/events/${timing}`)
           }
           if(response.data.role === 'Vendor'){
-            return axios.get(`${url}vendor/events`)
+            return axios.get(`${url}vendor/events/${timing}`)
           }
 
         })
         .then(response => {
-          setEvents(response.data)
+          let sortedArray = sortArray(response.data)
+          setEvents(sortedArray)
         })
     }
     if(authenticated) {
@@ -108,13 +109,22 @@ export const App = () => {
     }
   }, [user])*/
 
-  const handleUpdate = () => {
-    axios
-      .get(`${url}events`)
-      .then( response =>{
-        let sortedArray = sortArray(response.data)
-        setEvents(sortedArray)
-      })
+  const handleUpdate = (type) => {
+    if(type === 'events'){
+      axios
+        .get(`${url}events`)
+        .then( response =>{
+          let sortedArray = sortArray(response.data)
+          setEvents(sortedArray)
+        })
+    }
+    else if(type === 'vendor'){
+      axios
+        .get(`${url}user`)
+        .then(response => {
+          setUser(response.data)
+        })
+    }
   }
 
   const sortArray = (array) => {
@@ -166,6 +176,7 @@ export const App = () => {
           <Route path="/signup" render={(routerProps) => <MainPage {...routerProps}  handleLogin={handleLogin} handleLogout={handleLogout} user={user} action='signup' />} />
           <PrivateRoute path="/events/addEvent" render={(routerProps) => <EventFormPage {...routerProps} action="add" elementType="event"  handleUpdate={handleUpdate} handleLogout={handleLogout} authenticated={authenticated}  />} />
           <PrivateRoute path="/events/:eventId/editEvent" render={(routerProps) => <EventFormPage {...routerProps} action="edit" elementType="event"  handleUpdate={handleUpdate} handleLogout={handleLogout} authenticated={authenticated}  />} />
+          <PrivateRoute path="/vendors/:vendorId/editVendor" render={(routerProps) => <EventFormPage {...routerProps} action="edit" elementType="vendor"  handleUpdate={handleUpdate} handleLogout={handleLogout} authenticated={authenticated}  />} />
           {/*<Route path="/events/add" render={(routerProps) => <EventFormPage {...routerProps} action="add"  handleUpdate={handleUpdate} />}/>*/}
           {/*<PrivateRoute path="/event/edit/:eventId" render={(routerProps) => <EventFormPage {...routerProps} action="edit" handleUpdate={handleUpdate} handleLogout={handleLogout} user={user} />} />*/}
           <Route path="/event/edit/:eventId" render={(routerProps) => <EventFormPage {...routerProps} action="edit" handleUpdate={handleUpdate} />}/>
@@ -177,7 +188,7 @@ export const App = () => {
          {/*<PrivateRoute path="/" render={(routerProps) => <Dashboard {...routerProps} handleLogout={handleLogout} user={user}/>}/>*/}
           <PrivateRoute path="/events/:eventId/addVendor" render={(routerProps) => <EventFormPage {...routerProps} action="add" elementType="vendor"  handleUpdate={handleUpdate} handleLogout={handleLogout} authenticated={authenticated}  /> }/>
           <PrivateRoute path="/events/:eventId" render={(routerProps) => <EventDetailsPage {...routerProps} user={user} authenticated={authenticated}/> }/>
-          { events && <PrivateRoute path="/" render={(routerProps) => <EventsPage {...routerProps} events={events} authenticated={authenticated} handleChange={handleTiming} /> }/>}
+          { events && <PrivateRoute path="/" render={(routerProps) => <EventsPage {...routerProps} events={events} authenticated={authenticated} handleChange={handleTiming} user={user} /> }/>}
         </Switch>
       </BrowserRouter>
     </div>

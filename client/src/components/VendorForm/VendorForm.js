@@ -38,7 +38,7 @@ export const VendorForm = ({match , action, children, authenticated,  handleUpda
 
   useEffect(() => {
     const getVendors = (auth, vendorId) => {
-      axios.get(`${url}vendor/${vendorId}`, {
+      axios.get(`${url}vendors/${vendorId}`, {
         headers: {
           'Authorization': `Bearer ${auth}`
         }
@@ -53,23 +53,22 @@ export const VendorForm = ({match , action, children, authenticated,  handleUpda
           setLoading(false)
         })
     }
-    if(authenticated,match.params.eventId) {
+    if(authenticated && match.params.eventId) {
       getVendors(authenticated, match.params.eventId)
     }
   }, [authenticated, match.params.eventId])
 
   useEffect(() => {
     if(action === 'Edit'){
-      axios.get(`${url}vendor/${children.params.vendorId}/${children.params.eventId}`)
+      axios.get(`${url}vendor/${match.params.vendorId}`)
         .then(response => {
           console.log(response.data)
-          const fields = ['name', 'type','contactName','contactEmail', 'address','depositPaid']
+          const fields = ['name', 'type','contactName','contactEmail', 'address']
           fields.forEach(field => setValue(field, response.data[field]))
-          setValue('budget', response.data.budget.amount)
-          setValue('depositPaid', response.data.depositPaid.amount)
+          setLoading(false)
         })
     }
-  })
+  },[match.params.vendorId, setValue, action])
 
   const onSubmit = (data) => {
     console.log(data);
@@ -114,25 +113,17 @@ export const VendorForm = ({match , action, children, authenticated,  handleUpda
     }
 
     if(action ==='Edit'){
-      axios.put(`${url}vendor/${children.params.vendorId}`,{
-        id:children.params.vendorId,
-        eventId: children.params.eventId,
+      axios.put(`${url}vendor/${match.params.vendorId}`,{
+        id:match.params.vendorId,
         name: data.name,
         type: data.type,
         contactName: data.contactName,
         contactEmail: data.contactEmail,
-        address: data.address,
-        budget: {
-          "amount":data.budget,
-          "currency": "CAD"
-        },
-        depositPaid: {
-          "amount":data.depositPaid,
-          "currency": "CAD"
-        }
+        address: data.address
       })
-        .then(() =>{
-          history.push(`/getevent/${children.params.eventId}`)
+        .then((response) =>{
+          handleUpdate("vendor")
+          history.push(`/vendors/${match.params.vendorId}`)
         })
     }
   }
@@ -170,10 +161,12 @@ export const VendorForm = ({match , action, children, authenticated,  handleUpda
 
       </div>
       <form className="vendorForm__form" onSubmit={handleSubmit(onSubmit)}>
-        <div className="vendorForm__form__row-controls vendorForm__form__row-controls--check">
-          <input type="checkbox" {...register("addNew")} onChange={handleNew} className="vendorForm__form__row-controls--check__checkbox"/>
-          <label className="vendorForm__form__row-controls__label">New Vendor</label>
-        </div>
+        {action ==="Add" && (
+          <div className="vendorForm__form__row-controls vendorForm__form__row-controls--check">
+            <input type="checkbox" {...register("addNew")} onChange={handleNew} className="vendorForm__form__row-controls--check__checkbox"/>
+            <label className="vendorForm__form__row-controls__label">New Vendor</label>
+          </div>
+        )}
         {(!addNew && action ==="Add") ?
           <div className="vendorForm__form__existing">
             <select
@@ -224,7 +217,7 @@ export const VendorForm = ({match , action, children, authenticated,  handleUpda
           </div>
           <div className="vendorForm__form__row-controls">
             <label className="vendorForm__form__row-controls__label">Contact Email</label>
-            <input className="vendorForm__form__row-controls__input" type="text" name={'contactEmail'} {...register("contactEmail", {required: true})} autoComplete="off"/>
+            <input className={action==="Edit"? "vendorForm__form__row-controls__input vendorForm__form__row-controls__input--disabled" : "vendorForm__form__row-controls__input"} type="text" name={'contactEmail'} {...register("contactEmail", {required: true})} autoComplete="off" disabled={action ==="Edit"? "disabled":""}/>
             {errors.contactEmail &&<p className="vendorForm__error"><span className="material-icons eventsForm__error-icon">error</span>{errors.contactEmail?.message}</p>}
           </div>
         </div>
@@ -232,18 +225,20 @@ export const VendorForm = ({match , action, children, authenticated,  handleUpda
           <label className="vendorForm__form__row-controls__label">Address</label>
           <textarea className="vendorForm__form__row-controls__inputText"  name={'address'}  {...register("address")} autoComplete="off" />
         </div>
-        <div className="vendorForm__form__row">
-          <div className="vendorForm__form__row-controls">
-            <label className="vendorForm__form__row-controls__label">Budget</label>
-            <input className="vendorForm__form__row-controls__input" type="text" name={'budget'}  {...register("budget")} autoComplete="off"/>
-            {errors.budget &&<p className="vendorForm__error"><span className="material-icons eventsForm__error-icon">error</span>{errors.budget?.message}</p>}
+        {action === "Add" && (
+          <div className="vendorForm__form__row">
+            <div className="vendorForm__form__row-controls">
+              <label className="vendorForm__form__row-controls__label">Budget</label>
+              <input className="vendorForm__form__row-controls__input" type="text" name={'budget'}  {...register("budget")} autoComplete="off"/>
+              {errors.budget &&<p className="vendorForm__error"><span className="material-icons eventsForm__error-icon">error</span>{errors.budget?.message}</p>}
+            </div>
+            <div className="vendorForm__form__row-controls">
+              <label className="vendorForm__form__row-controls__label">Deposit Paid</label>
+              <input className="vendorForm__form__row-controls__input" type="text"  name={'depositPaid'}  {...register("depositPaid")} autoComplete="off"/>
+              {errors.depositPaid &&<p className="vendorForm__error"><span className="material-icons eventsForm__error-icon">error</span>{errors.depositPaid?.message}</p>}
+            </div>
           </div>
-          <div className="vendorForm__form__row-controls">
-            <label className="vendorForm__form__row-controls__label">Deposit Paid</label>
-            <input className="vendorForm__form__row-controls__input" type="text"  name={'depositPaid'}  {...register("depositPaid")} autoComplete="off"/>
-            {errors.depositPaid &&<p className="vendorForm__error"><span className="material-icons eventsForm__error-icon">error</span>{errors.depositPaid?.message}</p>}
-          </div>
-        </div>
+        )}
           </>
           )}
         <div className="vendorForm__form__actions">

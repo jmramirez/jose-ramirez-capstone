@@ -87,6 +87,10 @@
 
         &__input {
           @include form_input;
+
+          &--disabled {
+            color: #9797a5;
+          }
         }
 
         &__inputText {
