@@ -15,13 +15,14 @@ namespace PartyAgile.Domain.Services
     public interface IVendorService
     {
         Task<IEnumerable<VendorResponse>> GetVendorsAsync();
+        Task<VendorResponse> GetVendorById(GetVendorRequest request, string email);
         Task<IEnumerable<VendorResponse>> GetByEventId(Guid id);
         Task<VendorResponse> GetVendorAsync(GetVendorEventRequest request);
         Task<IEnumerable<VendorEventResponse>> GetEventsByVendorEmail(GetUserRequest request, string timing);
         Task<VendorResponse> AddVendorAsync(AddVendorRequest request);
 
         Task<VendorEventResponse> AssignAsync(AssignVendorRequest request);
-        Task<VendorResponse> EditVendorAsync(EditVendorRequest request);
+        Task<VendorResponse> EditVendorAsync(EditVendorRequest request, string username);
         Task<VendorEventResponse> EditVendorEventAsync(EditVendorEvent request);
     }
     public class VendorService : IVendorService
@@ -51,6 +52,14 @@ namespace PartyAgile.Domain.Services
         {
             var result = await _vendorRepository.GetAsync();
             return result.Select(x => _vendorMapper.Map(x));
+        }
+
+        public async Task<VendorResponse> GetVendorById(GetVendorRequest request, string email)
+        {
+            if (request?.Id == null) throw new ArgumentNullException();
+            var user = await _userRepository.GetByEmailAsync(email);
+            var vendor = await _vendorRepository.GetById(request.Id, user.Id);
+            return _vendorMapper.Map(vendor);
         }
 
         public async Task<IEnumerable<VendorResponse>> GetByEventId(Guid id)
@@ -100,8 +109,7 @@ namespace PartyAgile.Domain.Services
             { 
                 Vendor = result, 
                 EventId = request.EventId, 
-                Budget = new Price { Amount = request.Budget.Amount, Currency = request.Budget.Currency },
-                DepositPaid = new Price { Amount = request.DepositPaid.Amount, Currency = request.DepositPaid.Currency }
+                
             };
             _vendorEventRepository.Add(vendorEvent);
             await _vendorEventRepository.UnitOfWork.SaveChangesAsync();
@@ -109,25 +117,25 @@ namespace PartyAgile.Domain.Services
             return _vendorMapper.Map(result);
         }
 
-        public async Task<VendorResponse> EditVendorAsync(EditVendorRequest request)
+        public async Task<VendorResponse> EditVendorAsync(EditVendorRequest request, string username)
         {
-            //var existingVendor = await _vendorRepository.GetAsync(request.Id);
+            var user = await _userRepository.GetByEmailAsync(username);
+            var existingVendor = await _vendorRepository.GetById(request.Id, user.Id);
 
-          //  if(existingVendor == null) throw new ArgumentException($"Entity with {request.Id} is not present");
-
+            if(existingVendor == null) throw new ArgumentException($"Entity with {request.Id} is not present");
+            request.UserId = user.Id;
+            request.ContactEmail = user.UserName;
             var entity = _vendorMapper.Map(request);
+            
             var result = _vendorRepository.Update(entity);
-
             await _vendorRepository.UnitOfWork.SaveChangesAsync();
 
-            var vendorEvent = new VendorEvent { 
+            /*var vendorEvent = new VendorEvent { 
                 EventId = request.EventId, 
                 VendorId = request.Id ,
-                DepositPaid = new Price { Amount = request.DepositPaid.Amount, Currency = request.DepositPaid.Currency },
-                Budget = new Price { Amount = request.Budget.Amount, Currency = request.Budget.Currency },
             };
 
-            _vendorEventRepository.Update(vendorEvent);
+            _vendorEventRepository.Update(vendorEvent);*/
             await _vendorEventRepository.UnitOfWork.SaveChangesAsync();
 
 

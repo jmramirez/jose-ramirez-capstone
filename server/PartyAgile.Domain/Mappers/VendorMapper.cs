@@ -47,6 +47,7 @@ namespace PartyAgile.Domain.Mappers
                 ContactName = request.ContactName,
                 ContactEmail = request.ContactEmail,
                 Address = request.Address,
+                UserId = request.UserId
             };
 
             return vendorItem;

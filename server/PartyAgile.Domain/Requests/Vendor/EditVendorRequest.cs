@@ -16,5 +16,6 @@ namespace PartyAgile.Domain.Requests.Vendor
         public string ContactName { get; set; }
         public string ContactEmail { get; set; }
         public string Address { get; set; }
+        public Guid UserId { get; set; }
     }
 }

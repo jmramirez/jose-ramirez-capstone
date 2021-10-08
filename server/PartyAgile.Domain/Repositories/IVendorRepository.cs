@@ -10,6 +10,7 @@ namespace PartyAgile.Domain.Repositories
     public interface IVendorRepository : IRepository
     {
         Task<IEnumerable<Vendor>> GetAsync();
+        Task<Vendor> GetById(Guid vendorId, Guid userId);
         Task<IEnumerable<Vendor>> GetByEventId(Guid eventId);
         Task<Vendor> GetByUserId(Guid userId);
         Task<Vendor> GetAsync(Guid eventId, Guid vendorId);

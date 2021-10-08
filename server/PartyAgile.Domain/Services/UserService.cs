@@ -56,6 +56,7 @@ namespace PartyAgile.Domain.Services
             if(role == "Vendor")
             {
                 var userVendor = await _vendorRepository.GetByUserId(response.Id);
+                vendor.Id = userVendor.Id;
                 vendor.Name = userVendor.Name;
                 vendor.Type = userVendor.Type;
             }
