@@ -17,27 +17,51 @@ export const EventDetailsPage = ({ match, user, authenticated }) => {
   const history = useHistory()
 
   useEffect(() => {
-    const getEvent = (eventId) => {
-      axios.get(`${url}events/${eventId}`,{
-        headers: {
-          'Authorization' : `Bearer ${authenticated}`
-        }
-      })
-        .then(response => {
-          setEvent(response.data)
-          setLoadingEvent(false)
-          return axios.get(`${url}events/${eventId}/vendors`)
+    const getEvent = (eventId, role) => {
+      if(role === 'Planner') {
+        axios.get(`${url}events/${eventId}`,{
+          headers: {
+            'Authorization' : `Bearer ${authenticated}`
+          }
         })
-        .then((response) => {
-          console.log(response.data)
-          console.log('finished vendors')
-          setVendors(response.data)
-          setLoadingVendors(false)
+          .then(response => {
+            setEvent(response.data)
+            setLoadingEvent(false)
+            return axios.get(`${url}events/${eventId}/eventvendors`)
+          })
+          .then((response) => {
+            console.log(response.data)
+            console.log('finished vendors')
+            setVendors(response.data)
+            setLoadingVendors(false)
+          })
+      }
+      else if(role === 'Vendor') {
+        axios.get(`${url}events/${eventId}`,{
+          headers: {
+            'Authorization' : `Bearer ${authenticated}`
+          }
         })
+          .then(response => {
+            setEvent(response.data)
+          })
+      }
     }
-    if(authenticated && match.params.eventId)
-    getEvent(match.params.eventId)
-  }, [authenticated, match.params.eventId])
+    if(authenticated && match.params.eventId && user)
+    getEvent(match.params.eventId, user.role)
+  }, [authenticated, match.params.eventId, user])
+
+  useEffect(() => {
+    const calcBudget = () => {
+      return vendors.reduce((acc, item) => {
+        return acc + item.budget.amount
+      }, 0);
+    }
+    if(vendors){
+      const aproxBudget = calcBudget()
+      setBudgetCovered(aproxBudget)
+    }
+  }, [vendors])
 
 
   const goBack = () => {
