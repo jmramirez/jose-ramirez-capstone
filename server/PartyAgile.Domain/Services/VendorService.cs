@@ -23,7 +23,7 @@ namespace PartyAgile.Domain.Services
 
         Task<VendorEventResponse> AssignAsync(AssignVendorRequest request);
         Task<VendorResponse> EditVendorAsync(EditVendorRequest request, string username);
-        Task<VendorEventResponse> EditVendorEventAsync(EditVendorEvent request);
+        Task<VendorEventSimpleResponse> EditVendorEventAsync(EditVendorEvent request);
     }
     public class VendorService : IVendorService
     {
@@ -142,7 +142,7 @@ namespace PartyAgile.Domain.Services
             return _vendorMapper.Map(result);
         }
 
-        public async Task<VendorEventResponse> EditVendorEventAsync(EditVendorEvent request)
+        public async Task<VendorEventSimpleResponse> EditVendorEventAsync(EditVendorEvent request)
         {
             
 
@@ -153,7 +153,7 @@ namespace PartyAgile.Domain.Services
 
             
 
-            return _vendorEventMapper.Map(result);
+            return _vendorEventMapper.MapSimple(result);
         }
 
 
