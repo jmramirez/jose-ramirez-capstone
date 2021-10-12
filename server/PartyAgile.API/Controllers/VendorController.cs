@@ -46,9 +46,9 @@ namespace PartyAgile.API.Controllers
         }
 
         [HttpGet("vendor/{vendorId:guid}/{eventId:guid}")]
-        public async Task<IActionResult> GetById(Guid vendorId, Guid eventId)
+        public async Task<IActionResult> GetEventVendorById(Guid vendorId, Guid eventId)
         {
-            var result = await _vendorService.GetVendorAsync(new GetVendorEventRequest { EventId = eventId, VendorId = vendorId });
+            var result = await _vendorService.GetEventVendorAsync(new GetVendorEventRequest { EventId = eventId, VendorId = vendorId });
             return Ok(result);
         }
 

@@ -53,6 +53,20 @@ namespace PartyAgile.Infrastructure.Repositories
             }
         }
 
+        public async Task<VendorEvent> GetEventVendor(Guid vendorId, Guid eventId)
+        {
+            var vendorEvent = await _context
+                .VendorsEvent
+                .Where(x => x.VendorId == vendorId && x.EventId == eventId)
+                .Include(e => e.Event)
+                .FirstOrDefaultAsync();
+
+            if (vendorEvent == null) return null;
+
+            _context.Entry(vendorEvent).State = EntityState.Detached;
+            return vendorEvent;
+        }
+
 
         public async Task<IEnumerable<VendorEvent>> GetByEventIdAsync(Guid id)
         {

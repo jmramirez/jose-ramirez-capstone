@@ -60,11 +60,6 @@ namespace PartyAgile.Infrastructure.Repositories
 
             if (vendorItem == null) return null;
 
-            var vendorEvent = await _context.VendorsEvent.Where(x => x.VendorId == vendorId && x.EventId == eventId).FirstOrDefaultAsync();
-
-            
-
-
             _context.Entry(vendorItem).State = EntityState.Detached;
             return vendorItem;
         }
