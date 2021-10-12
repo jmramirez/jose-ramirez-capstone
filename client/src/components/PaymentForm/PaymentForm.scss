@@ -4,6 +4,10 @@
 .paymentForm {
   @include form_container;
 
+  &__error {
+    @include form_errors;
+  }
+
   &__header {
     @include form_header;
   }
@@ -23,6 +27,11 @@
           &--info {
             margin-top: 0;
             color: #9797A5;
+          }
+
+          &--paid {
+            margin-top: 0;
+            color: red;
           }
         }
 
