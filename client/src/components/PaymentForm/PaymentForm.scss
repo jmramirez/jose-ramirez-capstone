@@ -1,0 +1,43 @@
+@use '../../partials/mixins' as *;
+@use '../../partials/variables' as *;
+
+.paymentForm {
+  @include form_container;
+
+  &__header {
+    @include form_header;
+  }
+
+  &__form {
+    @include form;
+
+    &__row {
+      @include form_controls_row;
+
+      &-controls {
+        @include form_controls;
+
+        &__label {
+          @include form_label;
+
+          &--info {
+            margin-top: 0;
+            color: #9797A5;
+          }
+        }
+
+        &__input {
+          @include form_input;
+        }
+      }
+    }
+
+    &__actions {
+      @include form_actions;
+
+      &__button {
+        @include form_button;
+      }
+    }
+  }
+}
