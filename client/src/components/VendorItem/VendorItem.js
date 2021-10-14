@@ -10,8 +10,8 @@ const VendorItem = ({ vendor, eventId }) => {
           { vendor.name }
         </h2>
         <div className="vendor-item__header-actions">
-          <Link to={`/vendor/edit/${vendor.id}/${eventId}`} className="vendor-item__header-actions__link">
-            <Icon name="edit_note"/><p className="vendor-item__header-actions__link-text">Edit Vendor</p>
+          <Link to={`/event/${eventId}/message/${vendor.id}`} className="vendor-item__header-actions__link">
+            <Icon name="chat"/><p className="vendor-item__header-actions__link-text">Chat with Vendor</p>
           </Link>
         </div>
       </div>
