@@ -33,7 +33,7 @@ export const EventsPage = ({ events, match, authenticated, handleChange, user })
 
   return(
     <div className="events">
-      <PageHeader elementType="Events" buttonText={(user && user.role ==='Planner')?"Create New Event":"Edit Vendor Info"} handleChange={handleChange} user={user}/>
+      <PageHeader elementType={(user && user.role ==='Planner')?"Events":"Vendors"} buttonText={(user && user.role ==='Planner')?"Create New Event":"Edit Vendor Info"} handleChange={handleChange} user={user}/>
       <div className="events-content">
         <EventsList events={events} user={user} />
       </div>
