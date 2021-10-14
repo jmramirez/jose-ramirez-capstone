@@ -2,15 +2,6 @@ import './EventItem.scss'
 import {Link} from 'react-router-dom'
 import {Icon} from '../Icon/Icon';
 
-/*
-export const EventItem = ({ event }) => (
-  <Link to={`/getevent/${event.id}`} className="event-item">
-    <p className="event-item-title-title">{event.title}</p>
-    <p className="event-item-date">Date: { new Date(event.eventDate).toLocaleDateString()}</p>
-  </Link>
-)*/
-
-
 export const EventItem = ({ event, user }) => (
   <div className="eventItem">
     {user && user.role ==='Planner' && <Link to={`/events/${event.id}`} className="eventItem__link"><p className="eventItem__link__text">{event.title}</p> <Icon name="trending_flat" /></Link>}
@@ -18,10 +9,10 @@ export const EventItem = ({ event, user }) => (
       <div className="eventItem__header">
         <p className="eventItem__header__text">{event.title}</p>
         <div className="eventItem__header__actions">
-          <Link to={`/vendor/edit/${event.id}/${event.id}`} className="eventItem__header__actions__link">
+          <Link to={`/vendor/${user.vendor.id}/event/${event.id}`} className="eventItem__header__actions__link">
             <Icon name="paid"/><p className="eventItem__header__actions__link-text">Register Payment</p>
           </Link>
-          <Link to={`/vendor/edit/${event.id}/${event.id}`} className="eventItem__header__actions__link">
+          <Link to={`/event/${event.id}/message/${user.vendor.id}`} className="eventItem__header__actions__link">
             <Icon name="chat"/><p className="eventItem__header__actions__link-text">Chat with Planner</p>
           </Link>
         </div>
