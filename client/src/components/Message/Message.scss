@@ -1,0 +1,58 @@
+@use "../../partials/mixins" as *;
+@use "../../partials/variables" as *;
+
+.message {
+  align-self: start;
+  border: 1px solid $primary-black;
+  padding: 0.5rem;
+  width: 13rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  line-height: 1.1rem;
+  background-color: #E6E4E4;
+  color: $primary-black;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 1rem;
+
+  @include tablet {
+    width: 20rem;
+  }
+
+  @include  desktop {
+    width: 30rem;
+  }
+
+  &--yours {
+    background-color: #52489C;
+    color: white;
+    border: 1px solid #52489C;
+    align-self: end;
+  }
+
+  &__from {
+    @include p;
+  }
+
+  &__content {
+    @include p;
+    font-weight: 600;
+    letter-spacing: 0.05rem;
+    margin: 0.25rem 0;
+    line-height: 1rem;
+
+
+    @include desktop {
+      margin: 0.5rem 0;
+      line-height: 1.375rem;
+    }
+  }
+
+  &__sent {
+    @include p;
+    font-size: 0.7rem;
+    letter-spacing: 0.02rem;
+    align-self: flex-end;
+  }
+}
