@@ -66,7 +66,7 @@ export const EventForm = ({ action, match, handleUpdate ,authenticated }) => {
         }
       })
         .then(response =>{
-          handleUpdate()
+          handleUpdate("events")
           history.push('/')
         })
     }
@@ -79,7 +79,7 @@ export const EventForm = ({ action, match, handleUpdate ,authenticated }) => {
         }
       })
         .then(response => {
-          handleUpdate()
+          handleUpdate("events")
           history.goBack()
         })
     }
