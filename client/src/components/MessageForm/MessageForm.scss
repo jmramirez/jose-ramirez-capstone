@@ -81,7 +81,7 @@
 
         @include tablet {
           flex-direction: row;
-          align-items: center;
+          align-items: baseline;
         }
       }
 
@@ -92,20 +92,30 @@
           @include form_label;
 
           @include tablet {
-            margin: 0;
+            margin-right: 0.5rem;
           }
         }
 
-        &__inputText {
-          @include form_input_text;
-          height: 3rem;
+        &__input{
+          display: flex;
+          flex-direction: column;
+          flex: 1;
 
-          @include tablet{
-            width: 28rem;
+          &-text {
+            @include form_input_text;
+            height: 3rem;
+
+            @include tablet{
+              width: 28rem;
+            }
+
+            @include desktop{
+              width: 44.5rem;
+            }
           }
 
-          @include desktop{
-            width: 44.5rem;
+          &-error {
+            @include form_errors;
           }
         }
 
@@ -118,7 +128,7 @@
           @include tablet{
             width: 11rem;
             margin-left: 0.5rem;
-            margin-top: 0;
+            margin-top: 0.6rem;
           }
         }
       }
