@@ -15,5 +15,6 @@ namespace PartyAgile.Domain.Entities
 
         public Price Budget { get; set; }
         public Price DepositPaid { get; set; }
+        public ICollection<Message> Messages { get; set; }
     }
 }
