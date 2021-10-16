@@ -19,8 +19,8 @@ namespace PartyAgile.Domain.Extensions
                 .AddSingleton<IEventMapper, EventMapper>()
                 .AddSingleton<IVendorMapper, VendorMapper>()
                 .AddSingleton<IVendorTaskMapper, VendorTaskMapper>()
-                .AddSingleton<IVendorEventMapper, VendorEventMapper>();
-            
+                .AddSingleton<IVendorEventMapper, VendorEventMapper>()
+                .AddSingleton<IMessageMapper, MessageMapper>();
 
             return services;
         } 
@@ -31,7 +31,8 @@ namespace PartyAgile.Domain.Extensions
                 .AddScoped<IEventService, EventService>()
                 .AddScoped<IVendorService, VendorService>()
                 .AddScoped<IVendorTaskService, VendorTaskService>()
-                .AddScoped<IUserService, UserService>();
+                .AddScoped<IUserService, UserService>()
+                .AddScoped<IMessageService, MessageService>();
             
 
             return services;
