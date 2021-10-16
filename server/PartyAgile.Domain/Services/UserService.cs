@@ -52,6 +52,7 @@ namespace PartyAgile.Domain.Services
             var roles = await _userRepository.GetRoles(request.Email);
             var role = roles.First();
             var vendor = new VendorResponse();
+            var name = $"{response.FirstName} {response.LastName}";
 
             if(role == "Vendor")
             {
@@ -59,9 +60,10 @@ namespace PartyAgile.Domain.Services
                 vendor.Id = userVendor.Id;
                 vendor.Name = userVendor.Name;
                 vendor.Type = userVendor.Type;
+                name = userVendor.Name;
             }
 
-            return new UserResponse { Id = response.Id, Name = $"{response.FirstName} {response.LastName}", Email = response.Email, Role = role, Vendor = vendor };
+            return new UserResponse { Id = response.Id, Name = name, Email = response.Email, Role = role, Vendor = vendor };
         }
 
         public async Task<UserResponse> SignUpAsync(SignUpRequest request, CancellationToken cancellationToken)
