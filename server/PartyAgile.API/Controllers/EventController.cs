@@ -1,12 +1,10 @@
-﻿using PartyAgile.API.Filters;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using PartyAgile.Domain.Requests.Event;
 using PartyAgile.Domain.Services;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using PartyAgile.Domain.Requests.Vendor;
 using Microsoft.AspNetCore.Authorization;
 
 namespace PartyAgile.API.Controllers
