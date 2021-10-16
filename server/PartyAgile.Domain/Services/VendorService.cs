@@ -21,7 +21,7 @@ namespace PartyAgile.Domain.Services
         Task<IEnumerable<VendorEventResponse>> GetEventsByVendorEmail(GetUserRequest request, string timing);
         Task<VendorResponse> AddVendorAsync(AddVendorRequest request);
 
-        Task<VendorEventResponse> AssignAsync(AssignVendorRequest request);
+        Task<VendorEventSimpleResponse> AssignAsync(AssignVendorRequest request);
         Task<VendorResponse> EditVendorAsync(EditVendorRequest request, string username);
         Task<VendorEventSimpleResponse> EditVendorEventAsync(EditVendorEvent request);
     }
@@ -158,13 +158,13 @@ namespace PartyAgile.Domain.Services
 
 
 
-        public async Task<VendorEventResponse> AssignAsync(AssignVendorRequest request)
+        public async Task<VendorEventSimpleResponse> AssignAsync(AssignVendorRequest request)
         {
             var vendorItem = _vendorEventMapper.MapRequest(request);
             var result = _vendorEventRepository.Add(vendorItem);
             await _vendorEventRepository.UnitOfWork.SaveChangesAsync();
 
-            return _vendorEventMapper.Map(result);
+            return _vendorEventMapper.MapSimple(result);
         }
     }
 }
