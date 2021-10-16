@@ -21,6 +21,7 @@ namespace PartyAgile.Infrastructure
         public DbSet<VendorTask> Tasks { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<VendorEvent> VendorsEvent { get; set; }
+        public DbSet<Message> Messages { get; set; }
 
         public PartyAgileDbContext(DbContextOptions<PartyAgileDbContext> options) : base(options) {  }
 
@@ -32,6 +33,7 @@ namespace PartyAgile.Infrastructure
             modelBuilder.ApplyConfiguration(new CommentEntitySchemaDefinition());
             modelBuilder.ApplyConfiguration(new VendorEventEntitySchemaDefinition());
             modelBuilder.ApplyConfiguration(new RolesSchemaDefinition());
+            modelBuilder.ApplyConfiguration(new MessageEntitySchemaDefinition());
             base.OnModelCreating(modelBuilder);
         }
 
