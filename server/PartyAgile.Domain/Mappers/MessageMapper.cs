@@ -22,7 +22,8 @@ namespace PartyAgile.Domain.Mappers
                 Content = request.Content,
                 Created = request.Created,
                 VendorId = request.VendorId,
-                EventId = request.EventId
+                EventId = request.EventId,
+                SenderName = request.Sender
             };
 
             return messageItem;
@@ -37,7 +38,9 @@ namespace PartyAgile.Domain.Mappers
                 Id = request.Id,
                 Content = request.Content,
                 Created = request.Created,
-                SenderName = request.SenderName
+                SenderName = request.SenderName,
+                VendorId = request.VendorId,
+                EventId = request.EventId
             };
 
             return response;
