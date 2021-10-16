@@ -12,5 +12,7 @@ namespace PartyAgile.Domain.Responses
         public string Content { get; set; }
         public DateTimeOffset Created { get; set; }
         public string SenderName { get; set; }
+        public Guid VendorId { get; set; }
+        public Guid EventId { get; set; }
     }
 }
