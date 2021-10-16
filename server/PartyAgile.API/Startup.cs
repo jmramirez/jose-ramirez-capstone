@@ -15,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using PartyAgile.API.Extensions;
+using PartyAgile.API.Hubs;
 using PartyAgile.Domain.Extensions;
 using PartyAgile.Domain.Repositories;
 using PartyAgile.Infrastructure;
@@ -42,6 +43,7 @@ namespace PartyAgile.API
             services.AddScoped<IVendorRepository, VendorRepository>();
             services.AddScoped<IVendorEventRepository, VendorEventRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddTokenAuthentication(Configuration);
             services.AddMappers();
             services.AddServices();
@@ -59,6 +61,7 @@ namespace PartyAgile.API
                 options.Password.RequireLowercase = false;
                 options.Password.RequireNonAlphanumeric = false;
             });
+            services.AddSignalR();
             
         }
 
@@ -76,7 +79,8 @@ namespace PartyAgile.API
             {
                 cfg.WithOrigins("http://localhost:3000")
                 .AllowAnyMethod()
-                .AllowAnyHeader();
+                .AllowAnyHeader()
+                .AllowCredentials();
             });
 
             app.UseHttpsRedirection();
@@ -89,6 +93,7 @@ namespace PartyAgile.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<MessagesHub>("/messageshub");
             });
         }
     }
