@@ -107,9 +107,11 @@ namespace PartyAgile.Domain.Services
 
             var vendorEvent = new VendorEvent 
             { 
-                Vendor = result, 
-                EventId = request.EventId, 
-                
+                Vendor = result,
+                VendorId = result.Id,
+                EventId = request.EventId,
+                Budget = new Price { Amount = request.Budget.Amount, Currency = request.Budget.Currency},
+                DepositPaid = new Price { Amount = request.DepositPaid.Amount, Currency = request.Budget.Currency}
             };
             _vendorEventRepository.Add(vendorEvent);
             await _vendorEventRepository.UnitOfWork.SaveChangesAsync();
