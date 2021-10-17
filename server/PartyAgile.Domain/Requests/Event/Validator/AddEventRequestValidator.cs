@@ -1,9 +1,4 @@
 ﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PartyAgile.Domain.Requests.Event.Validator
 {
@@ -13,6 +8,8 @@ namespace PartyAgile.Domain.Requests.Event.Validator
         {
             RuleFor(x => x.Title).NotEmpty();
             RuleFor(x => x.EventDate).NotEmpty();
+            RuleFor(x => x.Budget).NotEmpty();
+            RuleFor(x => x.Guests).NotEmpty();
         }
     }
 }
