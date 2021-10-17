@@ -15,7 +15,6 @@ const RegisterForm = ({ handleLogin }) => {
 
 
   const onSubmit = (data, e) => {
-    console.log(data)
     axios.post(`${url}user`, {
       email: data.email,
       password:data.password,
@@ -23,12 +22,10 @@ const RegisterForm = ({ handleLogin }) => {
       lastName: data.lastName
     })
       .then(response =>{
-        console.log(response.data)
         handleLogin(response.data)
         history.push('/')
       })
       .catch((e) => {
-        console.log(e.response)
         setSuccess(false)
         setError(e.response.data.message)
       })
@@ -59,10 +56,10 @@ const RegisterForm = ({ handleLogin }) => {
         <input type="text" className="signUp-form__input" {...register("email", { required: true })}/>
         {errors.email && (<p className="logIn-form__error">Email is required</p>)}
         <label className="signUp-form__label">Password</label>
-        <input type="text" className="signUp-form__input" type="password" {...register("password", { required: true })}/>
+        <input className="signUp-form__input" type="password" {...register("password", { required: true })}/>
         {errors.password && (<p className="logIn-form__error">Password is required</p>)}
         <label className="signUp-form__label">Confirm Password</label>
-        <input type="text" className="signUp-form__input" type="password"  {...register("passwordConfirmation", {validate: value => value === password.current || "The passwords do not match"})}/>
+        <input className="signUp-form__input" type="password"  {...register("passwordConfirmation", {validate: value => value === password.current || "The passwords do not match"})}/>
         {errors.passwordConfirmation &&( <p className="logIn-form__error">{errors.passwordConfirmation.message}</p>)}
         {!success &&( <p className="logIn-form__error">{error}</p>)}
         <button className="logIn-form__button" type="button" onClick={signIn}>Already have an account? Sign in</button>

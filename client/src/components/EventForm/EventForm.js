@@ -1,5 +1,5 @@
 import './EventForm.scss'
-import {useEffect, useState} from 'react'
+import {useEffect} from 'react'
 import ReactDatepicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
 import axios from 'axios'
@@ -18,8 +18,6 @@ const schema = yup.object().shape({
 })
 
 export const EventForm = ({ action, match, handleUpdate ,authenticated }) => {
-  const [event, setEvent] = useState(null)
-  const [ loading, setLoading ] = useState(true)
   const history = useHistory()
   const { register, handleSubmit, formState: { errors }, control, setValue } = useForm({
     mode: 'onBlur',
@@ -34,12 +32,10 @@ export const EventForm = ({ action, match, handleUpdate ,authenticated }) => {
         }
       })
         .then(response => {
-          setEvent(response.data)
           const fields = ['title','guests','description']
           fields.forEach(field => setValue(field, response.data[field]))
           setValue('budget',response.data.budget.amount)
           setValue('eventDate', new Date(response.data.eventDate))
-          setLoading(false)
         })
     }
     if(match.params.eventId){
@@ -48,7 +44,6 @@ export const EventForm = ({ action, match, handleUpdate ,authenticated }) => {
   },[match.params.eventId])
 
   const onSubmit = (data) => {
-    console.log(data)
     const event = {
       title: data.title,
       description: data.description,

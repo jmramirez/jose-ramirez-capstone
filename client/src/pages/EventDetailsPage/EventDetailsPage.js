@@ -2,13 +2,11 @@ import './EventDetailsPage.scss'
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 import {url} from '../../config';
-import {PageHeader} from '../../components/PageHeader/PageHeader';
 import {Link, useHistory} from 'react-router-dom';
 import {Icon} from '../../components/Icon/Icon';
 import VendorList from '../../components/VendorsList/VendorsList';
 
 export const EventDetailsPage = ({ match, user, authenticated }) => {
-  const [eventId, setEventId] = useState('')
   const [event, setEvent] = useState(null)
   const [vendors, setVendors] = useState(null)
   const [loadingEvent, setLoadingEvent] = useState(true)
@@ -30,8 +28,6 @@ export const EventDetailsPage = ({ match, user, authenticated }) => {
             return axios.get(`${url}events/${eventId}/eventvendors`)
           })
           .then((response) => {
-            console.log(response.data)
-            console.log('finished vendors')
             setVendors(response.data)
             setLoadingVendors(false)
           })
@@ -133,9 +129,8 @@ export const EventDetailsPage = ({ match, user, authenticated }) => {
           loadingVendors ?
             <h2>Loading Vendors ...</h2>
             :
-            user && user.role === 'Planner' && <VendorList vendors={vendors} />
+            user && user.role === 'Planner' && <VendorList vendors={vendors} eventId={event.id} />
         }
-        {/*{user && user.role === 'Planner' && <VendorList />}*/}
       </div>
 
   )

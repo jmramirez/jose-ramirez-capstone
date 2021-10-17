@@ -13,7 +13,7 @@ export const MessageForm = ({ authenticated, match, user }) => {
   const history = useHistory()
   const [loading, setLoading] = useState(true)
   const [messages, setMessages] = useState(null)
-  const { register, handleSubmit, formState:{ errors }, clearErrors, reset } = useForm()
+  const { register, handleSubmit, formState:{ errors }, reset } = useForm()
 
   const getMessages = (vendorId, eventId, auth) => {
     axios.get(`${url}messages/${vendorId}/${eventId}`,{
@@ -98,7 +98,6 @@ export const MessageForm = ({ authenticated, match, user }) => {
   }
 
   const onSubmit = (data) => {
-    console.log(data)
     axios.post(`${url}messages/`,{
       content: data.message,
       created: new Date(),

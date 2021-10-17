@@ -1,9 +1,14 @@
 import './MainPage.scss'
 import LoginForm from '../../components/LogInForm/LogInForm'
 import RegisterForm from '../../components/RegisterForm/RegisterForm'
+import {Redirect} from 'react-router-dom';
 
-const MainPage = ({ handleLogin, action }) => {
+const MainPage = ({ handleLogin, action, authenticated }) => {
+
   return(
+    authenticated?
+      <Redirect to="/"/>
+      :
     <div  className="mainPage">
         <div className="mainPage-container">
           <div className="mainPage__image">

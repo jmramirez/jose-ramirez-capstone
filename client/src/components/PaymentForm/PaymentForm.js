@@ -41,7 +41,6 @@ export  const PaymentForm = ({ match, authenticated, handleUpdate }) => {
   }, [authenticated, match.params])
 
   const onSubmit = (data) => {
-    console.log(data)
     axios.put(`${url}vendor/eventVendor`,{
       eventId: match.params.eventId,
       vendorId: match.params.vendorId,
@@ -55,7 +54,6 @@ export  const PaymentForm = ({ match, authenticated, handleUpdate }) => {
       }
     })
       .then(response =>{
-       console.log(response.data)
         handleUpdate("vendorEvents")
         history.push('/')
       })

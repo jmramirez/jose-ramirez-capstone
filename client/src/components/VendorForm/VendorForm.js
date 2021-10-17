@@ -3,7 +3,7 @@ import './VendorForm.scss'
 import axios from 'axios'
 import {useForm} from 'react-hook-form'
 import { useState, useEffect } from 'react'
-import {Link, useHistory} from 'react-router-dom'
+import { useHistory} from 'react-router-dom'
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import {Icon} from '../Icon/Icon';
@@ -11,12 +11,14 @@ import {Icon} from '../Icon/Icon';
 
 const schema = yup.object().shape({
   addNew: yup.boolean(),
-  vendors: yup.mixed("Please select").notOneOf(['Please Select Vendor'], "Please select a vendor from the list"),
+  vendors: yup.mixed("Please select").when("addNew",{is: false, then: yup.mixed("Please select").notOneOf(['Please Select Vendor'], "Please select a vendor from the list")}),
   type: yup.string().when("addNew",{is: true, then: yup.string().required("Vendor type is required"), otherwise: yup.string().notRequired()}),
   name:  yup.string().when("addNew",{is: true, then: yup.string().required("Vendor Name is required"), otherwise: yup.string().notRequired()}),
   contactEmail:  yup.string().when("addNew",{is: true, then: yup.string().required("Vendor Email is required"), otherwise: yup.string().notRequired()}),
-  budget: yup.number().typeError('Budget is required, should be a number').min(0, "Budget should be greater than 0"),
-  depositPaid: yup.number().typeError('Deposit Paid is required, should be a number').min(0, "Deposit Paid should be greater than 0"),
+  budget: yup.number().when("addNew",{is: false, then: yup.number().typeError('Budget is required, should be a number').min(0, "Budget should be greater than 0"), otherwise: yup.number().notRequired().nullable()}),
+  depositPaid: yup.number().when("addNew",{is: false, then: yup.number().typeError('Deposit Paid is required, should be a number').min(0, "Deposit Paid should be greater than 0"), otherwise: yup.number().notRequired().nullable()}),
+  budgetNew: yup.number().when("addNew",{is: true, then: yup.number().typeError('Budget is required, should be a number').min(0, "Budget should be greater than 0"), otherwise: yup.number().notRequired().nullable()}),
+  depositPaidNew: yup.number().when("addNew",{is: true, then: yup.number().typeError('Deposit Paid is required, should be a number').min(0, "Deposit Paid should be greater than 0"), otherwise: yup.number().notRequired().nullable()}),
 })
 
 export const VendorForm = ({match , action, children, authenticated,  handleUpdate}) => {
@@ -24,12 +26,15 @@ export const VendorForm = ({match , action, children, authenticated,  handleUpda
   const [addNew, setAddNew] = useState(false)
   const [loading, setLoading] = useState(true)
   const [vendors, setVendors] = useState([])
-  const [vendorId, setVendorId] = useState('')
 
   const { register, handleSubmit, formState: { errors }, setValue, clearErrors,getValues, reset} = useForm({
     addNew: addNew,
-    budget: 0,
-    depositPaid: 0,
+    defaultValues: {
+      budget: null,
+      depositPaid: null,
+      budgetNew: null,
+      depositPaidNew: null
+    },
     mode: 'onSubmit',
     resolver: yupResolver(schema)
   })
@@ -62,7 +67,6 @@ export const VendorForm = ({match , action, children, authenticated,  handleUpda
     if(action === 'Edit'){
       axios.get(`${url}vendor/${match.params.vendorId}`)
         .then(response => {
-          console.log(response.data)
           const fields = ['name', 'type','contactName','contactEmail', 'address']
           fields.forEach(field => setValue(field, response.data[field]))
           setLoading(false)
@@ -71,9 +75,9 @@ export const VendorForm = ({match , action, children, authenticated,  handleUpda
   },[match.params.vendorId, setValue, action])
 
   const onSubmit = (data) => {
-    console.log(data);
+    console.log(data)
     if(action ==="Add"){
-      {addNew ?
+      {addNew ?(
         axios.post(`${url}vendor/`,{
           name: data.name,
           type: data.type,
@@ -81,18 +85,18 @@ export const VendorForm = ({match , action, children, authenticated,  handleUpda
           contactEmail: data.contactEmail,
           address: data.address,
           budget: {
-            "amount": data.budget,
+            "amount": data.budgetNew,
             "currency": "CAD"
           },
           depositPaid: {
-            "amount": data.depositPaid,
+            "amount": data.depositPaidNew,
             "currency": "CAD"
           },
           "eventId" : match.params.eventId
         })
           .then(response => {
             history.push(`/events/${match.params.eventId}`)
-          })
+          }))
       :
         (axios.post(`${url}vendor/event`,{
           eventId: match.params.eventId,
@@ -135,20 +139,22 @@ export const VendorForm = ({match , action, children, authenticated,  handleUpda
 
   const handleNew = (event) => {
     setAddNew(event.target.checked)
-    reset({...getValues(), budget: '',
+    reset({...getValues() ,
       addNew: event.target.checked,
       vendors: 'Please Select Vendor',
       type:'',
       name:'',
       contactName:'',
       contactEmail: '',
-      depositPaid: ''
+      budget: null,
+      depositPaid: null,
+      budgetNew: null,
+      depositPaidNew: null
     })
     clearErrors()
   }
 
   const handleChange = (e) => {
-    setVendorId(e.target.value)
     setSelected(true)
   }
 
@@ -229,13 +235,13 @@ export const VendorForm = ({match , action, children, authenticated,  handleUpda
           <div className="vendorForm__form__row">
             <div className="vendorForm__form__row-controls">
               <label className="vendorForm__form__row-controls__label">Budget</label>
-              <input className="vendorForm__form__row-controls__input" type="text" name={'budget'}  {...register("budget")} autoComplete="off"/>
-              {errors.budget &&<p className="vendorForm__error"><span className="material-icons eventsForm__error-icon">error</span>{errors.budget?.message}</p>}
+              <input className="vendorForm__form__row-controls__input" type="text" name={'budgetNew'}  {...register("budgetNew")} autoComplete="off"/>
+              {errors.budgetNew &&<p className="vendorForm__error"><span className="material-icons eventsForm__error-icon">error</span>{errors.budgetNew?.message}</p>}
             </div>
             <div className="vendorForm__form__row-controls">
               <label className="vendorForm__form__row-controls__label">Deposit Paid</label>
-              <input className="vendorForm__form__row-controls__input" type="text"  name={'depositPaid'}  {...register("depositPaid")} autoComplete="off"/>
-              {errors.depositPaid &&<p className="vendorForm__error"><span className="material-icons eventsForm__error-icon">error</span>{errors.depositPaid?.message}</p>}
+              <input className="vendorForm__form__row-controls__input" type="text"  name={'depositPaidNew'}  {...register("depositPaidNew")} autoComplete="off"/>
+              {errors.depositPaidNew &&<p className="vendorForm__error"><span className="material-icons eventsForm__error-icon">error</span>{errors.depositPaidNew?.message}</p>}
             </div>
           </div>
         )}
@@ -243,10 +249,19 @@ export const VendorForm = ({match , action, children, authenticated,  handleUpda
           )}
         <div className="vendorForm__form__actions">
           <button onClick={handleClick} className="vendorForm__form__actions__button" type="button">Cancel</button>
-          <button className="vendorForm__form__actions__button">
-            <Icon name="add" />
-            {action} Vendor
-          </button>
+          {action && action === 'Edit' &&
+            <button className="vendorForm__form__actions__button">
+              <Icon name="save" />
+              Save Changes
+            </button>
+          }
+          {
+            action && action === 'Add' &&
+            <button className="vendorForm__form__actions__button">
+              <Icon name="add" />
+              {action} Vendor
+            </button>
+          }
         </div>
       </form>
     </main>

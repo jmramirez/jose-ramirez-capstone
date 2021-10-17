@@ -87,7 +87,6 @@ export const App = () => {
 
   const handleLogin = (data) => {
     if (typeof window !== 'undefined') {
-      console.log(data.token)
       sessionStorage.setItem('jwt', JSON.stringify(data.token));
       setAuthenticated(JSON.parse(sessionStorage.getItem('jwt')))
     }
@@ -95,7 +94,6 @@ export const App = () => {
 
   const handleTiming = (value) => {
     setTiming(value);
-    console.log(timing)
   }
 
   const handleLogout = () => {

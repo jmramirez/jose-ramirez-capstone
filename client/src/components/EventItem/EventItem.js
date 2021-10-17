@@ -19,7 +19,7 @@ export const EventItem = ({ event, user }) => (
       </div>
     )}
     <div className="eventItem__content">
-      <p className="eventItem__content__text--description"><span className="eventItem__content__label">Description: </span>{event.description}</p>
+      <p className="eventItem__content__text--description"><span className="eventItem__content__label">Organized by: </span>{event.creatorName}</p>
       <p className="eventItem__content__text--date"><span className="eventItem__content__label">Event Date: </span>{new Date(event.eventDate).toLocaleDateString()}</p>
       <div className="eventItem__content--vendor">
         <p className="eventItem__content__text eventItem__content__text--budget"><span className="eventItem__content__label">Budget: </span>{event.budget.amount}{event.budget.currency}</p>
