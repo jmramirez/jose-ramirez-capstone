@@ -30,7 +30,7 @@ const LoginForm = ({ handleLogin, handleRegister }) => {
     e.preventDefault()
     history.push('/signup')
   }
-
+  
   return(
     <>
       <h2 className="logIn-form__heading">Log In</h2>
@@ -44,6 +44,10 @@ const LoginForm = ({ handleLogin, handleRegister }) => {
         {!success &&( <p className="logIn-form__error">User not found, please try again</p>)}
         <button className="logIn-form__button" type="button" onClick={signUp}>No account? Create one!</button>
         <input className="logIn-form__submit" type="submit" value="Log In"/>
+        <div className="logIn-form__demo-actions">
+          <input className="logIn-form__demo-actions__buttons" type="button" value="Demo Log In as Planner"/>
+          <input className="logIn-form__demo-actions__buttons" type="button" value="Demo Log In as Vendor"/>
+        </div>
       </form>
     </>
   )
