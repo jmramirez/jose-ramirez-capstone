@@ -16,7 +16,7 @@ namespace PartyAgile.API.Extensions
             return services
                 .AddDbContext<PartyAgileDbContext>(opt =>
                 {
-                    opt.UseSqlServer(
+                    opt.UseNpgsql(
                         connectionString,
                         x =>
                         {

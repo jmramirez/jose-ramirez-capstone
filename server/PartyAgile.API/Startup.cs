@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,7 +27,7 @@ namespace PartyAgile.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddPADbContext(Configuration.GetSection("DataSource:ConnectionString").Value);
+            services.AddPADbContext(Configuration.GetConnectionString("DefaultConnection"));
             services.AddScoped<ICommentRepository,CommentRepository>();
             services.AddScoped<IEventRepository, EventRepository>();
             services.AddScoped<IVendorTaskRepository, VendorTaskRepository>();
@@ -42,6 +43,12 @@ namespace PartyAgile.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PartyAgile.API", Version = "v1" });
             });
+            
+            services.AddCors(options => options.AddPolicy("CorsPolicy", builder =>
+                builder
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .WithOrigins(Configuration["Frontend"])));
             
             services.AddHttpClient();
             services.Configure<IdentityOptions>(options =>
@@ -65,17 +72,16 @@ namespace PartyAgile.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PartyAgile.API v1"));
             }
 
-            app.UseCors(cfg =>
-            {
-                cfg.WithOrigins("http://localhost:3000")
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-                .AllowCredentials();
-            });
+            app.UseCors("CorsPolicy");
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
+            
             app.UseAuthentication();
 
             app.UseAuthorization();

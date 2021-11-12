@@ -132,12 +132,6 @@ namespace PartyAgile.Domain.Services
             var result = _vendorRepository.Update(entity);
             await _vendorRepository.UnitOfWork.SaveChangesAsync();
 
-            /*var vendorEvent = new VendorEvent { 
-                EventId = request.EventId, 
-                VendorId = request.Id ,
-            };
-
-            _vendorEventRepository.Update(vendorEvent);*/
             await _vendorEventRepository.UnitOfWork.SaveChangesAsync();
 
 
