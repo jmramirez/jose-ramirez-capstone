@@ -10,8 +10,8 @@ using PartyAgile.Infrastructure;
 namespace PartyAgile.API.Migrations
 {
     [DbContext(typeof(PartyAgileDbContext))]
-    [Migration("20211111061812_initial")]
-    partial class initial
+    [Migration("20211113183806_InitalMigration")]
+    partial class InitalMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -151,15 +151,17 @@ namespace PartyAgile.API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f4116d3f-e6e3-4bc0-afdd-27d462e8d32b"),
-                            ConcurrencyStamp = "542fe75e-3094-4188-aea8-108c0ecfb269",
-                            Name = "Planner"
+                            Id = new Guid("5aedca98-6e21-4b5d-85f3-add79eb2f391"),
+                            ConcurrencyStamp = "cd391958-5aaf-4c3b-8057-8339d699d53d",
+                            Name = "Planner",
+                            NormalizedName = "PLANNER"
                         },
                         new
                         {
-                            Id = new Guid("a160c136-ca14-488f-9ac0-9203a7e75aca"),
-                            ConcurrencyStamp = "c3de957d-440f-4828-8ba8-26c552c66dc4",
-                            Name = "Vendor"
+                            Id = new Guid("b9483149-8510-48f9-b421-cb564bed3002"),
+                            ConcurrencyStamp = "3ce1624b-0c49-441c-92ec-9d5af9ee438e",
+                            Name = "Vendor",
+                            NormalizedName = "VENDOR"
                         });
                 });
 
