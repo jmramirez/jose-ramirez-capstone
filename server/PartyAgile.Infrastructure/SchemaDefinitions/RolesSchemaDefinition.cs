@@ -17,12 +17,14 @@ namespace PartyAgile.Infrastructure.SchemaDefinitions
                 new AppRole
                 {
                     Id = Guid.NewGuid(),
-                    Name = "Planner"
+                    Name = "Planner",
+                    NormalizedName = "PLANNER"
                 },
                 new AppRole
                 {
                     Id = Guid.NewGuid(),
-                    Name = "Vendor"
+                    Name = "Vendor",
+                    NormalizedName = "VENDOR"
                 }
             );
         }
