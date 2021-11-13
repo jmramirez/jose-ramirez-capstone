@@ -79,9 +79,11 @@ namespace PartyAgile.Domain.Services
         {
             bool isAuthenticated = await _userRepository.AuthenticateAsync(request.Email, request.Password, cancellationToken);
 
+            if (!isAuthenticated) return null;
+
             var role = await _userRepository.GetRoles(request.Email, cancellationToken);
 
-            return !isAuthenticated ? null : new TokenResponse { Token = GenerateSecurityToken(request, role.First()) };
+            return new TokenResponse { Token = GenerateSecurityToken(request, role.First()) };
         }
 
         public async Task<IEnumerable<EventResponse>> GetEventsByUserId(GetUserRequest request, string timing)

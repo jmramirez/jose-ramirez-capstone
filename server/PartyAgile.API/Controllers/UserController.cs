@@ -62,6 +62,7 @@ namespace PartyAgile.API.Controllers
             user = await _userService.SignUpAsync(request);
             if (user == null) return BadRequest();
             var token = await _userService.SignInAsync(new SignInRequest { Email = user.Email, Password = request.Password });
+            if (token == null) return BadRequest();
             return Ok(token);
         }
     }

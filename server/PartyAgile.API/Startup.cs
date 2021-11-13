@@ -76,6 +76,11 @@ namespace PartyAgile.API
 
             app.UseHttpsRedirection();
             app.UseRouting();
+            
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
 
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
