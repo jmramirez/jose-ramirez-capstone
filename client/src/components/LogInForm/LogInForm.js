@@ -48,7 +48,8 @@ const LoginForm = ({ handleLogin, handleRegister }) => {
     }
     axios.post(`${url}user/auth`, user)
         .then(response => {
-          console.log(response.data)
+          handleLogin(response.data)
+          history.push('/')
         })
         .catch((e) => {
           console.log(e)
