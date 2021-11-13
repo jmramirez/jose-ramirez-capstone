@@ -40,11 +40,12 @@
   }
 
   &__input {
-    height: 2rem;
+    height: 2.1rem;
     font-family: inherit;
+    font-size: 1.05rem;
     border: 1px solid #E6E4E4;
     background-color: #fafafa;
-    padding: 0.2rem 1rem;
+    padding: 0.5rem 1rem;
     font-weight: 600;
 
     &:focus {

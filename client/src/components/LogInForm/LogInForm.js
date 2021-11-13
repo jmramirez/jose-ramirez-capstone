@@ -31,6 +31,31 @@ const LoginForm = ({ handleLogin, handleRegister }) => {
     history.push('/signup')
   }
   
+  const demoLogin = (e, type) => {
+    e.preventDefault()
+    let user = {}
+    if(type === 'planner') {
+      user = {
+        email: "demoplanner@example.com",
+        password: "partyAgile21"
+      }
+    }
+    if(type === 'vendor') {
+      user = {
+        email: "demovendor@example.com",
+        password: "partyAgile21"
+      }
+    }
+    axios.post(`${url}user/auth`, user)
+        .then(response => {
+          console.log(response.data)
+        })
+        .catch((e) => {
+          console.log(e)
+          setSuccess(false)
+        })
+  }
+  
   return(
     <>
       <h2 className="logIn-form__heading">Log In</h2>
@@ -45,8 +70,8 @@ const LoginForm = ({ handleLogin, handleRegister }) => {
         <button className="logIn-form__button" type="button" onClick={signUp}>No account? Create one!</button>
         <input className="logIn-form__submit" type="submit" value="Log In"/>
         <div className="logIn-form__demo-actions">
-          <input className="logIn-form__demo-actions__buttons" type="button" value="Demo Log In as Planner"/>
-          <input className="logIn-form__demo-actions__buttons" type="button" value="Demo Log In as Vendor"/>
+          <input className="logIn-form__demo-actions__buttons" type="button" value="Demo Log In as Planner" onClick={(e) => demoLogin(e,"planner")}/>
+          <input className="logIn-form__demo-actions__buttons" type="button" value="Demo Log In as Vendor" onClick={(e) => demoLogin(e,"vendor")}/>
         </div>
       </form>
     </>

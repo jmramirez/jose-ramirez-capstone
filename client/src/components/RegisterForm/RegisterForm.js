@@ -27,7 +27,7 @@ const RegisterForm = ({ handleLogin }) => {
       })
       .catch((e) => {
         setSuccess(false)
-        setError(e.response.data.message)
+        setError(e.response? e.response.data.message : "The operation could not be completed")
       })
   }
 
