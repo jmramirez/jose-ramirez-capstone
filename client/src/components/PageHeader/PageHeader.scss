@@ -104,7 +104,7 @@
 
     &-link {
       @include default_link($primary-purple, $secondary-purple);
-      padding: 0.3rem 0.3rem;
+      padding: 0.5rem;
 
       @include tablet {
         width: 12rem;

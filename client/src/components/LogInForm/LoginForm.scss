@@ -43,6 +43,8 @@
     background-color: #fafafa;
     padding: 0.5rem 1rem;
     font-weight: 600;
+    appearance: none;
+    outline: none;
 
     &:focus {
       outline-color: #52489C;
@@ -55,12 +57,7 @@
     display: flex;
     justify-content: space-between;
     margin-top: 1rem;
-    flex-wrap: wrap;
-    
-    @include desktop {
-      flex-wrap: nowrap;
-      margin-top: 1.5rem;
-    }
+    flex-direction: column;
     
     &__buttons {
       @include default_link($primary-purple, $secondary-purple);
@@ -68,17 +65,14 @@
       width: 100%;
       margin-bottom: 1rem;
       font-size: 1rem;
-      
-      @include desktop {
-        width: auto;
-        margin-bottom: 0;
-        padding: 0.5rem 0.3rem;
-      }
+      font-weight: 600;
     }
   }
 
   &__submit {
     @include default_link($primary-purple, $secondary-purple);
     margin-top: 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
   }
 }

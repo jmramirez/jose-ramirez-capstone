@@ -69,6 +69,7 @@
   border: 1px solid #493a7b;
   cursor: pointer;
   font-family: 'Poppins', sans-serif;
+  appearance: none;
   
   @include desktop {
     padding: 0.5rem 0;
