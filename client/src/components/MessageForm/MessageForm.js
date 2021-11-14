@@ -4,7 +4,7 @@ import {useHistory} from 'react-router-dom';
 import {Icon} from '../Icon/Icon';
 import {useEffect, useState} from 'react';
 import axios from 'axios'
-import {url} from '../../config';
+import {chatUrl, url} from '../../config';
 import {useForm} from 'react-hook-form';
 import { HubConnectionBuilder, HubConnectionState, HubConnection } from '@aspnet/signalr';
 
@@ -29,7 +29,7 @@ export const MessageForm = ({ authenticated, match, user }) => {
 
   const setupSignalRConnection = async (vendorId, eventId) => {
     const connection = new HubConnectionBuilder()
-      .withUrl(`${url}messageshub`)
+      .withUrl(`${chatUrl}messageshub`)
       .withAutomaticReconnect()
       .build()
 
