@@ -29,7 +29,7 @@ export const MessageForm = ({ authenticated, match, user }) => {
 
   const setupSignalRConnection = async (vendorId, eventId) => {
     const connection = new HubConnectionBuilder()
-      .withUrl('https://localhost:44326/messageshub')
+      .withUrl(`${url}messageshub`)
       .withAutomaticReconnect()
       .build()
 
