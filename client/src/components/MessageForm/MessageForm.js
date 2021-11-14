@@ -6,7 +6,7 @@ import {useEffect, useState} from 'react';
 import axios from 'axios'
 import {chatUrl, url} from '../../config';
 import {useForm} from 'react-hook-form';
-import { HubConnectionBuilder, HubConnectionState, HubConnection } from '@aspnet/signalr';
+import { HubConnectionBuilder, HubConnectionState, HubConnection } from '@microsoft/signalr';
 
 
 export const MessageForm = ({ authenticated, match, user }) => {
@@ -26,8 +26,9 @@ export const MessageForm = ({ authenticated, match, user }) => {
         setLoading(false)
       })
   }
+  
 
-  const setupSignalRConnection = async (vendorId, eventId) => {
+  const setupSignalRConnection = async (vendorId, eventId, auth) => {
     const connection = new HubConnectionBuilder()
       .withUrl(`${chatUrl}messageshub`)
       .withAutomaticReconnect()
@@ -39,7 +40,8 @@ export const MessageForm = ({ authenticated, match, user }) => {
 
     connection.on('ReceiveMessage', (message) => {
       console.log('ReceiveMessage', message);
-      getMessages(message.vendorId, message.eventId, authenticated)
+      
+      getMessages(message.vendorId, message.eventId, auth)
     });
 
     try {
@@ -55,32 +57,28 @@ export const MessageForm = ({ authenticated, match, user }) => {
           return console.error(err.toString());
         });
     }
-
     return connection
   }
 
   const cleanUpSignalRConnection = async(vendorId, eventId, connection) => {
-    if(connection.state === HubConnectionState.Connected){
-      try {
-        await connection.invoke('UnsubscribeEvent', eventId, vendorId)
-      } catch (err) {
-        return console.error(err.toString())
+    if(connection.state) {
+      if (connection.state === HubConnectionState.Connected) {
+        try {
+          await connection.invoke('UnsubscribeEvent', eventId, vendorId)
+        } catch (err) {
+          return console.error(err.toString())
+        }
+        connection.stop()
+      } else {
+        connection.stop()
       }
-      connection.off("Message")
-      connection.off("ReceiveMessage")
-      connection.stop()
-    } else {
-      connection.off("Message")
-      connection.off("ReceiveMessage")
-      connection.stop()
     }
   }
 
   useEffect(() => {
-    let connection = HubConnection
-    if(match.params.eventId && match.params.vendorId){
-      getMessages(match.params.vendorId,match.params.eventId, authenticated)
-      setupSignalRConnection(match.params.vendorId,match.params.eventId).then(con =>{
+    let connection
+    if(authenticated && match.params.eventId && match.params.vendorId){
+      setupSignalRConnection(match.params.vendorId,match.params.eventId,authenticated).then(con =>{
         connection = con
       })
     }
@@ -88,10 +86,16 @@ export const MessageForm = ({ authenticated, match, user }) => {
       if(match.params.eventId && match.params.vendorId){
         const vendorId = match.params.vendorId
         const eventId = match.params.eventId
-        cleanUpSignalRConnection(vendorId, eventId, connection)
+        connection && cleanUpSignalRConnection(vendorId, eventId, connection)
       }
     }
-  }, [authenticated, match.params.vendorId,match.params.eventId])
+  },[])
+  
+  useEffect(() => {
+    if(authenticated && match.params.eventId && match.params.vendorId) {
+      getMessages(match.params.vendorId,match.params.eventId, authenticated)
+    }
+  },[match.params.vendorId,match.params.eventId, authenticated])
 
   const goBack = () => {
     history.goBack()
@@ -118,12 +122,12 @@ export const MessageForm = ({ authenticated, match, user }) => {
 
 
   return(
-    loading ?
+     loading ?
       <p>Loading...</p>
       :
     <main className="messagesForm">
       <div className="messagesForm__header">
-        <h2>Conversations with {user.role === 'Planner'? 'Vendor' : 'Planner'}</h2>
+        <h2>Conversations with {user && user.role === 'Planner'? 'Vendor' : 'Planner'}</h2>
         <div className="messagesForm__header-actions">
           <button type="button" onClick={goBack} className="messagesForm__header-actions__link">
             <Icon name="close" /><p className="messagesForm__header-actions__link-text">Close Chat</p>

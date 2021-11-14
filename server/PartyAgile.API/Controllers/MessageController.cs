@@ -26,6 +26,7 @@ namespace PartyAgile.API.Controllers
         [HttpGet("{vendorId:guid}/{eventId:guid}")]
         public async Task<IActionResult> Get(Guid vendorId, Guid eventId)
         {
+            var username = HttpContext.User.Identity.Name;
             var result = await _messageService.GetMessagesAsync(vendorId, eventId);
             return Ok(result);
         }
