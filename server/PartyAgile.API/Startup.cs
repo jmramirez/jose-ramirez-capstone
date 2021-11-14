@@ -48,6 +48,7 @@ namespace PartyAgile.API
                 builder
                     .AllowAnyMethod()
                     .AllowAnyHeader()
+                    .AllowCredentials()
                     .WithOrigins(Configuration.GetSection("Frontend").Get<string[]>())));
             
             services.AddHttpClient();
