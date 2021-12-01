@@ -40,7 +40,7 @@
     min-width: 18rem;
 
     @include tablet {
-      height: 32rem;
+      height: auto;
       background-position: center;
       width: 29rem;
     }
