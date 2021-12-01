@@ -1,5 +1,4 @@
 # PartyAgile
----
 
 The main objective of this application is to help organize events by keeping track of deadlines and staying in communication with all vendors and parties involved.
 
