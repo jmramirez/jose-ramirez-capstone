@@ -1,4 +1,7 @@
 # PartyAgile
+<img src="https://img.shields.io/badge/Target%20Framework-.NET%205.0-blue" alt="Target Framework | .NET 5.0" />
+
+
 
 The main objective of this application is to help organize events by keeping track of deadlines and staying in communication with all vendors and parties involved.
 
