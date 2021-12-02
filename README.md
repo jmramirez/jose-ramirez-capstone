@@ -16,7 +16,7 @@ The second role will be **`Vendors`**, or service providers which can review eve
 
 **`Server Side:`** .NET version 5.0, with C#. The web API is developed using a multilayer architecture, including Data Access, necessary to store all the information in a database, Data Model which is the representation of the data handled by the API, and HTTP Layer which included all the action methods necessary to handle requests and responses.
 
-**`Database:`** Microsoft SQL Server
+**`Database:`** PostgreSQL
 
 **`Client Side:`** React.js, SASS
 
